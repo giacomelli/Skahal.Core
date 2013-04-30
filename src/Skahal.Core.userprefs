@@ -1,19 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="OSX" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Framework.UnitTests/Pooling/PoolServiceTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Framework.UnitTests/Net/Messaging/MessengerBaseTest.cs">
     <Files>
-      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Pooling/PoolServiceTest.cs" Line="51" Column="50" />
+      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Pooling/PoolServiceTest.cs" Line="66" Column="4" />
       <File FileName="Skahal.Infrastructure.Framework/Pooling/PoolService.cs" Line="138" Column="3" />
+      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Net/Messaging/MessengerBaseTest.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Domain" expanded="True" />
-          <Node name="Infrastructure" expanded="True">
-            <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True" selected="True">
-              <Node name="Pooling" expanded="True" />
-            </Node>
+          <Node name="Domain" expanded="True">
+            <Node name="Skahal.Domain.UnitTests" selected="True" />
           </Node>
+          <Node name="Infrastructure" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -26,14 +25,13 @@
         <State selected="True" />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="Infrastructure" expanded="True">
             <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True">
               <Node name="Skahal" expanded="True">
                 <Node name="Infrastructure" expanded="True">
                   <Node name="Framework" expanded="True">
                     <Node name="UnitTests" expanded="True">
-                      <Node name="EventHandlerExtensionsTest" selected="True" />
                       <Node name="Pooling" expanded="True">
                         <Node name="PoolServiceTest" expanded="True" />
                       </Node>

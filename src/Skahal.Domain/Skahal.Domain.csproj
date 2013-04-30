@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <GenerateDocumentation>true</GenerateDocumentation>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
