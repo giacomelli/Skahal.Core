@@ -41,4 +41,10 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Devices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Devices\DeviceTest.cs" />
+  </ItemGroup>
 </Project>

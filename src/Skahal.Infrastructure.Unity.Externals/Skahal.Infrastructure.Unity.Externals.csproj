@@ -38,6 +38,7 @@
     <Reference Include="Photon3Unity3D">
       <HintPath>..\References\Photon3Unity3D.dll</HintPath>
     </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

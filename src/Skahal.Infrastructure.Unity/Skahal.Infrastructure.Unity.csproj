@@ -117,6 +117,14 @@
     <Compile Include="Hud\EZGUI\SHUISliderExtensions.cs" />
     <Compile Include="Hud\EZGUI\SHUIStateToggleBtn.cs" />
     <Compile Include="Hud\EZGUI\SHUIStateToggleBtnExtensions.cs" />
+    <Compile Include="Globalization\SHGlobalization.cs" />
+    <Compile Include="Globalization\SHGlobalizationExtensions.cs" />
+    <Compile Include="Globalization\SHGlobalizationScript.cs" />
+    <Compile Include="Globalization\SHSpriteTextGlobalization.cs" />
+    <Compile Include="Drawing\SHRect.cs" />
+    <Compile Include="Drawing\Tweening\iTween.cs" />
+    <Compile Include="Drawing\Tweening\iTweenHelper.cs" />
+    <Compile Include="Drawing\Tweening\iTweenHinting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -132,6 +140,9 @@
     <Folder Include="Pooling\" />
     <Folder Include="Hud\" />
     <Folder Include="Hud\EZGUI\" />
+    <Folder Include="Globalization\" />
+    <Folder Include="Drawing\" />
+    <Folder Include="Drawing\Tweening\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skahal.Domain\Skahal.Domain.csproj">
