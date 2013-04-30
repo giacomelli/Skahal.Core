@@ -1,10 +1,51 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="OSX" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Unity/Hud/EZGUI/SHSpriteTextExtensions.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="OSX" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Framework.UnitTests/Pooling/PoolServiceTest.cs">
     <Files>
-      <File FileName="Skahal.Infrastructure.Unity/Hud/SHResolutionManagerScript.cs" Line="74" Column="8" />
-      <File FileName="Skahal.Infrastructure.Unity/Hud/EZGUI/SHSpriteTextExtensions.cs" Line="62" Column="15" />
+      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Pooling/PoolServiceTest.cs" Line="51" Column="50" />
+      <File FileName="Skahal.Infrastructure.Framework/Pooling/PoolService.cs" Line="138" Column="3" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Domain" expanded="True" />
+          <Node name="Infrastructure" expanded="True">
+            <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True" selected="True">
+              <Node name="Pooling" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="ConnectionManagerPad">
+        <State selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="Infrastructure" expanded="True">
+            <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True">
+              <Node name="Skahal" expanded="True">
+                <Node name="Infrastructure" expanded="True">
+                  <Node name="Framework" expanded="True">
+                    <Node name="UnitTests" expanded="True">
+                      <Node name="EventHandlerExtensionsTest" selected="True" />
+                      <Node name="Pooling" expanded="True">
+                        <Node name="PoolServiceTest" expanded="True" />
+                      </Node>
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
