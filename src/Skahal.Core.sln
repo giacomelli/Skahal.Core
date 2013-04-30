@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B09F1A80-DF5A-479C-B20B-71FFD04FC54D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Domain", "Skahal.Domain\Skahal.Domain.csproj", "{7FE3BA3E-4899-4889-9014-61E49E52B705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Domain.UnitTests", "Skahal.Domain.UnitTests\Skahal.Domain.UnitTests.csproj", "{01577017-A3B3-4E41-BFDC-45E00E9F28CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E960032D-3902-45C2-A0C4-446E0A610FF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Infrastructure.Framework", "Skahal.Infrastructure.Framework\Skahal.Infrastructure.Framework.csproj", "{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Infrastructure.Mono", "Skahal.Infrastructure.Mono\Skahal.Infrastructure.Mono.csproj", "{7936621D-F256-429B-97A8-B0D7D3B7E57B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Infrastructure.Framework.UnitTests", "Skahal.Infrastructure.Framework.UnitTests\Skahal.Infrastructure.Framework.UnitTests.csproj", "{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Infrastructure.Unity", "Skahal.Infrastructure.Unity\Skahal.Infrastructure.Unity.csproj", "{B021266D-ADF0-446F-A26B-497EB93A33F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skahal.Infrastructure.Unity.Externals", "Skahal.Infrastructure.Unity.Externals\Skahal.Infrastructure.Unity.Externals.csproj", "{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		OSX|Any CPU = OSX|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB}.OSX|Any CPU.ActiveCfg = OSX|Any CPU
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB}.OSX|Any CPU.Build.0 = OSX|Any CPU
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}.OSX|Any CPU.ActiveCfg = OSX|Any CPU
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}.OSX|Any CPU.Build.0 = OSX|Any CPU
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}.OSX|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}.OSX|Any CPU.Build.0 = Release|Any CPU
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B}.OSX|Any CPU.ActiveCfg = OSX|Any CPU
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B}.OSX|Any CPU.Build.0 = OSX|Any CPU
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FE3BA3E-4899-4889-9014-61E49E52B705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FE3BA3E-4899-4889-9014-61E49E52B705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FE3BA3E-4899-4889-9014-61E49E52B705}.OSX|Any CPU.ActiveCfg = OSX|Any CPU
+		{7FE3BA3E-4899-4889-9014-61E49E52B705}.OSX|Any CPU.Build.0 = OSX|Any CPU
+		{7FE3BA3E-4899-4889-9014-61E49E52B705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FE3BA3E-4899-4889-9014-61E49E52B705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B021266D-ADF0-446F-A26B-497EB93A33F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B021266D-ADF0-446F-A26B-497EB93A33F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B021266D-ADF0-446F-A26B-497EB93A33F4}.OSX|Any CPU.ActiveCfg = OSX|Any CPU
+		{B021266D-ADF0-446F-A26B-497EB93A33F4}.OSX|Any CPU.Build.0 = OSX|Any CPU
+		{B021266D-ADF0-446F-A26B-497EB93A33F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B021266D-ADF0-446F-A26B-497EB93A33F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}.OSX|Any CPU.ActiveCfg = OSX|Any CPU
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}.OSX|Any CPU.Build.0 = OSX|Any CPU
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7FE3BA3E-4899-4889-9014-61E49E52B705} = {B09F1A80-DF5A-479C-B20B-71FFD04FC54D}
+		{01577017-A3B3-4E41-BFDC-45E00E9F28CB} = {B09F1A80-DF5A-479C-B20B-71FFD04FC54D}
+		{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28} = {E960032D-3902-45C2-A0C4-446E0A610FF9}
+		{7936621D-F256-429B-97A8-B0D7D3B7E57B} = {E960032D-3902-45C2-A0C4-446E0A610FF9}
+		{45F81846-29F4-4B6D-B5A4-E90DBA7B9736} = {E960032D-3902-45C2-A0C4-446E0A610FF9}
+		{B021266D-ADF0-446F-A26B-497EB93A33F4} = {E960032D-3902-45C2-A0C4-446E0A610FF9}
+		{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F} = {E960032D-3902-45C2-A0C4-446E0A610FF9}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Skahal.Domain\Skahal.Domain.csproj
+	EndGlobalSection
+EndGlobal

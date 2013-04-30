@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B021266D-ADF0-446F-A26B-497EB93A33F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Skahal.Infrastructure.Unity</RootNamespace>
+    <AssemblyName>Skahal.Infrastructure.Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <GenerateDocumentation>true</GenerateDocumentation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'OSX|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>UNITY_STANDALONE_OSX;DEBUG;</DefineConstants>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" name="copy.to.hatcg" command="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build/copy.to.hatcg.sh" workingdir="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build/" externalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>..\References\Photon3Unity3D.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commons\SH.cs" />
+    <Compile Include="Commons\SHDevice.cs" />
+    <Compile Include="Threading\SHThread.cs" />
+    <Compile Include="Net\Messaging\Lan\LanMessenger.cs" />
+    <Compile Include="Net\Messaging\Lan\LanMessengerProxy.cs" />
+    <Compile Include="Net\Messaging\Local\LocalMessenger.cs" />
+    <Compile Include="Net\Messaging\Photon\PhotonClient.cs" />
+    <Compile Include="Net\Messaging\Photon\PhotonMessenger.cs" />
+    <Compile Include="Net\Messaging\Photon\PhotonStatusChangedEventArgs.cs" />
+    <Compile Include="Net\Messaging\Bluetooth\BluetoothMessenger.cs" />
+    <Compile Include="Net\Messaging\Bluetooth\BluetoothMessengerProxy.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerAuthoritativeServerMessagingStrategy.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerClient.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerGameCreatedEventArgs.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerInfoReceivedEventArgs.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerMessenger.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerPlayer.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\IGlobalServerMessagingStrategy.cs" />
+    <Compile Include="Configuration\UnityBootstrapper.cs" />
+    <Compile Include="Loggging\DebugLogStrategy.cs" />
+    <Compile Include="Loggging\ReleaseLogStrategy.cs" />
+    <Compile Include="Net\Messaging\GlobalServer\GlobalServerP2PMessagingStrategy.cs" />
+    <Compile Include="Configuration\UnityBootstrapperController.cs" />
+    <Compile Include="Repositories\PlayerPrefsRepositoryBase.cs" />
+    <Compile Include="Serialization\SerializationHelper.cs" />
+    <Compile Include="Net\Messaging\Photon\PhotonMessengerProxy.cs" />
+    <Compile Include="Pooling\DetonatorPrefabPool.cs" />
+    <Compile Include="Pooling\GameObjectPoolBase.cs" />
+    <Compile Include="Pooling\GameObjejectPoolsContainer.cs" />
+    <Compile Include="Pooling\ParticleSystemPrefabPool.cs" />
+    <Compile Include="Pooling\PrefabPool.cs" />
+    <Compile Include="Pooling\SHFxMakerPrefabPool.cs" />
+    <Compile Include="Pooling\PoolsStatsHUDController.cs" />
+    <Compile Include="Hud\ISHControlFinder.cs" />
+    <Compile Include="Hud\ISHHUDControlProxy.cs" />
+    <Compile Include="Hud\ISHHUDFactory.cs" />
+    <Compile Include="Hud\SHFPSHUDController.cs" />
+    <Compile Include="Hud\SHGUI.cs" />
+    <Compile Include="Hud\SHGUILayout.cs" />
+    <Compile Include="Hud\SHHUDControlProxyHolderBase.cs" />
+    <Compile Include="Hud\SHLoggingHUDController.cs" />
+    <Compile Include="Hud\SHMenuControllerBase.cs" />
+    <Compile Include="Hud\SHResolutionManagerScript.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIButtonProxy.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIControlFinder.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIControlProxyBase.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIControlProxyHolder.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIHUDFactory.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUILabelProxy.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIRadioButtonProxy.cs" />
+    <Compile Include="Hud\EZGUI\SHEZGUIToggleButtonProxy.cs" />
+    <Compile Include="Hud\EZGUI\SHSpriteRootExtensions.cs" />
+    <Compile Include="Hud\EZGUI\SHSpriteText.cs" />
+    <Compile Include="Hud\EZGUI\SHSpriteTextExtensions.cs" />
+    <Compile Include="Hud\EZGUI\SHUIBtnChangePanelExtensions.cs" />
+    <Compile Include="Hud\EZGUI\SHUIButton.cs" />
+    <Compile Include="Hud\EZGUI\SHUIButtonExtensions.cs" />
+    <Compile Include="Hud\EZGUI\SHUIRadioBtn.cs" />
+    <Compile Include="Hud\EZGUI\SHUIRadioBtnExtensions.cs" />
+    <Compile Include="Hud\EZGUI\SHUISlider.cs" />
+    <Compile Include="Hud\EZGUI\SHUISliderExtensions.cs" />
+    <Compile Include="Hud\EZGUI\SHUIStateToggleBtn.cs" />
+    <Compile Include="Hud\EZGUI\SHUIStateToggleBtnExtensions.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Commons\" />
+    <Folder Include="Loggging\" />
+    <Folder Include="Threading\" />
+    <Folder Include="Net\" />
+    <Folder Include="Net\Messaging\Bluetooth\" />
+    <Folder Include="Net\Messaging\GlobalServer\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Serialization\" />
+    <Folder Include="Pooling\" />
+    <Folder Include="Hud\" />
+    <Folder Include="Hud\EZGUI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Skahal.Domain\Skahal.Domain.csproj">
+      <Project>{7FE3BA3E-4899-4889-9014-61E49E52B705}</Project>
+      <Name>Skahal.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Skahal.Infrastructure.Framework\Skahal.Infrastructure.Framework.csproj">
+      <Project>{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}</Project>
+      <Name>Skahal.Infrastructure.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Skahal.Infrastructure.Unity.Externals\Skahal.Infrastructure.Unity.Externals.csproj">
+      <Project>{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}</Project>
+      <Name>Skahal.Infrastructure.Unity.Externals</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

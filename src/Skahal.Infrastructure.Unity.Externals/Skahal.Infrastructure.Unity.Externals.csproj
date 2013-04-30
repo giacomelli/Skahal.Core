@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6B8E1396-7F90-4350-A3CF-8B89DC30AF7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Skahal.Infrastructure.Unity.Externals</RootNamespace>
+    <AssemblyName>Skahal.Infrastructure.Unity.Externals</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <DefineConstants>UNITY_3_5</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>..\References\Photon3Unity3D.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BluetoothManager.cs" />
+    <Compile Include="MiniJSON.cs" />
+    <Compile Include="PhotonNetwork\CustomTypes.cs" />
+    <Compile Include="PhotonNetwork\Enums.cs" />
+    <Compile Include="PhotonNetwork\Extensions.cs" />
+    <Compile Include="PhotonNetwork\FriendInfo.cs" />
+    <Compile Include="PhotonNetwork\LoadbalancingPeer.cs" />
+    <Compile Include="PhotonNetwork\NetworkingPeer.cs" />
+    <Compile Include="PhotonNetwork\PhotonClasses.cs" />
+    <Compile Include="PhotonNetwork\PhotonHandler.cs" />
+    <Compile Include="PhotonNetwork\PhotonLagSimulationGui.cs" />
+    <Compile Include="PhotonNetwork\PhotonNetwork.cs" />
+    <Compile Include="PhotonNetwork\PhotonPlayer.cs" />
+    <Compile Include="PhotonNetwork\PhotonStatsGui.cs" />
+    <Compile Include="PhotonNetwork\PhotonView.cs" />
+    <Compile Include="PhotonNetwork\PingCloudRegions.cs" />
+    <Compile Include="PhotonNetwork\Room.cs" />
+    <Compile Include="PhotonNetwork\RoomInfo.cs" />
+    <Compile Include="PhotonNetwork\RpcIndexComponent.cs" />
+    <Compile Include="PhotonNetwork\ServerSettings.cs" />
+    <Compile Include="EZ\GUI\Controls\UIActionBtn.cs" />
+    <Compile Include="EZ\GUI\Controls\UIBtnChangePanel.cs" />
+    <Compile Include="EZ\GUI\Controls\UIBtnLoadScene.cs" />
+    <Compile Include="EZ\GUI\Controls\UIBtnWWW.cs" />
+    <Compile Include="EZ\GUI\Controls\UIButton.cs" />
+    <Compile Include="EZ\GUI\Controls\UIButton3D.cs" />
+    <Compile Include="EZ\GUI\Controls\UIListButton.cs" />
+    <Compile Include="EZ\GUI\Controls\UIListItem.cs" />
+    <Compile Include="EZ\GUI\Controls\UIListItemContainer.cs" />
+    <Compile Include="EZ\GUI\Controls\UIPanelTab.cs" />
+    <Compile Include="EZ\GUI\Controls\UIProgressBar.cs" />
+    <Compile Include="EZ\GUI\Controls\UIRadioBtn.cs" />
+    <Compile Include="EZ\GUI\Controls\UIRadioBtn3D.cs" />
+    <Compile Include="EZ\GUI\Controls\UIScrollList.cs" />
+    <Compile Include="EZ\GUI\Controls\UISlider.cs" />
+    <Compile Include="EZ\GUI\Controls\UIStateToggleBtn.cs" />
+    <Compile Include="EZ\GUI\Controls\UIStateToggleBtn3D.cs" />
+    <Compile Include="EZ\GUI\Controls\UITextField.cs" />
+    <Compile Include="EZ\GUI\Controls\UIVirtualScreen.cs" />
+    <Compile Include="EZ\GUI\Management\UIBistateInteractivePanel.cs" />
+    <Compile Include="EZ\GUI\Management\UIInteractivePanel.cs" />
+    <Compile Include="EZ\GUI\Management\UIManager.cs" />
+    <Compile Include="EZ\GUI\Management\UIPanel.cs" />
+    <Compile Include="EZ\GUI\Management\UIPanelManager.cs" />
+    <Compile Include="EZ\GUI\Support\AutoSpriteControlBase.cs" />
+    <Compile Include="EZ\GUI\Support\ControlBase.cs" />
+    <Compile Include="EZ\GUI\Support\EZDragDropHelper.cs" />
+    <Compile Include="EZ\GUI\Support\IControl.cs" />
+    <Compile Include="EZ\GUI\Support\IKeyFocusable.cs" />
+    <Compile Include="EZ\GUI\Support\IPackableControl.cs" />
+    <Compile Include="EZ\GUI\Support\IUIContainer.cs" />
+    <Compile Include="EZ\GUI\Support\IUIObject.cs" />
+    <Compile Include="EZ\GUI\Support\UIPanelBase.cs" />
+    <Compile Include="EZ\GUI\Support\UIScrollKnob.cs" />
+    <Compile Include="Sprite Scripts\SimpleSprite.cs" />
+    <Compile Include="Sprite Scripts\SpriteManager.cs" />
+    <Compile Include="Sprite Scripts\SpriteText.cs" />
+    <Compile Include="Sprite Scripts\Support\AutoSprite.cs" />
+    <Compile Include="Sprite Scripts\Support\AutoSpriteBase.cs" />
+    <Compile Include="Sprite Scripts\Support\EZAnimator.cs" />
+    <Compile Include="Sprite Scripts\Support\EZScreenPlacement.cs" />
+    <Compile Include="Sprite Scripts\Support\FontStore.cs" />
+    <Compile Include="Sprite Scripts\Support\ISpriteAggregator.cs" />
+    <Compile Include="Sprite Scripts\Support\ISpriteAnimatable.cs" />
+    <Compile Include="Sprite Scripts\Support\ISpriteMesh.cs" />
+    <Compile Include="Sprite Scripts\Support\ISpritePackable.cs" />
+    <Compile Include="Sprite Scripts\Support\IUseCamera.cs" />
+    <Compile Include="Sprite Scripts\Support\PackableStub.cs" />
+    <Compile Include="Sprite Scripts\Support\SpriteAnimationPump.cs" />
+    <Compile Include="Sprite Scripts\Support\SpriteBase.cs" />
+    <Compile Include="Sprite Scripts\Support\SpriteFont.cs" />
+    <Compile Include="Sprite Scripts\Support\SpriteMesh.cs" />
+    <Compile Include="Sprite Scripts\Support\SpriteMesh_Managed.cs" />
+    <Compile Include="Sprite Scripts\Support\SpriteRoot.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="PhotonNetwork\" />
+    <Folder Include="EZ\" />
+    <Folder Include="Sprite Scripts\" />
+  </ItemGroup>
+</Project>
