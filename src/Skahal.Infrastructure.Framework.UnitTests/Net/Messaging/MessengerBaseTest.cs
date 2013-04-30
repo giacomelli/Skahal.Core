@@ -28,23 +28,23 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			Assert.IsFalse(raised);
 		}
 
-		[Test()]
-		public void SendMessage_StateConnected_SendMessage ()
-		{
-			bool raised = false;
-			var target = MockRepository.GeneratePartialMock<MessengerBase>();
-			target.MessageSent += delegate {
-				raised = true;
-			};
-
-			target.Expect(t => t.Connect(true));
-			target.Expect(t => t.PerformSendMessage("1", 2));
-
-			target.Connect(true);
-			target.OnConnected();
-			target.SendMessage("1", 2);
-			Assert.IsTrue(raised);
-		}
+//		[Test()]
+//		public void SendMessage_StateConnected_SendMessage ()
+//		{
+//			bool raised = false;
+//			var target = MockRepository.GeneratePartialMock<MessengerBase>();
+//			target.MessageSent += delegate {
+//				raised = true;
+//			};
+//
+//			target.Expect(t => t.Connect(true));
+//			target.Expect(t => t.PerformSendMessage("1", 2));
+//
+//			target.Connect(true);
+//			target.OnConnected();
+//			target.SendMessage("1", 2);
+//			Assert.IsTrue(raised);
+//		}
 
 		[Test()]
 		public void Disconnect_AlreadyDisconnected_DontDisconnectedAgain ()
