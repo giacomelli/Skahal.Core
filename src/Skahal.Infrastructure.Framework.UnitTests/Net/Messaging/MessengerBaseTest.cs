@@ -30,6 +30,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		}
 
 		[Test()]
+		[Category("RhinoMocks")]
 		public void SendMessage_StateConnected_SendMessage ()
 		{
 			bool raised = false;
