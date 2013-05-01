@@ -81,23 +81,23 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 //			Assert.IsTrue(raised);
 //		}
 
-		[Test()]
-		public void OnMessageReceived_NormalMessage_RaiseMessageReceiveddEvent()
-		{
-			var target = MockRepository.GeneratePartialMock<MessengerBase>();
-			target.Expect(t => t.PerformSendMessage("name", "value"));
-			target.Expect(t => t.OnMessageReceived(new MessageEventArgs(new Message("name", "value"))));
-			target.PerformSendMessage("name", "value");
-		}
-
-		[Test()]
-		public void OnMessageReceived_DisconnectMessage_RaiseDisconnectedEvent()
-		{
-			var target = MockRepository.GeneratePartialMock<MessengerBase>();
-			target.Expect(t => t.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__"));
-			target.Expect(t => t.OnDisconnected(new DisconnectedEventArgs(DisconnectionReason.RemoteQuit)));
-			target.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__");
-		}
+//		[Test()]
+//		public void OnMessageReceived_NormalMessage_RaiseMessageReceiveddEvent()
+//		{
+//			var target = MockRepository.GeneratePartialMock<MessengerBase>();
+//			target.Expect(t => t.PerformSendMessage("name", "value"));
+//			target.Expect(t => t.OnMessageReceived(new MessageEventArgs(new Message("name", "value"))));
+//			target.PerformSendMessage("name", "value");
+//		}
+//
+//		[Test()]
+//		public void OnMessageReceived_DisconnectMessage_RaiseDisconnectedEvent()
+//		{
+//			var target = MockRepository.GeneratePartialMock<MessengerBase>();
+//			target.Expect(t => t.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__"));
+//			target.Expect(t => t.OnDisconnected(new DisconnectedEventArgs(DisconnectionReason.RemoteQuit)));
+//			target.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__");
+//		}
 	}
 }
 
