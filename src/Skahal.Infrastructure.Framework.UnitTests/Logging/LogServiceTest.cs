@@ -7,6 +7,7 @@ using Rhino.Mocks;
 namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 {
 	[TestFixture()]
+	[Category("RhinoMocks")]
 	public class LogServiceTest
 	{
 		[Test()]
