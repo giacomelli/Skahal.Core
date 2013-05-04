@@ -70,6 +70,7 @@
     <Compile Include="Logging\LogServiceTest.cs" />
     <Compile Include="Commons\DependencyServiceTest.cs" />
     <Compile Include="Pooling\PoolServiceTest.cs" />
+    <Compile Include="Net\NetHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

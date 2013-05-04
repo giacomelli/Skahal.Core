@@ -22,7 +22,7 @@ namespace Skahal.Globalization
 			s_languagesAndTexts = new Dictionary<string, Dictionary<string, string>> ();
 			PrepareCurrentCulture();
 				
-			SHGlobalization.CultureChanged += delegate {
+			GlobalizationService.CultureChanged += delegate {
 				PrepareCurrentCulture();
 			};
 			
@@ -48,7 +48,7 @@ namespace Skahal.Globalization
 		#region Private methods
 		private static void PrepareCurrentCulture ()
 		{
-			var key = SHGlobalization.CurrentCulture.TwoLetterISOLanguageName;
+			var key = GlobalizationService.CurrentCulture.TwoLetterISOLanguageName;
 			
 			if (!s_languagesAndTexts.ContainsKey (key)) {
 				LogService.Debug ("SHGlobalizationExtensions :: Loading texts for language '{0}'...", key);

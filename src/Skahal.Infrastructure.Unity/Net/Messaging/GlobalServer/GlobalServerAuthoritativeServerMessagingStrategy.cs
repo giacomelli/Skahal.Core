@@ -68,7 +68,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		public void ReceiveMessage (string name, object value)
+		public void ReceiveMessage (string name, string value)
 		{
 			switch (name)
 			{
@@ -100,7 +100,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// <param name="enemy">Enemy.</param>
 		public bool Connect (bool isHost, GlobalServerPlayer enemy)
 		{
-			m_enemyId = enemy.Id;
+			m_enemyId = enemy.RemoteId;
 			return false;
 		}
 

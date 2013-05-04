@@ -13,10 +13,9 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Lan
 		/// <summary>
 		/// Connect the messenger.
 		/// </summary>
-		/// <param name="isServer">If set to <c>true</c> is server.</param>
-		public override void Connect (bool isServer)
+		public override void Connect ()
 		{
-			OnConnected();
+			OnConnected(new ConnectedEventArgs(1));
 		}
 
 		/// <summary>
@@ -24,7 +23,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Lan
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		internal protected override void PerformSendMessage (string name, object value)
+		internal protected override void PerformSendMessage (string name, string value)
 		{
 		}
 

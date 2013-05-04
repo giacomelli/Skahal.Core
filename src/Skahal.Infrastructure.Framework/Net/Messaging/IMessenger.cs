@@ -52,7 +52,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <summary>
 		/// Occurs when connected.
 		/// </summary>
-		event EventHandler Connected;
+		event EventHandler<ConnectedEventArgs> Connected;
 
 		/// <summary>
 		/// Occurs when message was sent.
@@ -82,15 +82,14 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <summary>
 		/// Connect the messenger.
 		/// </summary>
-		/// <param name="isServer">If set to <c>true</c> is server.</param>
-		void Connect (bool isServer);
+		void Connect ();
 
 		/// <summary>
 		/// Sends the message.
 		/// </summary>
 		/// <param name="name">The message name.</param>
 		/// <param name="value">The message value.</param>
-		void SendMessage (string name, object value);
+		void SendMessage (string name, string value);
 
 		/// <summary>
 		/// Disconnect the messenger.

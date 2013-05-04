@@ -55,17 +55,6 @@ namespace Skahal.Infrastructure.Unity.Logging
 		{
 			UnityEngine.Debug.LogError ("[ERROR]" + String.Format (message, args));
 		}
-		
-		/// <summary>
-		/// Writes the error log level message.
-		/// </summary>
-		/// <param name='ex'>
-		/// Exception.
-		/// </param>
-		public override void WriteError (Exception ex)
-		{
-			WriteError ("[ERROR] {0}", ex.Message);
-		}
 		#endregion
 	}
 }

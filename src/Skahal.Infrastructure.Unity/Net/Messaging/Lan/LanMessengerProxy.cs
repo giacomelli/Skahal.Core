@@ -5,6 +5,9 @@ using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.Net.Messaging;
 using UnityEngine;
 using Skahal.Infrastructure.Framework.Logging;
+using Skahal.Infrastructure.Framework;
+
+
 #endregion
 
 /// <summary>
@@ -31,8 +34,8 @@ public class LanMessengerProxy : MonoBehaviour
 	#endregion
 	
 	#region Fields
-	private Action<string, object> m_sendMessageToServerAction;
-	private Action<string, object> m_sendMessageToClientAction;
+	private Action<string, string> m_sendMessageToServerAction;
+	private Action<string, string> m_sendMessageToClientAction;
 	#endregion
 	
 	#region Properties
@@ -41,6 +44,18 @@ public class LanMessengerProxy : MonoBehaviour
 	/// </summary>
 	/// <value><c>true</c> if this instance is server; otherwise, <c>false</c>.</value>
 	public bool IsServer { get; set; }
+
+	/// <summary>
+	/// Gets or sets the server IP address.
+	/// </summary>
+	/// <value>The server IP address.</value>
+	public string ServerIP { get; set; }
+
+	/// <summary>
+	/// Gets or sets the port.
+	/// </summary>
+	/// <value>The port.</value>
+	public int Port { get; set; }
 	#endregion
 	
 	#region Methods
@@ -48,21 +63,17 @@ public class LanMessengerProxy : MonoBehaviour
 	{
 		DontDestroyOnLoad (this);
 		LogService.Debug ("LanMessengerProxy: IsServer: {0}", IsServer);
-		
+
+		NetHelper.ThrowIfInvalidTcpPortNumber(Port);
+
 		if (IsServer) {
-			Network.InitializeServer (1, 8181, false);
+			Network.InitializeServer (1, Port, false);
 		} else {
-			Network.Connect ("127.0.0.1", 8181);
+			Network.Connect (ServerIP, Port);
 		}
 		
-		Action<string, object> receiveAction = (id, value) => {		
-			SHThread.WaitFor (
-				() => {
-				return true;//return GameMaster.IsInitialized; 
-				},
-				() => { 
-					MessageReceived.Raise (this, new MessageEventArgs (id, value));
-			});
+		Action<string, string> receiveAction = (id, value) => {		
+			MessageReceived.Raise (this, new MessageEventArgs (id, value));
 		};
 		
 		
@@ -87,7 +98,7 @@ public class LanMessengerProxy : MonoBehaviour
 	/// </summary>
 	/// <param name="id">Identifier.</param>
 	/// <param name="value">Value.</param>
-	public void SendMessageToPlayer (string id, object value)
+	public void SendMessageToPlayer (string id, string value)
 	{
 		if (IsServer) {
 			SendMessageToClient (id, value);
@@ -98,13 +109,13 @@ public class LanMessengerProxy : MonoBehaviour
 
 
 	[RPC]
-	private void SendMessageToServer (string id, object value)
+	private void SendMessageToServer (string id, string value)
 	{
 		m_sendMessageToServerAction(id, value);	
 	}
 	
 	[RPC]
-	private void SendMessageToClient (string id, object value)
+	private void SendMessageToClient (string id, string value)
 	{
 		m_sendMessageToClientAction (id, value);
 	}

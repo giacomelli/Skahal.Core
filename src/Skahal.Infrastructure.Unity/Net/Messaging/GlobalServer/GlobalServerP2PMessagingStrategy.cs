@@ -121,7 +121,7 @@ public class GlobalServerP2PMessagingStrategy : MonoBehaviour, IGlobalServerMess
 	/// </summary>
 	/// <param name="name">Name.</param>
 	/// <param name="value">Value.</param>
-	public void ReceiveMessage (string name, object value)
+	public void ReceiveMessage (string name, string value)
 	{
 		MessageReceived.Raise (this, new MessageEventArgs (name, value));
 	}

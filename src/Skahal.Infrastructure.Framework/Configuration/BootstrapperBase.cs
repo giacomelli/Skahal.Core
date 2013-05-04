@@ -2,6 +2,7 @@
 using System;
 using Skahal.Infrastructure.Framework.Logging;
 using Skahal.Infrastructure.Framework.Commons;
+using Skahal.Infrastructure.Framework.People;
 
 
 #endregion
@@ -13,12 +14,22 @@ namespace Skahal.Infrastructure.Framework
 	/// </summary>
 	public abstract class BootstrapperBase
 	{
+		#region Fields
+		private bool m_setupDone;
+		#endregion
+
 		#region Properties
 		/// <summary>
 		/// Gets or sets the log strategy.
 		/// </summary>
 		/// <value>The log strategy.</value>
 		public ILogStrategy LogStrategy { get; protected set; }
+
+		/// <summary>
+		/// Gets or sets the user repository.
+		/// </summary>
+		/// <value>The user repository.</value>
+		public IUserRepository UserRepository { get; protected set; }
 		#endregion
 
 		#region Methods
@@ -27,7 +38,19 @@ namespace Skahal.Infrastructure.Framework
 		/// </summary>
 		public virtual void Setup()
 		{
-			LogService.Initialize(LogStrategy);
+			if(!m_setupDone)
+			{	
+				LogService.Debug("Bootstrapper '{0}' setup...", GetType().Name);
+
+				LogService.Debug("'{0}' as LogStrategy.", LogStrategy.GetType().Name);
+				LogService.Initialize(LogStrategy);
+
+				LogService.Debug("'{0}' as UserRepository.", UserRepository.GetType().Name);
+				UserService.Initialize(UserRepository);
+
+				m_setupDone = true;
+				LogService.Debug("Bootstrapper '{0}' setup done.", GetType().Name);
+			}
 		}
 		#endregion
 	}

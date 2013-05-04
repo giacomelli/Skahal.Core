@@ -60,14 +60,6 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// Arguments.
 		/// </param>
 		void WriteError(string message, params object[] args);
-		
-		/// <summary>
-		/// Writes the error log level message.
-		/// </summary>
-		/// <param name='ex'>
-		/// Exception.
-		/// </param>
-		void WriteError(Exception ex);
 		#endregion
 	}
 }

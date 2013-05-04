@@ -31,16 +31,17 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// <summary>
 		/// The log strategy.
 		/// </summary>
-		private static ILogStrategy s_logStrategy;
+		private static ILogStrategy s_logStrategy = new BufferLogStrategy();
 		#endregion
 
 		#region Methods
 		/// <summary>
-		/// Initialize the specified logStrategy.
+		/// Initialize the service.
 		/// </summary>
 		/// <param name="logStrategy">Log strategy.</param>
 		public static void Initialize (ILogStrategy logStrategy)
 		{
+			var buffer = s_logStrategy as BufferLogStrategy;
 			s_logStrategy = logStrategy;
 			
 			s_logStrategy.DebugWritten += delegate(object sender, LogWrittenEventArgs e) {
@@ -54,6 +55,11 @@ namespace Skahal.Infrastructure.Framework.Logging
 			s_logStrategy.ErrorWritten += delegate(object sender, LogWrittenEventArgs e) {
 				ErrorWritten.Raise (typeof(LogService), e);
 			};
+
+			if(buffer != null)
+			{
+				buffer.Flush(s_logStrategy);
+			}
 		}
 
 		/// <summary>
@@ -96,17 +102,6 @@ namespace Skahal.Infrastructure.Framework.Logging
 		public static void Error (string message, params object[] args)
 		{
 			s_logStrategy.WriteError(message, args);
-		}
-		
-		/// <summary>
-		/// Write an error log level.
-		/// </summary>
-		/// <param name='ex'>
-		/// The exception about the error log level.
-		/// </param>
-		public static void Error (Exception ex)
-		{
-			s_logStrategy.WriteError(ex);
 		}
 		#endregion
 	}

@@ -26,7 +26,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		public MessageEventArgs (string name, object value) : this(new Message(name, value))
+		public MessageEventArgs (string name, string value) : this(new Message(name, value))
 		{
 		}
 		#endregion

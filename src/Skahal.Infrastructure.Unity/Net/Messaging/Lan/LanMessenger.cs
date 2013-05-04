@@ -2,6 +2,10 @@
 using System;
 using Skahal.Infrastructure.Framework.Net.Messaging;
 using UnityEngine;
+using Skahal.Infrastructure.Unity.Commons;
+using Skahal.Infrastructure.Framework.Logging;
+
+
 #endregion
 
 namespace Skahal.Infrastructure.Unity.Net.Messaging.Lan
@@ -13,6 +17,33 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Lan
 	{
 		#region Fields
 		private LanMessengerProxy m_proxy;
+		private string m_serverIP;
+		private int m_port;
+		#endregion
+
+		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Unity.Net.Messaging.Lan.LanMessenger"/> class.
+		/// <remarks>Use this constructor for client peer.</remarks>
+		/// </summary>
+		/// <param name="serverIP">Server IP address.</param>
+		/// <param name="port">Port.</param>
+		public LanMessenger(string serverIP, int port)
+		{
+			m_serverIP = serverIP;
+			m_port = port;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Unity.Net.Messaging.Lan.LanMessenger"/> class.
+		/// <remarks>Use this constructor for server peer.</remarks>
+		/// </summary>
+		/// <param name="serverIP">Server IP address.</param>
+		/// <param name="port">Port.</param>
+		public LanMessenger(int port)
+		{
+			m_port = port;
+		}
 		#endregion
 		
 		#region IRemoteMessenger implementation
@@ -20,13 +51,19 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Lan
 		/// Connect the messenger.
 		/// </summary>
 		/// <param name="isServer">If set to <c>true</c> is server.</param>
-		public override void Connect (bool isServer)
+		public override void Connect ()
 		{
+			GameObjectHelper.Destroy("LanMessengerProxy");
 			m_proxy = new GameObject ("LanMessengerProxy").AddComponent<LanMessengerProxy> ();
-			m_proxy.IsServer = isServer;
+			m_proxy.IsServer = string.IsNullOrEmpty(m_serverIP);
+
+			LogService.Debug("LanMessenger: connecting as {0}...", m_proxy.IsServer ? "server" : "client");
+
+			m_proxy.ServerIP = m_serverIP;
+			m_proxy.Port = m_port;
 			
 			m_proxy.Connected += delegate {
-				OnConnected ();
+				OnConnected (new ConnectedEventArgs(m_proxy.IsServer ? 1 : 2));
 			};
 			
 			m_proxy.MessageReceived += delegate(object sender, MessageEventArgs e) {		
@@ -43,7 +80,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Lan
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		internal protected override void PerformSendMessage (string name, object value)
+		internal protected override void PerformSendMessage (string name, string value)
 		{
 			m_proxy.SendMessageToPlayer (name, value);
 		}

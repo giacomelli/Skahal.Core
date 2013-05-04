@@ -1,6 +1,7 @@
 using System;
 using Skahal.Infrastructure.Framework;
 using Skahal.Infrastructure.Unity.Logging;
+using Skahal.Infrastructure.Unity.People;
 
 namespace Skahal.Infrastructure.Unity.Configuration
 {
@@ -31,6 +32,8 @@ namespace Skahal.Infrastructure.Unity.Configuration
 			{
 				LogStrategy = new ReleaseLogStrategy();
 			}
+
+			UserRepository = new ProtobufUserRepository();
 
 			base.Setup ();
 		}

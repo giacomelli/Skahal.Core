@@ -7,6 +7,9 @@ using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.Logging;
 using Skahal.Infrastructure.Framework.Net.Messaging;
 using UnityEngine;
+using Skahal.Domain.People;
+
+
 #endregion
 
 namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
@@ -38,7 +41,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		#endregion
 		
 		#region Fields
-		private string m_playerId = Guid.NewGuid ().ToString ();
+		private Player m_player;
 		private Queue<Action> m_requestsQueue = new Queue<Action> ();
 		private bool m_isWaitingForRequestResponse;
 		private bool m_isWaitingForReceiveMessage;
@@ -59,10 +62,18 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// Initializes a new instance of the
 		/// <see cref="Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer.GlobalServerClient"/> class.
 		/// </summary>
+		/// <param name="player">The player using the client.</param>
 		/// <param name="serverAddress">Server address.</param>
 		/// <param name="multiplayerVersion">Multiplayer version.</param>
-		public GlobalServerClient (string serverAddress, string multiplayerVersion)
+		public GlobalServerClient (Player player, string serverAddress, string multiplayerVersion)
 		{
+			m_player = player;
+
+			if(string.IsNullOrEmpty(m_player.RemoteId))
+			{
+				m_player.RemoteId = Guid.NewGuid ().ToString ();
+			}
+
 			m_serverAddress = serverAddress;
 			m_multiplayerVersion = multiplayerVersion;
 			Instance = this;
@@ -103,7 +114,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		{
 			Request (
 					"Multiplayer/UnregisterPlayer",
-					"playerId", m_playerId);
+					"playerId", m_player.RemoteId);
 			
 			m_messagingStrategy.Disconnect ();
 			m_keepReceiving = false;
@@ -161,7 +172,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 				SH.StartCoroutine (ReceiveMessage ());
 			},
 			"Multiplayer/CreateGame",
-			"playerId", m_playerId);
+			"playerId", m_player.RemoteId);
 		}
 
 		/// <summary>
@@ -319,7 +330,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 						}
 					},
 				"Multiplayer/DequeueMessages",
-				"playerId", m_playerId,
+				"playerId", m_player.RemoteId,
 				"LastDequeuedMessageId", m_lastDequeuedMessageId.ToString());
 				}
 			}	
@@ -344,7 +355,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 					var value = (Hashtable)messageValue;
 					var enemy = new GlobalServerPlayer ();
 					enemy.Name = value ["Name"].ToString ();
-					enemy.Id = value ["Id"].ToString ();
+					enemy.RemoteId = value ["Id"].ToString ();
 					enemy.IP = value ["IP"].ToString ();
 					enemy.Device = value ["Device"].ToString ();
 								
@@ -365,11 +376,11 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 					
 				case "GameEnded":
 					m_keepReceiving = false;
-					m_messagingStrategy.ReceiveMessage (messageName, messageValue);
+					m_messagingStrategy.ReceiveMessage (messageName, messageValue.ToString());
 					break;
 					
 				default:
-					m_messagingStrategy.ReceiveMessage (messageName, messageValue);
+					m_messagingStrategy.ReceiveMessage (messageName, messageValue.ToString());
 					break;
 				}
 			}	
@@ -379,8 +390,8 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		{
 			return new string[] 
 			{
-				"id", m_playerId,
-				"name", SanitizeInfoFromPlayer ("PlayerInfo.Name"),
+				"id", m_player.RemoteId,
+				"name", SanitizeInfoFromPlayer (m_player.Name),
 				"Device", SHDevice.Family.ToString (),
 				"IP", m_messagingStrategy.PlayerAddress,
 				"GameVersion", m_multiplayerVersion

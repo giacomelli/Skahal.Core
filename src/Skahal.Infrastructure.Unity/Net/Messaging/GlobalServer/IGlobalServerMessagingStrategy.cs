@@ -50,7 +50,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		void ReceiveMessage(string name, object value);
+		void ReceiveMessage(string name, string value);
 
 		/// <summary>
 		/// Connect the specified isHost and enemy.

@@ -24,7 +24,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <returns>The string.</returns>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		public static string ToString (string name, object value)
+		public static string ToString (string name, string value)
 		{
 			return string.Format ("{0}{1}{2}", name, FieldsSeparator, value);
 		}

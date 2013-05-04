@@ -7,7 +7,6 @@ using TestSharp;
 namespace Skahal.Infrastructure.Framework.UnitTests.Pooling
 {
 	[TestFixture()]
-	[Category("RhinoMocks")]
 	public class PoolServiceTest
 	{
 		[SetUp]

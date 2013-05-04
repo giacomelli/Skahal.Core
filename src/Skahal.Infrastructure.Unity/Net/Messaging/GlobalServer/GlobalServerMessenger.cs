@@ -1,5 +1,8 @@
 #region Usings
 using Skahal.Infrastructure.Framework.Net.Messaging;
+using Skahal.Domain.People;
+
+
 #endregion
 
 namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
@@ -20,20 +23,20 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// </summary>
 		/// <param name="serverAddress">Server address.</param>
 		/// <param name="multiplayerVersion">Multiplayer version.</param>
-		public GlobalServerMessenger (string serverAddress, string multiplayerVersion)
+		public GlobalServerMessenger (Player player, string serverAddress, string multiplayerVersion)
 		{
-			m_client = new GlobalServerClient (serverAddress, multiplayerVersion);
+			m_client = new GlobalServerClient (player, serverAddress, multiplayerVersion);
 			
 			m_client.GameCreated += delegate(object sender, GlobalServerGameCreatedEventArgs e) {
-				OnConnected ();
+				OnConnected (new ConnectedEventArgs(e.IsHost ? 1 : 0));
 			};
-			
+
 			m_client.MessageReceived += delegate(object sender, MessageEventArgs e) {
 				OnMessageReceived (e);
 			};
 			
 			m_client.PeerDisconnected += delegate {
-				OnDisconnected (new DisconnectedEventArgs (DisconnectionReason.RemoteQuit));
+				OnDisconnected (new DisconnectedEventArgs (DisconnectionReason.ConnectionLost));
 			};
 		}
 		#endregion
@@ -42,8 +45,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// <summary>
 		/// Connect the messenger.
 		/// </summary>
-		/// <param name="isServer">If set to <c>true</c> is server.</param>
-		public override void Connect (bool isServer)
+		public override void Connect ()
 		{
 			m_client.Connect ();
 			m_client.CreateGame();
@@ -54,9 +56,9 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		internal protected override void PerformSendMessage(string name, object value)
+		internal protected override void PerformSendMessage(string name, string value)
 		{
-			m_client.SendMessage(name, System.Convert.ToString(value));
+			m_client.SendMessage(name, value);
 		}
 
 		/// <summary>

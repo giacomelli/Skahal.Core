@@ -6,7 +6,6 @@ using Skahal.Infrastructure.Framework.Net.Messaging;
 namespace Skahal.Infrastructure.Framework.UnitTests
 {
 	[TestFixture()]
-	[Category("RhinoMocks")]
 	public class MessengerBaseTest
 	{
 		[Test()]
@@ -25,12 +24,11 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 				raised = true;
 			};
 		
-			target.SendMessage("1", 2);
+			target.SendMessage("1", "2");
 			Assert.IsFalse(raised);
 		}
 
 		[Test()]
-		[Category("RhinoMocks")]
 		public void SendMessage_StateConnected_SendMessage ()
 		{
 			bool raised = false;
@@ -39,12 +37,12 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 				raised = true;
 			};
 
-			target.Expect(t => t.Connect(true));
-			target.Expect(t => t.PerformSendMessage("1", 2));
+			target.Expect(t => t.Connect());
+			target.Expect(t => t.PerformSendMessage("1", "2"));
 
-			target.Connect(true);
-			target.OnConnected();
-			target.SendMessage("1", 2);
+			target.Connect();
+			target.OnConnected(new ConnectedEventArgs(1));
+			target.SendMessage("1", "2");
 			Assert.IsTrue(raised);
 		}
 
@@ -72,12 +70,12 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 				raised = true;
 			};
 			
-			target.Expect(t => t.Connect(true));
+			target.Expect(t => t.Connect());
 			target.Expect(t => t.PerformDisconnect());
 			target.Expect(t => t.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__"));
 			
-			target.Connect(true);
-			target.OnConnected();
+			target.Connect();
+			target.OnConnected(new ConnectedEventArgs(1));
 			target.Expect(t => t.PerformDisconnect());
 			target.Disconnect();
 			Assert.IsTrue(raised);

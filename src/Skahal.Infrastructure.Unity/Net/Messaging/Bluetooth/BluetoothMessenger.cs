@@ -26,13 +26,12 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Bluetooth
 		/// <summary>
 		/// Connect the messenger.
 		/// </summary>
-		/// <param name="isServer">If set to <c>true</c> is server.</param>
-		public override void Connect (bool isServer)
+		public override void Connect ()
 		{
 			m_proxy = new GameObject (ProxyGameObjectName).AddComponent<BluetoothMessengerProxy> ();
 			
 			m_proxy.Connected += delegate {
-				OnConnected ();
+				OnConnected (new ConnectedEventArgs(BluetoothManager.IsLeader() ? 1 : 2));
 			};
 			
 			m_proxy.MessageReceived += delegate(object sender, MessageEventArgs e) {
@@ -51,7 +50,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Bluetooth
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		internal protected override void PerformSendMessage (string name, object value)
+		internal protected override void PerformSendMessage (string name, string value)
 		{
 			BluetoothManager.SendMessage (
 				ProxyGameObjectName, 

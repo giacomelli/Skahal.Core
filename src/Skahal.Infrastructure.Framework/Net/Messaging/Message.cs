@@ -22,7 +22,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// </summary>
 		/// <param name="name">The message name.</param>
 		/// <param name="value">The message value.</param>
-		public Message (string name, object value)
+		public Message (string name, string value)
 		{
 			Name = name;
 			Value = value;
@@ -40,7 +40,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// Gets or sets the value.
 		/// </summary>
 		/// <value>The value.</value>
-		public object Value { get; set; }
+		public string Value { get; set; }
 		#endregion
 	}
 }

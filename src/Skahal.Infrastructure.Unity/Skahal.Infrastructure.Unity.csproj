@@ -51,6 +51,10 @@
       <HintPath>..\References\Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="protobuf-net">
+      <HintPath>..\References\protobuf-net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,34 +101,13 @@
     <Compile Include="Hud\SHLoggingHUDController.cs" />
     <Compile Include="Hud\SHMenuControllerBase.cs" />
     <Compile Include="Hud\SHResolutionManagerScript.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIButtonProxy.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIControlFinder.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIControlProxyBase.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIControlProxyHolder.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIHUDFactory.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUILabelProxy.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIRadioButtonProxy.cs" />
-    <Compile Include="Hud\EZGUI\SHEZGUIToggleButtonProxy.cs" />
-    <Compile Include="Hud\EZGUI\SHSpriteRootExtensions.cs" />
-    <Compile Include="Hud\EZGUI\SHSpriteText.cs" />
-    <Compile Include="Hud\EZGUI\SHSpriteTextExtensions.cs" />
-    <Compile Include="Hud\EZGUI\SHUIBtnChangePanelExtensions.cs" />
-    <Compile Include="Hud\EZGUI\SHUIButton.cs" />
-    <Compile Include="Hud\EZGUI\SHUIButtonExtensions.cs" />
-    <Compile Include="Hud\EZGUI\SHUIRadioBtn.cs" />
-    <Compile Include="Hud\EZGUI\SHUIRadioBtnExtensions.cs" />
-    <Compile Include="Hud\EZGUI\SHUISlider.cs" />
-    <Compile Include="Hud\EZGUI\SHUISliderExtensions.cs" />
-    <Compile Include="Hud\EZGUI\SHUIStateToggleBtn.cs" />
-    <Compile Include="Hud\EZGUI\SHUIStateToggleBtnExtensions.cs" />
-    <Compile Include="Globalization\SHGlobalization.cs" />
     <Compile Include="Globalization\SHGlobalizationExtensions.cs" />
-    <Compile Include="Globalization\SHGlobalizationScript.cs" />
-    <Compile Include="Globalization\SHSpriteTextGlobalization.cs" />
-    <Compile Include="Drawing\SHRect.cs" />
-    <Compile Include="Drawing\Tweening\iTween.cs" />
     <Compile Include="Drawing\Tweening\iTweenHelper.cs" />
-    <Compile Include="Drawing\Tweening\iTweenHinting.cs" />
+    <Compile Include="Drawing\RectangleHelper.cs" />
+    <Compile Include="People\PlayerPrefsUserRepository.cs" />
+    <Compile Include="Repositories\ProtobufRepositoryBase.cs" />
+    <Compile Include="People\ProtobufUserRepository.cs" />
+    <Compile Include="Commons\GameObjectHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -139,10 +122,10 @@
     <Folder Include="Serialization\" />
     <Folder Include="Pooling\" />
     <Folder Include="Hud\" />
-    <Folder Include="Hud\EZGUI\" />
     <Folder Include="Globalization\" />
     <Folder Include="Drawing\" />
     <Folder Include="Drawing\Tweening\" />
+    <Folder Include="People\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skahal.Domain\Skahal.Domain.csproj">

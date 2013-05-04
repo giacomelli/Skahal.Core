@@ -18,10 +18,10 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging
 		/// </summary>
 		public event EventHandler Connected;
 		
-	//	/// <summary>
-	//	/// Occurs when message received.
-		///// </summary>
-		//public event EventHandler<MessageEventArgs> MessageReceived;
+		/// <summary>
+		/// Occurs when message received.
+		/// </summary>
+		public event EventHandler<MessageEventArgs> MessageReceived;
 		
 		/// <summary>
 		/// Occurs when disconnected.
@@ -30,73 +30,109 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging
 		#endregion
 		
 		#region Fields
-	//	private Action<string, object> m_sendMessageToServerAction;
-	//	private Action<string, object> m_sendMessageToClientAction;
+		private Action<string, string> m_sendMessageToServerAction;
+		private Action<string, string> m_sendMessageToClientAction;
+		private PhotonView m_photonView;
 		#endregion
 		
 		#region Properties
 		/// <summary>
-		/// Gets or sets a value indicating whether this instance is server.
+		/// Gets or sets a value indicating whether this
+		/// <see cref="Skahal.Infrastructure.Unity.Net.Messaging.PhotonMessengerProxy"/> has created a room.
 		/// </summary>
-		/// <value><c>true</c> if this instance is server; otherwise, <c>false</c>.</value>
-		public bool IsServer { get; set; }
+		/// <value><c>true</c> if room created; otherwise, <c>false</c>.</value>
+		public bool RoomCreated { get; private set; }
 		#endregion
 		
 		#region Methods
 		private void Start ()
 		{
 			DontDestroyOnLoad (this);
-			LogService.Debug ("LanMessengerProxy: IsServer: {0}", IsServer);
+
+			m_photonView = GetComponent<PhotonView>();
+			m_photonView.viewID = 9999;
+		}
+
+		private void Initialize()
+		{	
+			Action<string, string> receiveAction = (id, value) => {		
+				MessageReceived.Raise (this, new MessageEventArgs (id, value));
+			};
+			
+			if (RoomCreated) {
+				m_sendMessageToServerAction = receiveAction;
+				
+				m_sendMessageToClientAction = (id, value) => {
+					m_photonView.RPC ("SendMessageToClient", PhotonTargets.Others, id, value);
+				};
+				
+			} else {
+				m_sendMessageToServerAction = (id, value) => {
+					m_photonView.RPC ("SendMessageToServer",  PhotonTargets.Others, id, value);
+				};
+				
+				m_sendMessageToClientAction = receiveAction;
+			}
+		}
+
+		/// <summary>
+		/// Sends the message to player.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
+		/// <param name="value">Value.</param>
+		public void SendMessageToPlayer (string id, string value)
+		{
+			if (RoomCreated) {
+				SendMessageToClient (id, value);
+			} else {
+				SendMessageToServer (id, value);
+			}
+		}
+		
+		[RPC]
+		private void SendMessageToServer (string id, string value)
+		{
+			m_sendMessageToServerAction(id, value);
+		}
+		
+		[RPC]
+		private void SendMessageToClient (string id, string value)
+		{
+			m_sendMessageToClientAction (id, value);
 		}
 
 		void OnJoinedLobby()
 		{
 			LogService.Debug("PhotonMessengerProxy.OnJoinedLobby.");
+			PhotonNetwork.JoinRandomRoom();
+		}
+		
+		void OnPhotonRandomJoinFailed()
+		{
+			LogService.Debug("PhotonMessengerProxy.OnPhotonRandomJoinFailed.");
+			RoomCreated = true;
+			PhotonNetwork.CreateRoom(null);
+		}
+		
+		void OnPhotonPlayerConnected()
+		{
+			LogService.Debug("PhotonMessengerProxy.OnPhotonPlayerConnected.");
+			Initialize();
+			Connected.Raise (this);
 		}
 
-//		/// <summary>
-//		/// Sends the message to player.
-//		/// </summary>
-//		/// <param name="id">Identifier.</param>
-//		/// <param name="value">Value.</param>
-//		public void SendMessageToPlayer (string id, object value)
-//		{
-//			if (IsServer) {
-//				SendMessageToClient (id, value);
-//			} else {
-//				SendMessageToServer (id, value);
-//			}
-//		}
-		
-		
-//		[RPC]
-//		private void SendMessageToServer (string id, object value)
-//		{
-//			m_sendMessageToServerAction(id, value);	
-//		}
-//		
-//		[RPC]
-//		private void SendMessageToClient (string id, object value)
-//		{
-//			m_sendMessageToClientAction (id, value);
-//		}
-		
-		private void OnConnectedToServer ()
+		void OnJoinedRoom()
 		{
-			Connected.Raise (this);
+			LogService.Debug("PhotonMessengerProxy.OnJoinedRoom.");
+
+			if(!RoomCreated)
+			{
+				Initialize();
+				Connected.Raise (this);
+			}
 		}
-		
-		private void OnPlayerConnected ()
-		{
-			Connected.Raise (this);
-		}
-		
-		private void OnDisconnectedFromServer ()
-		{
-			Disconnected.Raise (this);
-		}
-		
-		private void OnPlayerDisconnected ()
+
+		private void OnPhotonPlayerDisconnected()
 		{
 			Disconnected.Raise (this);
 		}

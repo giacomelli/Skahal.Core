@@ -17,7 +17,7 @@ public abstract class SHMenuControllerBase : MonoBehaviour
 	#region Life cycle
 	private void Start ()
 	{
-		SHGlobalization.CultureChanged += HandleCultureChanged;
+		GlobalizationService.CultureChanged += HandleCultureChanged;
 		
 		Initialize ();
 		Globalize ();
@@ -25,7 +25,7 @@ public abstract class SHMenuControllerBase : MonoBehaviour
 	
 	private void OnDestroy ()
 	{
-		SHGlobalization.CultureChanged -= HandleCultureChanged;
+		GlobalizationService.CultureChanged -= HandleCultureChanged;
 	}
 	
 	private void HandleCultureChanged (object sender, System.EventArgs e)

@@ -14,9 +14,9 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			Assert.IsNull(target.Name);
 			Assert.IsNull(target.Value);
 
-			target = new Message("1", 2);
+			target = new Message("1", "2");
 			Assert.AreEqual("1", target.Name);
-			Assert.AreEqual(2, target.Value);
+			Assert.AreEqual("2", target.Value);
 		}
 	}
 }

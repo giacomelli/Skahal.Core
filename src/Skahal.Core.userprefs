@@ -1,18 +1,38 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="OSX" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Framework.UnitTests/Net/Messaging/MessengerBaseTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Unity/Net/Messaging/Lan/LanMessenger.cs">
     <Files>
-      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Pooling/PoolServiceTest.cs" Line="66" Column="4" />
-      <File FileName="Skahal.Infrastructure.Framework/Pooling/PoolService.cs" Line="138" Column="3" />
-      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Net/Messaging/MessengerBaseTest.cs" Line="1" Column="1" />
+      <File FileName="Skahal.Infrastructure.Unity/Net/Messaging/Lan/LanMessenger.cs" Line="47" Column="26" />
+      <File FileName="Skahal.Infrastructure.Unity/Net/Messaging/Lan/LanMessengerProxy.cs" Line="60" Column="2" />
+      <File FileName="Skahal.Infrastructure.Framework/Net/NetHelper.cs" Line="28" Column="29" />
+      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Net/NetHelperTest.cs" Line="37" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Domain" expanded="True">
-            <Node name="Skahal.Domain.UnitTests" selected="True" />
+          <Node name="Infrastructure" expanded="True">
+            <Node name="Skahal.Infrastructure.Framework" expanded="True">
+              <Node name="Net" expanded="True" />
+            </Node>
+            <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True">
+              <Node name="Net" expanded="True" />
+            </Node>
+            <Node name="Skahal.Infrastructure.Unity" expanded="True">
+              <Node name="Commons" expanded="True" />
+              <Node name="Loggging" expanded="True" />
+              <Node name="Net" expanded="True">
+                <Node name="Messaging" expanded="True">
+                  <Node name="Bluetooth" expanded="True" />
+                  <Node name="GlobalServer" expanded="True" />
+                  <Node name="Lan" expanded="True">
+                    <Node name="LanMessenger.cs" selected="True" />
+                  </Node>
+                  <Node name="Local" expanded="True" />
+                  <Node name="Photon" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
           </Node>
-          <Node name="Infrastructure" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -25,23 +45,7 @@
         <State selected="True" />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True">
-          <Node name="Infrastructure" expanded="True">
-            <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True">
-              <Node name="Skahal" expanded="True">
-                <Node name="Infrastructure" expanded="True">
-                  <Node name="Framework" expanded="True">
-                    <Node name="UnitTests" expanded="True">
-                      <Node name="Pooling" expanded="True">
-                        <Node name="PoolServiceTest" expanded="True" />
-                      </Node>
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

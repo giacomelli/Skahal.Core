@@ -1,10 +1,8 @@
 #region Usings
 using System;
 using System.Collections;
+using Skahal.Domain.People;
 using UnityEngine;
-using Skahal.Domain;
-
-
 #endregion
 
 namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer

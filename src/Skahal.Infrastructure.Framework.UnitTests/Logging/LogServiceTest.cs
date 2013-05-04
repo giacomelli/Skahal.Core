@@ -7,7 +7,6 @@ using Rhino.Mocks;
 namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 {
 	[TestFixture()]
-	[Category("RhinoMocks")]
 	public class LogServiceTest
 	{
 		[Test()]
@@ -54,23 +53,6 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 			
 			LogService.Initialize(strategy);
 			LogService.Error("1", 2, 3);
-			
-			strategy.VerifyAllExpectations();
-		}
-
-		[Test()]
-		public void Error_ExceptionArgument_StragtegyErrorCalled()
-		{
-			var strategy = MockRepository.GenerateStrictMock<ILogStrategy>();
-
-			var exception = new Exception("TESTE");
-			strategy.Expect(s => s.DebugWritten += null).IgnoreArguments();
-			strategy.Expect(s => s.WarningWritten += null).IgnoreArguments();
-			strategy.Expect(s => s.ErrorWritten += null).IgnoreArguments();
-			strategy.Expect(s => s.WriteError(exception));
-			
-			LogService.Initialize(strategy);
-			LogService.Error(exception);
 			
 			strategy.VerifyAllExpectations();
 		}

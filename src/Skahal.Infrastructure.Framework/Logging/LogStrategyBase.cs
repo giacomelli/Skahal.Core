@@ -54,13 +54,6 @@ namespace Skahal.Infrastructure.Framework.Logging
 		public abstract void WriteError (string message, params object[] args);
 
 		/// <summary>
-		/// Writes the error log level message.
-		/// </summary>
-		/// <param name="ex">Exception.</param>
-		/// <returns>The error.</returns>
-		public abstract void WriteError (Exception ex);		
-
-		/// <summary>
 		/// Raises the debug written event.
 		/// </summary>
 		/// <param name="e">The arguments.</param>

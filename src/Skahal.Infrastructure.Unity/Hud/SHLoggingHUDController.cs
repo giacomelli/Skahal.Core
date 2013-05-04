@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System;
 #endregion
 
-[AddComponentMenu("Skahal/Logging/LogServicegingHUDController")]
-public class LogServicegingHUDController : MonoBehaviour
+[AddComponentMenu("Skahal/Logging/SHLoggingHUDController")]
+public class SHLoggingHUDController : MonoBehaviour
 {
 	#region Fields
 	private List<string> m_log;

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +69,15 @@
     <Compile Include="Pooling\PoolService.cs" />
     <Compile Include="Pooling\IPool.cs" />
     <Compile Include="Pooling\PoolBase.cs" />
+    <Compile Include="Globalization\GlobalizationService.cs" />
+    <Compile Include="People\UserPreference.cs" />
+    <Compile Include="People\User.cs" />
+    <Compile Include="People\UserService.cs" />
+    <Compile Include="People\IUserRepository.cs" />
+    <Compile Include="Logging\BufferLogStrategy.cs" />
+    <Compile Include="Logging\LogMessage.cs" />
+    <Compile Include="Net\NetHelper.cs" />
+    <Compile Include="Net\Messaging\ConnectedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -78,5 +88,7 @@
     <Folder Include="Domain\" />
     <Folder Include="Repositories\" />
     <Folder Include="Pooling\" />
+    <Folder Include="Globalization\" />
+    <Folder Include="People\" />
   </ItemGroup>
 </Project>

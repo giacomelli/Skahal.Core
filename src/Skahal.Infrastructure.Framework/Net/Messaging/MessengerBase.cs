@@ -26,7 +26,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <summary>
 		/// Occurs when connected.
 		/// </summary>
-		public event EventHandler Connected;
+		public event EventHandler<ConnectedEventArgs> Connected;
 
 		/// <summary>
 		/// Occurs when message was sent.
@@ -66,15 +66,14 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <summary>
 		/// Connect the messenger.
 		/// </summary>
-		/// <param name="isServer">If set to <c>true</c> is server.</param>
-		public abstract void Connect (bool isServer);
+		public abstract void Connect ();
 
 		/// <summary>
 		/// Sends the message.
 		/// </summary>
 		/// <param name="name">The message name.</param>
 		/// <param name="value">The message value.</param>
-		public void SendMessage (string name, object value)
+		public void SendMessage (string name, string value)
 		{
 			if(State == MessengerState.Connected)
 			{
@@ -88,7 +87,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="value">Value.</param>
-		internal protected abstract void PerformSendMessage(string name, object value);
+		internal protected abstract void PerformSendMessage(string name, string value);
 
 		/// <summary>
 		/// Disconnect the messenger.
@@ -108,11 +107,11 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <summary>
 		/// Raises the connected event.
 		/// </summary>
-		internal protected virtual void OnConnected ()
+		internal protected virtual void OnConnected (ConnectedEventArgs e)
 		{
 			if (State == MessengerState.Disconnected) {
 				State = MessengerState.Connected;
-				Connected.Raise (this);
+				Connected.Raise (this, e);
 			}
 		}
 

@@ -85,7 +85,7 @@ public class SHResolutionManagerScript : MonoBehaviour
 			for (var i = 0; i < length; i++)
 			{
 				var t = guiTextures[i];
-				t.pixelInset = SHRect.Multiply(t.pixelInset, WidthScale, HeightScale);
+				t.pixelInset = RectangleHelper.Multiply(t.pixelInset, WidthScale, HeightScale);
 			}
 		}
 	}
