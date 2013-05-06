@@ -1,21 +1,31 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="OSX" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Infrastructure.Unity/Net/Messaging/Lan/LanMessenger.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="OSX" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Skahal.Domain/People/PlayerService.cs">
     <Files>
-      <File FileName="Skahal.Infrastructure.Unity/Net/Messaging/Lan/LanMessenger.cs" Line="47" Column="26" />
-      <File FileName="Skahal.Infrastructure.Unity/Net/Messaging/Lan/LanMessengerProxy.cs" Line="60" Column="2" />
-      <File FileName="Skahal.Infrastructure.Framework/Net/NetHelper.cs" Line="28" Column="29" />
-      <File FileName="Skahal.Infrastructure.Framework.UnitTests/Net/NetHelperTest.cs" Line="37" Column="43" />
+      <File FileName="Skahal.Infrastructure.Unity/Net/Messaging/GlobalServer/GlobalServerMessenger.cs" Line="28" Column="47" />
+      <File FileName="Skahal.Infrastructure.Unity/Net/Messaging/GlobalServer/GlobalServerClient.cs" Line="395" Column="27" />
+      <File FileName="Skahal.Domain/People/PlayerService.cs" Line="4" Column="11" />
+      <File FileName="Skahal.Domain/People/Player.cs" Line="31" Column="28" />
+      <File FileName="Skahal.Infrastructure.Framework/People/User.cs" Line="6" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
+          <Node name="Domain" expanded="True">
+            <Node name="Skahal.Domain" expanded="True">
+              <Node name="People" expanded="True">
+                <Node name="PlayerService.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
           <Node name="Infrastructure" expanded="True">
             <Node name="Skahal.Infrastructure.Framework" expanded="True">
-              <Node name="Net" expanded="True" />
+              <Node name="People" expanded="True" />
             </Node>
             <Node name="Skahal.Infrastructure.Framework.UnitTests" expanded="True">
-              <Node name="Net" expanded="True" />
+              <Node name="Net" expanded="True">
+                <Node name="Messaging" expanded="True" />
+              </Node>
             </Node>
             <Node name="Skahal.Infrastructure.Unity" expanded="True">
               <Node name="Commons" expanded="True" />
@@ -24,14 +34,13 @@
                 <Node name="Messaging" expanded="True">
                   <Node name="Bluetooth" expanded="True" />
                   <Node name="GlobalServer" expanded="True" />
-                  <Node name="Lan" expanded="True">
-                    <Node name="LanMessenger.cs" selected="True" />
-                  </Node>
+                  <Node name="Lan" expanded="True" />
                   <Node name="Local" expanded="True" />
                   <Node name="Photon" expanded="True" />
                 </Node>
               </Node>
             </Node>
+            <Node name="Skahal.Infrastructure.Unity.Externals" expanded="True" />
           </Node>
         </State>
       </Pad>

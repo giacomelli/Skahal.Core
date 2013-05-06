@@ -2,6 +2,9 @@
 using System;
 using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.Logging;
+using UnityEngine;
+
+
 #endregion
 
 namespace Skahal.Infrastructure.Unity.Logging
@@ -12,9 +15,26 @@ namespace Skahal.Infrastructure.Unity.Logging
 	/// </summary>
 	public sealed class DebugLogStrategy : LogStrategyBase
 	{	
+		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Unity.Logging.DebugLogStrategy"/> class.
+		/// </summary>
+		public DebugLogStrategy()
+		{
+			Application.RegisterLogCallback(CheckLogCallback);
+		}
+		
+		private void CheckLogCallback (string condition, string stacktrace, LogType logType)
+		{
+			if (logType == LogType.Exception || logType == LogType.Assert) {
+				WriteError(condition);
+			}
+		}
+		#endregion
+
 		#region ISHLogStrategy implementation
 		/// <summary>
-		/// Writes the debug log level message.
+		/// Writes the debug log level message.   
 		/// </summary>
 		/// <param name='message'>
 		/// Message.

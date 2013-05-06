@@ -82,6 +82,32 @@ namespace Skahal.Infrastructure.Unity.Commons
 		
 			return go;
 		}
+
+		/// <summary>
+		/// Gets the component.
+		/// </summary>
+		/// <returns>The component.</returns>
+		/// <param name="gameObjectName">Game object name.</param>
+		/// <typeparam name="TComponent">The 1st type parameter.</typeparam>
+		public static TComponent GetComponent<TComponent>(string gameObjectName) where TComponent : Component
+		{
+			return GameObject.Find(gameObjectName).GetComponent<TComponent>();
+		}
+
+		/// <summary>
+		/// Executes the action for each component of TComponent type in children game objects.
+		/// </summary>
+		/// <param name="gameObjectName">Game object name.</param>
+		/// <param name="eachAction">Each action.</param>
+		/// <typeparam name="TComponent">The 1st type parameter.</typeparam>
+		public static void ForEachComponentsInChildren<TComponent>(string gameObjectName, System.Action<TComponent> eachAction) where TComponent : Component
+		{
+			var children = GameObject.Find (gameObjectName).GetComponentsInChildren<TComponent> ();
+			
+			foreach (var c in children) {
+				eachAction(c);
+			}
+		}
 	
 		/// <summary>
 		/// Active the specified GameObjects.

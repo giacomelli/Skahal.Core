@@ -98,7 +98,6 @@
     <Compile Include="Hud\SHGUI.cs" />
     <Compile Include="Hud\SHGUILayout.cs" />
     <Compile Include="Hud\SHHUDControlProxyHolderBase.cs" />
-    <Compile Include="Hud\SHLoggingHUDController.cs" />
     <Compile Include="Hud\SHMenuControllerBase.cs" />
     <Compile Include="Hud\SHResolutionManagerScript.cs" />
     <Compile Include="Globalization\SHGlobalizationExtensions.cs" />
@@ -108,6 +107,8 @@
     <Compile Include="Repositories\ProtobufRepositoryBase.cs" />
     <Compile Include="People\ProtobufUserRepository.cs" />
     <Compile Include="Commons\GameObjectHelper.cs" />
+    <Compile Include="Hud\LoggingConsole.cs" />
+    <Compile Include="Loggging\LogHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
