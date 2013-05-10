@@ -24,7 +24,11 @@ public class UnityBootstrapperController : MonoBehaviour
 		var bootstrapper = new UnityBootstrapper();
 
 		bootstrapper.IsDebug = IsDebug;
-		bootstrapper.Setup();
+
+		if(!bootstrapper.Setup())
+		{
+			Destroy(gameObject);
+		}
 	}
 	#endregion
 }

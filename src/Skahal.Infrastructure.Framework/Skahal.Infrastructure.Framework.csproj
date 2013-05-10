@@ -78,6 +78,7 @@
     <Compile Include="Logging\LogMessage.cs" />
     <Compile Include="Net\NetHelper.cs" />
     <Compile Include="Net\Messaging\ConnectedEventArgs.cs" />
+    <Compile Include="Logging\FiltrableLogStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -20,9 +20,9 @@ namespace Skahal.Infrastructure.Unity.Configuration
 
 		#region Methods
 		/// <summary>
-		/// Setup this instance.
+		/// Fills the setup properties.
 		/// </summary>
-		public override void Setup ()
+		protected override void FillSetupProperties ()
 		{
 			if(IsDebug)
 			{
@@ -34,8 +34,6 @@ namespace Skahal.Infrastructure.Unity.Configuration
 			}
 
 			UserRepository = new ProtobufUserRepository();
-
-			base.Setup ();
 		}
 		#endregion
 	}

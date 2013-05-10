@@ -71,6 +71,7 @@
     <Compile Include="Commons\DependencyServiceTest.cs" />
     <Compile Include="Pooling\PoolServiceTest.cs" />
     <Compile Include="Net\NetHelperTest.cs" />
+    <Compile Include="Logging\FiltrableLogStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

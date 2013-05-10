@@ -15,7 +15,7 @@ namespace Skahal.Infrastructure.Framework
 	public abstract class BootstrapperBase
 	{
 		#region Fields
-		private bool m_setupDone;
+		private static bool s_alreadyBooted;
 		#endregion
 
 		#region Properties
@@ -34,13 +34,20 @@ namespace Skahal.Infrastructure.Framework
 
 		#region Methods
 		/// <summary>
+		/// Fills the setup properties.
+		/// </summary>
+		protected abstract void FillSetupProperties();
+
+		/// <summary>
 		/// Setup this instance.
 		/// </summary>
-		public virtual void Setup()
+		public bool Setup()
 		{
-			if(!m_setupDone)
+			if(!s_alreadyBooted)
 			{	
 				LogService.Debug("Bootstrapper '{0}' setup...", GetType().Name);
+
+				FillSetupProperties();
 
 				LogService.Debug("'{0}' as LogStrategy.", LogStrategy.GetType().Name);
 				LogService.Initialize(LogStrategy);
@@ -48,9 +55,13 @@ namespace Skahal.Infrastructure.Framework
 				LogService.Debug("'{0}' as UserRepository.", UserRepository.GetType().Name);
 				UserService.Initialize(UserRepository);
 
-				m_setupDone = true;
+				s_alreadyBooted = true;
 				LogService.Debug("Bootstrapper '{0}' setup done.", GetType().Name);
+
+				return true;
 			}
+
+			return false;
 		}
 		#endregion
 	}
