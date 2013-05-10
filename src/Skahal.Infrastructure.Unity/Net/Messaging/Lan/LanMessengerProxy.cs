@@ -66,6 +66,8 @@ public class LanMessengerProxy : MonoBehaviour
 
 		NetHelper.ThrowIfInvalidTcpPortNumber(Port);
 
+		Network.Disconnect();
+
 		if (IsServer) {
 			Network.InitializeServer (1, Port, false);
 		} else {
