@@ -59,6 +59,8 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			target.Disconnect();
 
 			Assert.IsFalse(raised);
+
+			target.VerifyAllExpectations ();
 		}
 
 		[Test()]
@@ -70,15 +72,13 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 				raised = true;
 			};
 			
-			target.Expect(t => t.Connect());
-			target.Expect(t => t.PerformDisconnect());
+			target.State = MessengerState.Connected;
 			target.Expect(t => t.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__"));
-			
-			target.Connect();
-			target.OnConnected(new ConnectedEventArgs(1));
 			target.Expect(t => t.PerformDisconnect());
 			target.Disconnect();
 			Assert.IsTrue(raised);
+
+			target.VerifyAllExpectations ();
 		}
 
 		[Test()]
@@ -87,7 +87,9 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			var target = MockRepository.GeneratePartialMock<MessengerBase>();
 			target.Expect(t => t.PerformSendMessage("name", "value"));
 			target.Expect(t => t.OnMessageReceived(new MessageEventArgs(new Message("name", "value"))));
-			target.PerformSendMessage("name", "value");
+			target.SendMessage("name", "value");
+
+			target.VerifyAllExpectations ();
 		}
 
 		[Test()]
@@ -97,6 +99,8 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			target.Expect(t => t.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__"));
 			target.Expect(t => t.OnDisconnected(new DisconnectedEventArgs(DisconnectionReason.RemoteQuit)));
 			target.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__");
+
+			target.VerifyAllExpectations ();
 		}
 	}
 }

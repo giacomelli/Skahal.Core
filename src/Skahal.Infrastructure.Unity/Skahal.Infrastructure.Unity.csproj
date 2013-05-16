@@ -43,6 +43,18 @@
     </CustomCommands>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'iOS|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>UNITY_IPHONE;DEBUG;</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build/copy.to.hatcg.sh" workingdir="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build" externalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>..\References\UnityEngine.dll</HintPath>
@@ -53,7 +65,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="protobuf-net">
-      <HintPath>..\References\protobuf-net.dll</HintPath>
+      <HintPath>..\References\protobuf-net\CoreOnly\ios\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Skahal.Infrastructure.Framework.ProtobufSerializer">
+      <HintPath>..\build\Skahal.Infrastructure.Framework.ProtobufSerializer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

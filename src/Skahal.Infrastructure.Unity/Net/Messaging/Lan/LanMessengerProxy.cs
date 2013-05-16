@@ -13,7 +13,6 @@ using Skahal.Infrastructure.Framework;
 /// <summary>
 /// Lan messenger proxy.
 /// </summary>
-[RequireComponent(typeof(NetworkView))]
 public class LanMessengerProxy : MonoBehaviour
 {
 	#region Events
@@ -34,6 +33,7 @@ public class LanMessengerProxy : MonoBehaviour
 	#endregion
 	
 	#region Fields
+	private NetworkView m_net;
 	private Action<string, string> m_sendMessageToServerAction;
 	private Action<string, string> m_sendMessageToClientAction;
 	#endregion
@@ -62,17 +62,13 @@ public class LanMessengerProxy : MonoBehaviour
 	private void Start ()
 	{
 		DontDestroyOnLoad (this);
+		m_net = gameObject.AddComponent<NetworkView> ();
+		m_net.stateSynchronization = NetworkStateSynchronization.ReliableDeltaCompressed;
+		m_net.observed = null;
+
 		LogService.Debug ("LanMessengerProxy: IsServer: {0}", IsServer);
 
 		NetHelper.ThrowIfInvalidTcpPortNumber(Port);
-
-		Network.Disconnect();
-
-		if (IsServer) {
-			Network.InitializeServer (1, Port, false);
-		} else {
-			Network.Connect (ServerIP, Port);
-		}
 		
 		Action<string, string> receiveAction = (id, value) => {		
 			MessageReceived.Raise (this, new MessageEventArgs (id, value));
@@ -92,6 +88,14 @@ public class LanMessengerProxy : MonoBehaviour
 			};
 			
 			m_sendMessageToClientAction = receiveAction;
+		}
+
+		Network.Disconnect();
+
+		if (IsServer) {
+			Network.InitializeServer (1, Port, false);
+		} else {
+			Network.Connect (ServerIP, Port);
 		}
 	}
 

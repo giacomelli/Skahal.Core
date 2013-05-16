@@ -13,9 +13,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	{
 		#region Methods
 		/// <summary>
-		/// Get all entities.
+		/// Find an entity by the filter.
 		/// </summary>
-		IQueryable<TEntity> All();
+		/// <param name="filter">Filter.</param>
+		TEntity Find(Func<TEntity, bool> filter);
 
 		/// <summary>
 		/// Create the specified entity.

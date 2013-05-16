@@ -18,15 +18,5 @@ namespace Skahal.Infrastructure.Unity.People
 	/// </summary>
 	public class ProtobufUserRepository : ProtobufRepositoryBase<User>, IUserRepository
 	{ 
-		#region Constructors
-		/// <summary>
-		/// Initializes the <see cref="Skahal.Infrastructure.Unity.People.ProtobufUserRepository"/> class.
-		/// </summary>
-		static ProtobufUserRepository() 
-		{
-			RuntimeTypeModel.Default.Add(typeof(User), true)
-				.Add("Id", "Name", "RemoteId");
-		}
-		#endregion
 	}
 }

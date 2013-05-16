@@ -1,6 +1,10 @@
 #region Usings
 using System;
 using Skahal.Infrastructure.Framework.Commons;
+using System.Collections.Generic;
+using Skahal.Infrastructure.Framework.Logging;
+
+
 #endregion
 
 namespace Skahal.Infrastructure.Framework.Net.Messaging
@@ -20,6 +24,12 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// The disconnect message quit value.
 		/// </summary>
 		private const string DisconnectMessageQuitValue = "__MESSENGERBASE__QUIT__";
+
+		/// <summary>
+		/// The messages received buffer.
+		/// </summary>
+		private Queue<MessageEventArgs> m_messagesReceivedBuffer = new Queue<MessageEventArgs>();
+		private bool m_canReceiveMessages;
 		#endregion
 		
 		#region Events
@@ -59,7 +69,26 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// Gets the state.
 		/// </summary>
 		/// <value>The state.</value>
-		public MessengerState State { get; private set; }
+		public MessengerState State { get; internal protected set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance can receive messages.
+		/// </summary>
+		/// <value><c>true</c> if this instance can receive messages; otherwise, <c>false</c>.</value>
+		public bool CanReceiveMessages 
+		{ 
+			get { return m_canReceiveMessages; }
+			set { 
+				m_canReceiveMessages = value;
+
+				if (m_canReceiveMessages) {
+					while(m_messagesReceivedBuffer.Count > 0)
+					{
+						OnMessageReceived (m_messagesReceivedBuffer.Dequeue());
+					}
+				}
+			}
+		}
 		#endregion
 		
 		#region Methods
@@ -77,6 +106,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		{
 			if(State == MessengerState.Connected)
 			{
+				LogService.Debug ("MessengerBase.SendMessage: {0} = {1}.", name, value);
 				PerformSendMessage(name, value);
 				MessageSent.Raise (this, new MessageEventArgs(name, value));
 			}
@@ -121,10 +151,18 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// <param name="e">The event arguments.</param>
 		internal protected virtual void OnMessageReceived (MessageEventArgs e)
 		{
-			if (e.Message.Name.Equals (DisconnectMessageName)) {
-				OnDisconnected(new DisconnectedEventArgs(DisconnectionReason.RemoteQuit));
+			if (CanReceiveMessages) {
+				var msg = e.Message;
+
+				LogService.Debug ("MessengerBase.OnMessageReceived: {0} = {1}.", msg.Name, msg.Value);
+
+				if (msg.Name.Equals (DisconnectMessageName)) {
+					OnDisconnected (new DisconnectedEventArgs(DisconnectionReason.RemoteQuit));
+				} else {
+					MessageReceived.Raise (this, e);
+				}
 			} else {
-				MessageReceived.Raise (this, e);
+				m_messagesReceivedBuffer.Enqueue (e);
 			}
 		}
 

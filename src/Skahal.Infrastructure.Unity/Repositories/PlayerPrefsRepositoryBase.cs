@@ -17,22 +17,29 @@ namespace Skahal.Infrastructure.Unity.Repositories
 	public abstract class PlayerPrefsRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
 	{
 		#region Methods
+
 		/// <summary>
-		/// Get all entities.
+		/// Find an entity by the filter.
 		/// </summary>
-		public virtual IQueryable<TEntity> All ()
+		/// <param name="filter">Filter.</param>
+		public TEntity Find(Func<TEntity, bool> filter)
 		{
+			TEntity result = null;
 			var allIds = GetAllIds ();
-			var result = new List<TEntity> ();
-			
+
 			foreach (var id in allIds) {
 				if (!String.IsNullOrEmpty (id)) {
-					var r = SerializationHelper.DeserializeFromString<TEntity> (PlayerPrefs.GetString(GetKey (long.Parse(id))));
-					result.Add(r);
+					var entity = SerializationHelper.DeserializeFromString<TEntity> (PlayerPrefs.GetString(GetKey (long.Parse(id))));
+
+					if(filter(entity))
+					{
+						result = entity;
+						break;
+					}
 				}			
 			}
-			
-			return result.AsQueryable();
+
+			return result;
 		}
 
 		/// <summary>

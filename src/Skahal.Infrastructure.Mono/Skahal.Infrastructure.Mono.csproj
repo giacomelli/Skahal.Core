@@ -38,6 +38,11 @@
     <GenerateDocumentation>true</GenerateDocumentation>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'iOS|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>..\build</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Vici.Core">

@@ -76,6 +76,12 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// </summary>
 		/// <value>The state.</value>
 		MessengerState State { get; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance can receive messages.
+		/// </summary>
+		/// <value><c>true</c> if this instance can receive messages; otherwise, <c>false</c>.</value>
+		bool CanReceiveMessages { get; set; }
 		#endregion
 		
 		#region Methods

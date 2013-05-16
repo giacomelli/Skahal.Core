@@ -260,7 +260,7 @@ public static class SHDevice
 			}
 			else
 			{
-#if UNITY_EDITOR
+#if UNITY_EDITOR 
 			return SHDeviceGeneration.Editor;
 #elif UNITY_IPHONE
 			return (SHDeviceGeneration)System.Enum.Parse(typeof(SHDeviceGeneration), iPhone.generation.ToString(), true);
