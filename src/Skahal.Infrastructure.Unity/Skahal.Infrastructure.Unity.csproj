@@ -68,7 +68,7 @@
       <HintPath>..\References\protobuf-net\CoreOnly\ios\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="Skahal.Infrastructure.Framework.ProtobufSerializer">
-      <HintPath>..\build\Skahal.Infrastructure.Framework.ProtobufSerializer.dll</HintPath>
+      <HintPath>..\References\Skahal.Infrastructure.Framework.ProtobufSerializer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
