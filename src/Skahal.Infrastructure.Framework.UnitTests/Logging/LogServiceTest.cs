@@ -9,6 +9,12 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 	[TestFixture()]
 	public class LogServiceTest
 	{
+		[TearDown]
+		public void CleanUpTest()
+		{
+			LogService.Initialize (MockRepository.GenerateMock<ILogStrategy>());
+		}
+
 		[Test()]
 		public void Debug_Arguments_StragtegyDebugCalled()
 		{

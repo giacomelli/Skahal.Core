@@ -44,6 +44,8 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			target.OnConnected(new ConnectedEventArgs(1));
 			target.SendMessage("1", "2");
 			Assert.IsTrue(raised);
+
+			target.VerifyAllExpectations ();
 		}
 
 		[Test()]
@@ -77,28 +79,6 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			target.Expect(t => t.PerformDisconnect());
 			target.Disconnect();
 			Assert.IsTrue(raised);
-
-			target.VerifyAllExpectations ();
-		}
-
-		[Test()]
-		public void OnMessageReceived_NormalMessage_RaiseMessageReceiveddEvent()
-		{
-			var target = MockRepository.GeneratePartialMock<MessengerBase>();
-			target.Expect(t => t.PerformSendMessage("name", "value"));
-			target.Expect(t => t.OnMessageReceived(new MessageEventArgs(new Message("name", "value"))));
-			target.SendMessage("name", "value");
-
-			target.VerifyAllExpectations ();
-		}
-
-		[Test()]
-		public void OnMessageReceived_DisconnectMessage_RaiseDisconnectedEvent()
-		{
-			var target = MockRepository.GeneratePartialMock<MessengerBase>();
-			target.Expect(t => t.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__"));
-			target.Expect(t => t.OnDisconnected(new DisconnectedEventArgs(DisconnectionReason.RemoteQuit)));
-			target.PerformSendMessage("__MESSENGERBASE__DISCONNECT__", "__MESSENGERBASE__QUIT__");
 
 			target.VerifyAllExpectations ();
 		}

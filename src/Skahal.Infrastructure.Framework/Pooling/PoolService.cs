@@ -137,13 +137,12 @@ namespace Skahal.Infrastructure.Framework.Pooling
 		/// <param name="poolName">Pool name.</param>
 		private static IPool GetPool (string poolName)
 		{
-			#if DEBUG
 			if(!s_pools.ContainsKey(poolName))
 			{
 				var msg = string.Format("The pool with name '{0}' was not found.", poolName);
 				throw new InvalidOperationException(msg);
 			}
-			#endif
+
 			return s_pools [poolName];			
 		}
 		#endregion
