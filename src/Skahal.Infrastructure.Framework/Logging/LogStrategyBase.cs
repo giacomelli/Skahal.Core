@@ -60,7 +60,7 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// <param name="e">The arguments.</param>
 		protected virtual void OnDebugWritten(LogWrittenEventArgs e)
 		{
-			//DebugWritten.Raise(this, e);
+			DebugWritten.Raise(this, e);
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// <param name="e">The arguments.</param>
 		protected virtual void OnWarningWritten(LogWrittenEventArgs e)
 		{
-			//WarningWritten.Raise(this, e);
+			WarningWritten.Raise(this, e);
 		}
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// <param name="e">The arguments.</param>
 		protected virtual void OnErrorWritten(LogWrittenEventArgs e)
 		{
-			//ErrorWritten.Raise(this, e);
+			ErrorWritten.Raise(this, e);
 		}
 		#endregion
 	}

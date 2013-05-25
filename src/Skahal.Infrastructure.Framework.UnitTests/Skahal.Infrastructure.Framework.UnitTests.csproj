@@ -64,6 +64,7 @@
     <Folder Include="Net\Messaging\" />
     <Folder Include="Logging\" />
     <Folder Include="Pooling\" />
+    <Folder Include="Logging\Stubs\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\EventHandlerExtensionsTest.cs" />
@@ -77,6 +78,9 @@
     <Compile Include="Pooling\PoolServiceTest.cs" />
     <Compile Include="Net\NetHelperTest.cs" />
     <Compile Include="Logging\FiltrableLogStrategyTest.cs" />
+    <Compile Include="Logging\BufferLogStrategyTest.cs" />
+    <Compile Include="Logging\LogStrategyBaseTest.cs" />
+    <Compile Include="Logging\Stubs\LogStrategyStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

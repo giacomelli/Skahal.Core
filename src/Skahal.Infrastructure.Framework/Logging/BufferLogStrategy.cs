@@ -48,7 +48,5 @@ namespace Skahal.Infrastructure.Framework.Logging
 			}
 		}
 		#endregion
-
-
 	}
 }
