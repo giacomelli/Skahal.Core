@@ -73,15 +73,15 @@ namespace Skahal.Infrastructure.Framework.Logging
 			s_logStrategy = logStrategy;
 			
 			s_logStrategy.DebugWritten += delegate(object sender, LogWrittenEventArgs e) {
-				DebugWritten(typeof(LogService), e);
+				DebugWritten.Raise(typeof(LogService), e);
 			};
 			
 			s_logStrategy.WarningWritten += delegate(object sender, LogWrittenEventArgs e) {
-				WarningWritten(typeof(LogService), e);
+				WarningWritten.Raise(typeof(LogService), e);
 			};
 			
 			s_logStrategy.ErrorWritten += delegate(object sender, LogWrittenEventArgs e) {
-				ErrorWritten(typeof(LogService), e);
+				ErrorWritten.Raise(typeof(LogService), e);
 			};
 
 			if(buffer != null)

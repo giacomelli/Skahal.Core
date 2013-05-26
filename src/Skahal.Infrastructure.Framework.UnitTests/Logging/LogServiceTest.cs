@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Skahal.Infrastructure.Framework.Logging;
 using Skahal.Infrastructure.Framework.Commons;
 using Rhino.Mocks;
+using Skahal.Infrastructure.Framework.UnitTests.Logging.Stubs;
 
 namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 {
@@ -13,6 +14,15 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 		public void CleanUpTest()
 		{
 			LogService.Initialize (MockRepository.GenerateMock<ILogStrategy>());
+		}
+
+		[Test()]
+		public void Debug_NoDebugWrittenListener_PerformWithoutException ()
+		{
+			var strategy = new LogStrategyStub ();
+
+			LogService.Initialize(strategy);
+			LogService.Debug("1", 2, 3);
 		}
 
 		[Test()]
@@ -32,6 +42,15 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 		}
 
 		[Test()]
+		public void Warning_NoDebugWrittenListener_PerformWithoutException ()
+		{
+			var strategy = new LogStrategyStub ();
+
+			LogService.Initialize(strategy);
+			LogService.Warning("1", 2, 3);
+		}
+
+		[Test()]
 		public void Warning_Arguments_StragtegyWarningCalled()
 		{
 			var strategy = MockRepository.GenerateStrictMock<ILogStrategy>();
@@ -45,6 +64,15 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Logging
 			LogService.Warning("1", 2, 3);
 			
 			strategy.VerifyAllExpectations();
+		}
+
+		[Test()]
+		public void Error_NoDebugWrittenListener_PerformWithoutException ()
+		{
+			var strategy = new LogStrategyStub ();
+
+			LogService.Initialize(strategy);
+			LogService.Error("1", 2, 3);
 		}
 
 		[Test()]
