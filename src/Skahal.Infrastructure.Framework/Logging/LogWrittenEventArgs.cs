@@ -1,5 +1,8 @@
 #region Usings
 using System;
+using System.Globalization;
+
+
 #endregion
 
 namespace Skahal.Infrastructure.Framework.Logging
@@ -17,6 +20,16 @@ namespace Skahal.Infrastructure.Framework.Logging
 		public LogWrittenEventArgs (string message)
 		{
 			Message = message;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Logging.LogWrittenEventArgs"/> class.
+		/// </summary>
+		/// <param name="message">Message.</param>
+		/// <param name="args">Arguments.</param>
+		public LogWrittenEventArgs (string message, params object[] args)
+		{
+			Message = String.Format(CultureInfo.InvariantCulture, message, args);
 		}
 		#endregion
 		

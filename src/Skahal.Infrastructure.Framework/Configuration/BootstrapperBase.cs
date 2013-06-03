@@ -7,7 +7,7 @@ using Skahal.Infrastructure.Framework.People;
 
 #endregion
 
-namespace Skahal.Infrastructure.Framework
+namespace Skahal.Infrastructure.Framework.Configuration
 {
 	/// <summary>
 	/// The framework bootstrapper.
@@ -49,11 +49,19 @@ namespace Skahal.Infrastructure.Framework
 
 				FillSetupProperties();
 
-				LogService.Debug("'{0}' as LogStrategy.", LogStrategy.GetType().Name);
-				LogService.Initialize(LogStrategy);
+				if (LogStrategy == null) {
+					LogService.Warning ("LogStrategy not defined on bootstrapper.");
+				} else {
+					LogService.Debug ("'{0}' as LogStrategy.", LogStrategy.GetType ().Name);
+					LogService.Initialize (LogStrategy);
+				}
 
-				LogService.Debug("'{0}' as UserRepository.", UserRepository.GetType().Name);
-				UserService.Initialize(UserRepository);
+				if (UserRepository == null) {
+					LogService.Warning ("UserRepository not defined on bootstrapper.");
+				} else {
+					LogService.Debug ("'{0}' as UserRepository.", UserRepository.GetType ().Name);
+					UserService.Initialize (UserRepository);
+				}
 
 				s_alreadyBooted = true;
 				LogService.Debug("Bootstrapper '{0}' setup done.", GetType().Name);
