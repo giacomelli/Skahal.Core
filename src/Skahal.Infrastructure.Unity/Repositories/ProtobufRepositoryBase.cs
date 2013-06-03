@@ -51,12 +51,12 @@ namespace Skahal.Infrastructure.Unity.Repositories
 
 		#region Methods
 		/// <summary>
-		/// Find an entity by the filter.
+		/// Finds all entities that matches the filter.
 		/// </summary>
+		/// <returns>The entities found.</returns>
 		/// <param name="filter">Filter.</param>
-		public TEntity Find(Func<TEntity, bool> filter)
+		public IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
 		{
-			TEntity result = null;
 			var allIds = GetAllIds ();
 	
 			foreach (var id in allIds) 
@@ -67,13 +67,10 @@ namespace Skahal.Infrastructure.Unity.Repositories
 
 					if(filter(entity))
 					{
-						result = entity;
-						break;
+						yield return entity;
 					}
 				}		
 			}
-
-			return result;
 		}
 		
 		/// <summary>

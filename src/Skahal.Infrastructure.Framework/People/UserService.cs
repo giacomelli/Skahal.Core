@@ -33,7 +33,7 @@ namespace Skahal.Infrastructure.Framework.People
 			if(s_currentUser == null)
 			{
 				LogService.Debug("GetCurrentUser: there is no current user. Looking for the first one available on repository...");
-				s_currentUser = s_repository.Find ((u) => true);
+				s_currentUser = s_repository.FindAll ((u) => true).FirstOrDefault();
 
 				if(s_currentUser == null)
 				{
@@ -59,7 +59,7 @@ namespace Skahal.Infrastructure.Framework.People
 		{
 			s_currentUser = user;
 
-			var oldUser = s_repository.Find(u => u.Id == user.Id);
+			var oldUser = s_repository.FindAll(u => u.Id == user.Id).FirstOrDefault();
 			
 			if(oldUser == null)
 			{

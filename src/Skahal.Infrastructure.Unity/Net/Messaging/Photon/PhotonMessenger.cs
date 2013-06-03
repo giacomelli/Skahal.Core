@@ -21,6 +21,15 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.Photon
 		#endregion
 		
 		#region IRemoteMessenger implementation
+		public override bool CanReceiveMessages {
+			get {
+				return base.CanReceiveMessages;
+			}
+			set {
+				PhotonNetwork.isMessageQueueRunning = value;
+				base.CanReceiveMessages = value;
+			}
+		}
 		/// <summary>
 		/// Connect the messenger.
 		/// </summary>

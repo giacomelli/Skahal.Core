@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Skahal.Infrastructure.Framework.Domain;
+using System.Collections.Generic;
 
 namespace Skahal.Infrastructure.Framework.Repositories
 {
@@ -13,10 +14,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	{
 		#region Methods
 		/// <summary>
-		/// Find an entity by the filter.
+		/// Finds all entities that matches the filter.
 		/// </summary>
-		/// <param name="filter">Filter.</param>
-		TEntity Find(Func<TEntity, bool> filter);
+		/// <returns>The entities found.</returns>
+		IEnumerable<TEntity> FindAll (Func<TEntity, bool> filter);
 
 		/// <summary>
 		/// Create the specified entity.

@@ -17,14 +17,12 @@ namespace Skahal.Infrastructure.Unity.Repositories
 	public abstract class PlayerPrefsRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
 	{
 		#region Methods
-
 		/// <summary>
-		/// Find an entity by the filter.
+		/// Finds all entities that matches the filter.
 		/// </summary>
-		/// <param name="filter">Filter.</param>
-		public TEntity Find(Func<TEntity, bool> filter)
+		/// <returns>The entities found.</returns>
+		public IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
 		{
-			TEntity result = null;
 			var allIds = GetAllIds ();
 
 			foreach (var id in allIds) {
@@ -33,13 +31,10 @@ namespace Skahal.Infrastructure.Unity.Repositories
 
 					if(filter(entity))
 					{
-						result = entity;
-						break;
+						yield return entity;
 					}
 				}			
 			}
-
-			return result;
 		}
 
 		/// <summary>

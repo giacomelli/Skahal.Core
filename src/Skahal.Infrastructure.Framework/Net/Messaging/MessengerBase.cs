@@ -75,7 +75,7 @@ namespace Skahal.Infrastructure.Framework.Net.Messaging
 		/// Gets or sets a value indicating whether this instance can receive messages.
 		/// </summary>
 		/// <value><c>true</c> if this instance can receive messages; otherwise, <c>false</c>.</value>
-		public bool CanReceiveMessages 
+		public virtual bool CanReceiveMessages 
 		{ 
 			get { return m_canReceiveMessages; }
 			set { 
