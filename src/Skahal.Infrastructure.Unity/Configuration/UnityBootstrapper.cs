@@ -2,6 +2,7 @@ using System;
 using Skahal.Infrastructure.Framework;
 using Skahal.Infrastructure.Unity.Logging;
 using Skahal.Infrastructure.Unity.People;
+using Skahal.Infrastructure.Framework.Configuration;
 
 namespace Skahal.Infrastructure.Unity.Configuration
 {
