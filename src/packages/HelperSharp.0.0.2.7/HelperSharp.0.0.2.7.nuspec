@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>HelperSharp</id>
+    <version>0.0.2.7</version>
+    <title />
+    <authors>g1acomell1</authors>
+    <owners>g1acomell1</owners>
+    <projectUrl>https://github.com/giacomelli/HelperSharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of helpers and extensions for C# programming</description>
+    <releaseNotes>New helpers.</releaseNotes>
+    <references>
+      <reference file="HelperSharp.dll" />
+    </references>
+  </metadata>
+</package>

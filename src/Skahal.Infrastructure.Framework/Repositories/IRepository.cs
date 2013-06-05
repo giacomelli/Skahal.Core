@@ -20,6 +20,13 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		IEnumerable<TEntity> FindAll (Func<TEntity, bool> filter);
 
 		/// <summary>
+		/// Counts all entities.
+		/// </summary>
+		/// <returns>The all.</returns>
+		/// <param name="filter">Filter.</param>
+		long CountAll (Func<TEntity, bool> filter);
+
+		/// <summary>
 		/// Create the specified entity.
 		/// </summary>
 		/// <param name="entity">Entity.</param>
@@ -30,12 +37,6 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <param name="entity">Entity.</param>
 		void Delete(TEntity entity);
-
-		/// <summary>
-		/// Delete the entity with the specified id.
-		/// </summary>
-		/// <param name="id">Identifier.</param>
-		void Delete(int id);
 
 		/// <summary>
 		/// Modify the specified entity.
