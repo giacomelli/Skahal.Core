@@ -13,7 +13,7 @@ namespace Skahal.Infrastructure.Unity.Logging
 	/// </summary>
 	public sealed class ReleaseLogStrategy : LogStrategyBase
 	{			
-		#region ISHLogStrategy implementation
+		#region ILogServiceStrategy implementation
 		/// <summary>
 		/// Writes the debug log level message.
 		/// </summary>

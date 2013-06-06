@@ -68,6 +68,7 @@
     <Compile Include="Logging\LogStrategyBaseTest.cs" />
     <Compile Include="Logging\Stubs\LogStrategyStub.cs" />
     <Compile Include="Repositories\MemoryRepositoryTest.cs" />
+    <Compile Include="Commons\AppServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

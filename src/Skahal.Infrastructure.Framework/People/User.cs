@@ -53,6 +53,25 @@ namespace Skahal.Infrastructure.Framework.People
 		} 
 
 		/// <summary>
+		/// Gets a preference by name.
+		/// </summary>
+		/// <returns>The preference by name.</returns>
+		/// <param name="name">Name.</param>
+		/// <param name="defaultValue">A default value in the case the preference does not exists.</param> 
+		public UserPreference GetPreference(string name, object defaultValue)
+		{
+			var preference = GetPreference (name);
+
+			if (preference == null) {
+				preference = new UserPreference ();
+				preference.Name = name;
+				preference.Value = defaultValue;
+			}
+
+			return preference;
+		} 
+
+		/// <summary>
 		/// Determines whether this instance has preference with the specified name.
 		/// </summary>
 		/// <returns><c>true</c> if this instance has preference with the specified name; otherwise, <c>false</c>.</returns>

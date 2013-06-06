@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Skahal.Infrastructure.Framework.Logging;
+using Skahal.Infrastructure.Framework.Repositories;
 
 namespace Skahal.Infrastructure.Framework.People
 {
@@ -11,6 +12,7 @@ namespace Skahal.Infrastructure.Framework.People
 	{
 		#region Fields
 		private static IUserRepository s_repository;
+		private static IUnitOfWork s_unitOfWork;
 		private static User s_currentUser;
 		#endregion
 
@@ -21,7 +23,9 @@ namespace Skahal.Infrastructure.Framework.People
 		/// <param name="userRepository">User repository.</param>
 		public static void Initialize (IUserRepository userRepository)
 		{
+			s_unitOfWork = new UnitOfWork ();
 			s_repository = userRepository;
+			s_repository.SetUnitOfWork (s_unitOfWork);
 		}
 
 	 	/// <summary>
@@ -41,7 +45,8 @@ namespace Skahal.Infrastructure.Framework.People
 					s_currentUser = new User();
 					s_currentUser.Id = 1;
 					s_currentUser.Name = "Default user";
-					s_repository.Create(s_currentUser);
+					s_repository.Add(s_currentUser);
+					s_unitOfWork.Commit ();
 				}
 				else {
 					LogService.Debug("GetCurrentUser: first user found on repository: {0}-{1}.", s_currentUser.Id, s_currentUser.Name);
@@ -64,13 +69,55 @@ namespace Skahal.Infrastructure.Framework.People
 			if(oldUser == null)
 			{
 				LogService.Debug("SaveCurrentUser: creating the current user: {0}-{1}", user.Id, user.Name);
-				s_repository.Create(user);
+				s_repository.Add(user);
 			}
 			else 
 			{
 				LogService.Debug("SaveCurrentUser: updating the current user: {0}-{1}", user.Id, user.Name);
-				s_repository.Modify(user);
+				s_repository[user.Id] = user;
 			}
+
+			s_unitOfWork.Commit ();
+		}
+
+		/// <summary>
+		/// Determines if the current user has the preference.
+		/// </summary>
+		/// <param name="name">Name.</param>
+		public static bool HasPreference(string name)
+		{
+			return GetCurrentUser ().HasPreference (name);
+		}
+
+		/// <summary>
+		/// Sets the preference for current user.
+		/// </summary>
+		/// <param name="name">Name.</param>
+		/// <param name="value">Value.</param>
+		public static bool SetPreference(string name, object value)
+		{
+			return GetCurrentUser().SetPreference(name, value);
+		}
+
+		/// <summary>
+		/// Gets the preference for current user.
+		/// </summary>
+		/// <returns>The preference.</returns>
+		/// <param name="name">Name.</param>
+		public static UserPreference GetPreference(string name)
+		{
+			return GetCurrentUser().GetPreference(name);
+		}
+
+		/// <summary>
+		/// Gets the preference for current user.
+		/// </summary>
+		/// <returns>The preference.</returns>
+		/// <param name="name">Name.</param>
+		/// <param name="defaultValue">A default value in the case the preference does not exists.</param> 
+		public static UserPreference GetPreference(string name, object defaultValue)
+		{
+			return GetCurrentUser().GetPreference(name, defaultValue);
 		}
 		#endregion
 	}

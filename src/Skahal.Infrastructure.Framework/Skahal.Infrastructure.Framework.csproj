@@ -33,6 +33,7 @@
     <Reference Include="HelperSharp">
       <HintPath>..\packages\HelperSharp.0.0.2.7\lib\net35\HelperSharp.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,7 +53,6 @@
     <Compile Include="Domain\IEntity.cs" />
     <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\EntityBase.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Pooling\PoolService.cs" />
     <Compile Include="Pooling\IPool.cs" />
     <Compile Include="Pooling\PoolBase.cs" />
@@ -67,6 +67,51 @@
     <Compile Include="Net\Messaging\ConnectedEventArgs.cs" />
     <Compile Include="Logging\FiltrableLogStrategy.cs" />
     <Compile Include="Repositories\MemoryRepository.cs" />
+    <Compile Include="Net\IPostSubmitter.cs" />
+    <Compile Include="IO\IOfxTransaction.cs" />
+    <Compile Include="IO\OfxTransaction.cs" />
+    <Compile Include="IO\OfxWriter.cs" />
+    <Compile Include="SocialGamingNetwork\AchievementUnlockedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\AchievementUpdatedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\AchievementUpdatingEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\AchievementUpdatingFailedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\AchievementsRefreshedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\ActivityOpponentsRefreshedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNAchievementManager.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNFactory.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNLeaderboardManager.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNMultiplayerManager.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNPlayerManager.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNUIManager.cs" />
+    <Compile Include="SocialGamingNetwork\ISGNVoiceChatManager.cs" />
+    <Compile Include="SocialGamingNetwork\InviteReceivedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\LeaderboardUpdatedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\LeaderboardUpdatingEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\LeaderboardUpdatingFailedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\OpponentConnectedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\OpponentDisconnectedEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\PlayerLoggedInEventArgs.cs" />
+    <Compile Include="SocialGamingNetwork\SGN.cs" />
+    <Compile Include="SocialGamingNetwork\SGNAchievement.cs" />
+    <Compile Include="SocialGamingNetwork\SGNLeaderboard.cs" />
+    <Compile Include="SocialGamingNetwork\SGNPlayer.cs" />
+    <Compile Include="SocialGamingNetwork\SGNReliableDataManager.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNAchievementManager.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNFactory.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNLeaderboardManager.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNMultiplayerManager.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNPlayerManager.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNUIManager.cs" />
+    <Compile Include="SocialGamingNetwork\Local\SHLocalSGNVoiceChatManager.cs" />
+    <Compile Include="Commons\AppService.cs" />
+    <Compile Include="Commons\IAppStrategy.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Repositories\IUnitOfWorkRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Commons\IProgressIndicator.cs" />
+    <Compile Include="Commons\ProgressIndicator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -79,8 +124,11 @@
     <Folder Include="Pooling\" />
     <Folder Include="Globalization\" />
     <Folder Include="People\" />
+    <Folder Include="IO\" />
+    <Folder Include="SocialGamingNetwork\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SocialGamingNetwork\SGNManagerPrefab.prefab" />
   </ItemGroup>
 </Project>

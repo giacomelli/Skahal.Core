@@ -3,8 +3,6 @@ using System;
 using Skahal.Infrastructure.Framework.Logging;
 using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.People;
-
-
 #endregion
 
 namespace Skahal.Infrastructure.Framework.Configuration
@@ -30,6 +28,12 @@ namespace Skahal.Infrastructure.Framework.Configuration
 		/// </summary>
 		/// <value>The user repository.</value>
 		public IUserRepository UserRepository { get; protected set; }
+
+		/// <summary>
+		/// Gets or sets the app strategy.
+		/// </summary>
+		/// <value>The app strategy.</value>
+		public IAppStrategy AppStrategy { get; protected set; }
 		#endregion
 
 		#region Methods
@@ -49,19 +53,9 @@ namespace Skahal.Infrastructure.Framework.Configuration
 
 				FillSetupProperties();
 
-				if (LogStrategy == null) {
-					LogService.Warning ("LogStrategy not defined on bootstrapper.");
-				} else {
-					LogService.Debug ("'{0}' as LogStrategy.", LogStrategy.GetType ().Name);
-					LogService.Initialize (LogStrategy);
-				}
-
-				if (UserRepository == null) {
-					LogService.Warning ("UserRepository not defined on bootstrapper.");
-				} else {
-					LogService.Debug ("'{0}' as UserRepository.", UserRepository.GetType ().Name);
-					UserService.Initialize (UserRepository);
-				}
+				InitializeService ("LogStrategy", LogStrategy, LogService.Initialize);
+				InitializeService ("UserRepository", UserRepository, UserService.Initialize);
+				InitializeService ("AppStrategy", AppStrategy, AppService.Initialize);
 
 				s_alreadyBooted = true;
 				LogService.Debug("Bootstrapper '{0}' setup done.", GetType().Name);
@@ -70,6 +64,16 @@ namespace Skahal.Infrastructure.Framework.Configuration
 			}
 
 			return false;
+		}
+
+		private static void InitializeService<TInitializeArg>(string initializeArgName, TInitializeArg initializeArg, Action<TInitializeArg> initializeAction)
+		{
+			if (initializeArg == null) {
+				LogService.Warning ("{0} not defined on bootstrapper.", initializeArgName);
+			} else {
+				LogService.Debug ("'{0}' as {1}.", initializeArg.GetType ().Name, initializeArgName);
+				initializeAction (initializeArg);
+			}
 		}
 		#endregion
 	}

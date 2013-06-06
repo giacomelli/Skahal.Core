@@ -35,6 +35,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\Services\ServiceMethodBase.cs" />
     <Compile Include="Web\Services\ServiceMethodContextBase.cs" />
+    <Compile Include="Net\PostSubmitter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Skahal.Infrastructure.Framework\Skahal.Infrastructure.Framework.csproj">
+      <Project>{E9AFC17C-D3D2-4D37-9FBC-64518DCFCF28}</Project>
+      <Name>Skahal.Infrastructure.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Net\" />
+  </ItemGroup>
 </Project>

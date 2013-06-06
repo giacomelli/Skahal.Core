@@ -32,7 +32,7 @@ namespace Skahal.Infrastructure.Unity.Logging
 		}
 		#endregion
 
-		#region ISHLogStrategy implementation
+		#region ILogServiceStrategy implementation
 		/// <summary>
 		/// Writes the debug log level message.   
 		/// </summary>
