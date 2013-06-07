@@ -9,7 +9,7 @@
 		/// <summary>
 		/// Gets the id.
 		/// </summary>
-		long Id { get; set; }
+		long Key { get; }
 		#endregion
 	}
 }

@@ -41,7 +41,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		
 			if(!Directory.Exists(m_repositoryFolder))
 			{
-				Directory.CreateDirectory(m_repositoryFolder);
+				Directory.AddDirectory(m_repositoryFolder);
 			}
 
 			m_serializer = new ProtobufSerializer ();
@@ -74,12 +74,12 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		}
 		
 		/// <summary>
-		/// Create the specified entity.
+		/// Add the specified entity.
 		/// </summary>
 		/// <param name="entity">Entity.</param>
-		public virtual TEntity Create (TEntity entity)
+		public virtual TEntity Add (TEntity entity)
 		{
-			entity.Id = GetLastId () + 1;
+			entity.Key = GetLastId () + 1;
 			
 			Modify(entity);
 
@@ -92,7 +92,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		/// <param name="entity">Entity.</param>
 		public virtual void Delete(TEntity entity)
 		{
-			File.Delete(GetFileName(entity.Id));
+			File.Delete(GetFileName(entity.Key));
 		}
 		
 		/// <summary>
@@ -110,7 +110,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		/// <param name="entity">Entity.</param>
 		public virtual void Modify (TEntity entity)
 		{
-			using(var stream = File.OpenWrite (GetFileName(entity.Id)))
+			using(var stream = File.OpenWrite (GetFileName(entity.Key)))
 			{
 				m_serializer.Serialize(stream, entity);
 			}

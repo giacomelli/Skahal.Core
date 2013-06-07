@@ -13,7 +13,8 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void FindAll_NullFilter_ArgumentNullException ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("filter"), () => {
 				target.FindAll (null);
@@ -23,22 +24,25 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void FindAll_Filter_EntitiesFiltered ()
 		{
-			var target = new MemoryRepository<User> ();
-			target.Create(new User() { Id = 1 } );
-			target.Create(new User() { Id = 2 } );
-			target.Create(new User() { Id = 3 } );
-			target.Create(new User() { Id = 4 } );
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			target.Add(new User() {} );
+			target.Add(new User() {} );
+			target.Add(new User() {} );
+			target.Add(new User() {} );
+			unitOfWork.Commit ();
 
-			var actual = target.FindAll (f => f.Id == 2).ToList();
+			var actual = target.FindAll (f => f.Key == 2).ToList();
 			Assert.AreEqual (1, actual.Count);
-			Assert.AreEqual (2, actual[0].Id);
+			Assert.AreEqual (2, actual[0].Key);
 		}
 
 		
 		[Test()]
 		public void CountAll_NullFilter_ArgumentNullException ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("filter"), () => {
 				target.CountAll (null);
@@ -48,48 +52,52 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void CountAll_Filter_EntitiesFiltered ()
 		{
-			var target = new MemoryRepository<User> ();
-			target.Create(new User() { Id = 1 } );
-			target.Create(new User() { Id = 2 } );
-			target.Create(new User() { Id = 3 } );
-			target.Create(new User() { Id = 4 } );
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			target.Add(new User() { } );
+			target.Add(new User() { } );
+			target.Add(new User() { } );
+			target.Add(new User() { } );
+			unitOfWork.Commit();
 
 			var actual = target.CountAll (f => true);
 			Assert.AreEqual (4, actual);
 		}
 
 		[Test()]
-		public void Create_NullEntity_ArgumentNullException ()
+		public void Add_NullEntity_ArgumentNullException ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			target.Add (null);
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("entity"), () => {
-				target.Create (null);
+				unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
-		public void Create_EntityAlreadyExists_Exception ()
+		public void Add_EntityAlreadyExists_Exception ()
 		{
 			var target = new MemoryRepository<User> ();
 
-			target.Create(new User() { Id = 1 } );
+			target.Add(new User() { Key = 1 } );
 
 			ExceptionAssert.IsThrowing (new InvalidOperationException("There is another entity with id '1'."), () => {
-				target.Create(new User() { Id = 1 } );
+				target.Add(new User() { Key = 1 } );
 			});
 		}
 
 		[Test()]
-		public void Create_Entity_Created ()
+		public void Add_Entity_Addd ()
 		{
 			var target = new MemoryRepository<User> ();
 
-			target.Create(new User() { Id = 0 } );
+			target.Add(new User() { Key = 0 } );
 			var actual = target.FindAll(f => true).ToList();
 
 			Assert.AreEqual (1, actual.Count);
-			Assert.AreEqual (1, actual[0].Id);
+			Assert.AreEqual (1, actual[0].Key);
 		}
 
 		[Test()]
@@ -106,7 +114,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		public void Delete_EntityWithIdDoesNotExists_ArgumentNullException ()
 		{
 			var target = new MemoryRepository<User> ();
-			var user = new User() { Id = 1 };
+			var user = new User() { Key = 1 };
 
 			ExceptionAssert.IsThrowing (
 				new InvalidOperationException ("There is no entity with id '1'."), 
@@ -119,8 +127,8 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		public void Delete_Entity_EntityDeleted ()
 		{
 			var target = new MemoryRepository<User> ();
-			var user = new User () { Id = 1 };
-			target.Create (user);
+			var user = new User () { Key = 1 };
+			target.Add (user);
 			target.Delete (user);
 
 			var actual = target.FindAll(f => true).ToList();
@@ -141,7 +149,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		public void Modify_EntityWithIdDoesNotExist_Exception ()
 		{
 			var target = new MemoryRepository<User> ();
-			var user = new User() { Id = 1 };
+			var user = new User() { Key = 1 };
 
 			ExceptionAssert.IsThrowing (
 			new InvalidOperationException ("There is no entity with id '1'."), 
@@ -154,17 +162,17 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		public void Modify_Entity_EntityModified ()
 		{
 			var target = new MemoryRepository<User> ();
-			var user = new User () { Id = 1 };
-			target.Create (user);
-			user = new User () { Id = 2 };
-			target.Create (user);
+			var user = new User () { Key = 1 };
+			target.Add (user);
+			user = new User () { Key = 2 };
+			target.Add (user);
 
-			var modifiedUser = new User() { Id = 2, Name = "new name" };
+			var modifiedUser = new User() { Key = 2, Name = "new name" };
 			target.Modify (modifiedUser);
 
 			var actual = target.FindAll(f => true).ToList();
 			Assert.AreEqual (2, actual.Count);
-			Assert.AreEqual (2, actual[1].Id);
+			Assert.AreEqual (2, actual[1].Key);
 			Assert.AreEqual ("new name", actual[1].Name);
 		}
 	}

@@ -43,13 +43,12 @@ namespace Skahal.Infrastructure.Framework.People
 				{
 					LogService.Debug("GetCurrentUser: there is no users on repository. Creating the first one and marking as current..");
 					s_currentUser = new User();
-					s_currentUser.Id = 1;
 					s_currentUser.Name = "Default user";
 					s_repository.Add(s_currentUser);
 					s_unitOfWork.Commit ();
 				}
 				else {
-					LogService.Debug("GetCurrentUser: first user found on repository: {0}-{1}.", s_currentUser.Id, s_currentUser.Name);
+					LogService.Debug("GetCurrentUser: first user found on repository: {0}-{1}.", s_currentUser.Key, s_currentUser.Name);
 				}
 			}
 
@@ -64,17 +63,17 @@ namespace Skahal.Infrastructure.Framework.People
 		{
 			s_currentUser = user;
 
-			var oldUser = s_repository.FindAll(u => u.Id == user.Id).FirstOrDefault();
+			var oldUser = s_repository.FindAll(u => u.Key == user.Key).FirstOrDefault();
 			
 			if(oldUser == null)
 			{
-				LogService.Debug("SaveCurrentUser: creating the current user: {0}-{1}", user.Id, user.Name);
+				LogService.Debug("SaveCurrentUser: creating the current user: {0}-{1}", user.Key, user.Name);
 				s_repository.Add(user);
 			}
 			else 
 			{
-				LogService.Debug("SaveCurrentUser: updating the current user: {0}-{1}", user.Id, user.Name);
-				s_repository[user.Id] = user;
+				LogService.Debug("SaveCurrentUser: updating the current user: {0}-{1}", user.Key, user.Name);
+				s_repository[user.Key] = user;
 			}
 
 			s_unitOfWork.Commit ();
@@ -110,6 +109,16 @@ namespace Skahal.Infrastructure.Framework.People
 		}
 
 		/// <summary>
+		/// Gets the preference value for current user.
+		/// </summary>
+		/// <returns>The preference value.</returns>
+		/// <param name="name">Name.</param>
+		public static TValue GetPreferenceValue<TValue>(string name)
+		{
+			return GetCurrentUser().GetPreferenceValue<TValue>(name);
+		}
+
+		/// <summary>
 		/// Gets the preference for current user.
 		/// </summary>
 		/// <returns>The preference.</returns>
@@ -118,6 +127,17 @@ namespace Skahal.Infrastructure.Framework.People
 		public static UserPreference GetPreference(string name, object defaultValue)
 		{
 			return GetCurrentUser().GetPreference(name, defaultValue);
+		}
+
+		/// <summary>
+		/// Gets the preference value for current user.
+		/// </summary>
+		/// <returns>The preference value.</returns>
+		/// <param name="name">Name.</param>
+		/// <param name="defaultValue">A default value in the case the preference does not exists.</param> 
+		public static TValue GetPreferenceValue<TValue>(string name, TValue defaultValue)
+		{
+			return GetCurrentUser().GetPreferenceValue<TValue>(name, defaultValue);
 		}
 		#endregion
 	}

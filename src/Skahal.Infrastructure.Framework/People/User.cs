@@ -15,7 +15,12 @@ namespace Skahal.Infrastructure.Framework.People
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.People.User"/> class.
 		/// </summary>
-		public User()
+		public User() : this(0)
+		{
+
+		}
+
+		public User(long key) : base(key)
 		{
 			Preferences = new List<UserPreference>();
 		}
@@ -53,6 +58,16 @@ namespace Skahal.Infrastructure.Framework.People
 		} 
 
 		/// <summary>
+		/// Gets a preference value by prefence name.
+		/// </summary>
+		/// <returns>The preference value.</returns>
+		/// <param name="name">Name.</param>
+		public TValue GetPreferenceValue<TValue>(string name)
+		{
+			return (TValue)GetPreference (name).Value;
+		}
+
+		/// <summary>
 		/// Gets a preference by name.
 		/// </summary>
 		/// <returns>The preference by name.</returns>
@@ -70,6 +85,17 @@ namespace Skahal.Infrastructure.Framework.People
 
 			return preference;
 		} 
+
+		/// <summary>
+		/// Gets a preference value by preference name.
+		/// </summary>
+		/// <returns>The preference value.</returns>
+		/// <param name="name">Name.</param>
+		/// <param name="defaultValue">A default value in the case the preference does not exists.</param> 
+		public TValue GetPreferenceValue<TValue>(string name, TValue defaultValue)
+		{
+			return (TValue)GetPreferenceValue (name, defaultValue);
+		}
 
 		/// <summary>
 		/// Determines whether this instance has preference with the specified name.
