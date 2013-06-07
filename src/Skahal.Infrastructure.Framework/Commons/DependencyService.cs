@@ -22,24 +22,24 @@ namespace Skahal.Infrastructure.Framework.Commons
 		/// <summary>
 		/// Register the specified type implementation.
 		/// </summary>
-		/// <param name="AddImplementation">Add implementation.</param>
+		/// <param name="CreateImplementation">Create implementation.</param>
 		/// <typeparam name="TType">The 1st type parameter.</typeparam>
 		[SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-		public static void Register<TType>(Func<object> AddImplementation)
+		public static void Register<TType>(Func<object> CreateImplementation)
 		{
 			s_mapping [typeof(TType)] = (arg) => {
-				return AddImplementation (); };
+				return CreateImplementation (); };
 		}
 
 		/// <summary>
 		/// Register the specified type implementation.
 		/// </summary>
-		/// <param name="AddImplementation">Add implementation.</param>
+		/// <param name="CreateImplementation">Create implementation.</param>
 		/// <typeparam name="TType">The 1st type parameter.</typeparam>
 		[SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-		public static void Register<TType>(Func<object, object> AddImplementation)
+		public static void Register<TType>(Func<object, object> CreateImplementation)
 		{
-			s_mapping[typeof(TType)] = AddImplementation;
+			s_mapping[typeof(TType)] = CreateImplementation;
 		}
 
 	
@@ -55,12 +55,12 @@ namespace Skahal.Infrastructure.Framework.Commons
 		}
 
 		/// <summary>
-		/// Add this instance for type specified.
+		/// Create this instance for type specified.
 		/// </summary>
 		/// <param name="constructorArgument">The argument for constructor.M</param>
 		/// <typeparam name="TType">The 1st type parameter.</typeparam>
 		[SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-		public static TType Add<TType> (object constructorAgument = null)
+		public static TType Create<TType> (object constructorAgument = null)
 		{
 			var type = typeof(TType);
 

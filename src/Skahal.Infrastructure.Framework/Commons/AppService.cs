@@ -42,6 +42,23 @@ namespace Skahal.Infrastructure.Framework.Commons
 		public static void Initialize(IAppStrategy strategy)
 		{
 			ExceptionHelper.ThrowIfNull ("strategy", strategy);
+			s_strategy = strategy;
+
+			s_strategy.BackgroundBegin += delegate {
+				BackgroundBegin.Raise (typeof(AppService));
+			};
+
+			s_strategy.Exited += delegate {
+				Exited.Raise (typeof(AppService));
+			};
+
+			s_strategy.ForegroundBegin += delegate {
+				ForegroundBegin.Raise (typeof(AppService));
+			};
+
+			s_strategy.Started += delegate {
+				Started.Raise (typeof(AppService));
+			};
 		}
 		#endregion
 	}

@@ -22,6 +22,13 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository`1"/> class.
 		/// </summary>
+		public MemoryRepository()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository`1"/> class.
+		/// </summary>
 		/// <param name="unitOfWork">Unit of work.</param>
 		public MemoryRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
 		{

@@ -9,37 +9,37 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Commons
 	public class DependencyServiceTest
 	{
 		[Test()]
-		public void Register_TypeByFunction_AddInstance ()
+		public void Register_TypeByFunction_CreateInstance ()
 		{
 			DependencyService.Register<int>(() => { return 1; });
-			var actual = DependencyService.Add<int>();
+			var actual = DependencyService.Create<int>();
 
 			Assert.AreEqual(1, actual);
 		}
 
 		[Test()]
-		public void Register_TypeByFunctionWithArgument_AddInstance ()
+		public void Register_TypeByFunctionWithArgument_CreateInstance ()
 		{
 			DependencyService.Register<string>((chars) => { return new String((char[])chars); });
-			var actual = DependencyService.Add<string>(new char[] { 't', 'e', 's', 't', 'e' });
+			var actual = DependencyService.Create<string>(new char[] { 't', 'e', 's', 't', 'e' });
 
 			Assert.AreEqual("teste", actual);
 		}
 
 		[Test()]
-		public void Register_TypeByInstance_AddInstance ()
+		public void Register_TypeByInstance_CreateInstance ()
 		{
 			DependencyService.Register<int>(2);
-			var actual = DependencyService.Add<int>();
+			var actual = DependencyService.Create<int>();
 			
 			Assert.AreEqual(2, actual);
 		}
 
 		[Test()]
-		public void Add_TypeNotRegistered_Exception ()
+		public void Create_TypeNotRegistered_Exception ()
 		{
 			ExceptionAssert.IsThrowing(typeof(ArgumentException), () => { 
-				DependencyService.Add<string>();
+				DependencyService.Create<string>();
 			});
 
 		}

@@ -79,21 +79,24 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Add_EntityAlreadyExists_Exception ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
 
-			target.Add(new User() { Key = 1 } );
+			target.Add(new User() { } );
+			target.Add(new User() { } );
 
 			ExceptionAssert.IsThrowing (new InvalidOperationException("There is another entity with id '1'."), () => {
-				target.Add(new User() { Key = 1 } );
+				unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
 		public void Add_Entity_Addd ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
 
-			target.Add(new User() { Key = 0 } );
+			target.Add(new User() { } );
 			var actual = target.FindAll(f => true).ToList();
 
 			Assert.AreEqual (1, actual.Count);
@@ -103,33 +106,39 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Delete_NullEntity_ArgumentNullException ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			target.Remove(null);
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("entity"), () => {
-				target.Delete(null);
+				unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
 		public void Delete_EntityWithIdDoesNotExists_ArgumentNullException ()
 		{
-			var target = new MemoryRepository<User> ();
-			var user = new User() { Key = 1 };
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			var user = new User() { };
+			target.Remove(user);
 
 			ExceptionAssert.IsThrowing (
 				new InvalidOperationException ("There is no entity with id '1'."), 
 				() => { 
-				target.Delete(user);
+				unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
 		public void Delete_Entity_EntityDeleted ()
 		{
-			var target = new MemoryRepository<User> ();
-			var user = new User () { Key = 1 };
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			var user = new User () { };
 			target.Add (user);
-			target.Delete (user);
+			target.Remove (user);
+			unitOfWork.Commit();
 
 			var actual = target.FindAll(f => true).ToList();
 			Assert.AreEqual (0, actual.Count);
@@ -138,37 +147,45 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Modify_NullEntity_ArgumentNullException ()
 		{
-			var target = new MemoryRepository<User> ();
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			//target.Modify(null);
+
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("entity"), () => {
-				target.Modify(null);
+				unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
 		public void Modify_EntityWithIdDoesNotExist_Exception ()
 		{
-			var target = new MemoryRepository<User> ();
-			var user = new User() { Key = 1 };
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			var user = new User() { };
+			target[user.Key] = user;
 
 			ExceptionAssert.IsThrowing (
 			new InvalidOperationException ("There is no entity with id '1'."), 
 			() => { 
-				target.Modify(user);
+				unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
 		public void Modify_Entity_EntityModified ()
 		{
-			var target = new MemoryRepository<User> ();
-			var user = new User () { Key = 1 };
+			var unitOfWork = new UnitOfWork ();
+			var target = new MemoryRepository<User> (unitOfWork);
+			var user = new User () { };
 			target.Add (user);
-			user = new User () { Key = 2 };
+			user = new User () {  };
 			target.Add (user);
 
-			var modifiedUser = new User() { Key = 2, Name = "new name" };
-			target.Modify (modifiedUser);
+			var modifiedUser = new User() { Name = "new name" };
+			target[user.Key] = modifiedUser;
+
+			unitOfWork.Commit();
 
 			var actual = target.FindAll(f => true).ToList();
 			Assert.AreEqual (2, actual.Count);
