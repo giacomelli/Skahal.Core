@@ -13,7 +13,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		{
 			var strategy = MockRepository.GenerateMock<IAppStrategy> ();
 			AppService.Initialize (strategy);
-			strategy.Raise (a => a.Started, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.Started += null, strategy, EventArgs.Empty);
 		}
 
 		[Test()]
@@ -26,7 +26,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Started += delegate {
 				raised = true;
 			};
-			strategy.Raise (a => a.Started, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.Started += null, strategy, EventArgs.Empty);
 			Assert.IsTrue (raised);
 		}
 
@@ -35,7 +35,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		{
 			var strategy = MockRepository.GenerateMock<IAppStrategy> ();
 			AppService.Initialize (strategy);
-			strategy.Raise (a => a.BackgroundBegin, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.BackgroundBegin += null, strategy, EventArgs.Empty);
 		}
 
 		[Test()]
@@ -48,7 +48,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Started += delegate {
 				raised = true;
 			};
-			strategy.Raise (a => a.BackgroundBegin, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.BackgroundBegin += null, strategy, EventArgs.Empty);
 			Assert.IsTrue (raised);
 		}
 
@@ -57,7 +57,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		{
 			var strategy = MockRepository.GenerateMock<IAppStrategy> ();
 			AppService.Initialize (strategy);
-			strategy.Raise (a => a.ForegroundBegin, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.ForegroundBegin += null, strategy, EventArgs.Empty);
 		}
 
 		[Test()]
@@ -70,7 +70,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Started += delegate {
 				raised = true;
 			};
-			strategy.Raise (a => a.ForegroundBegin, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.ForegroundBegin += null, strategy, EventArgs.Empty);
 			Assert.IsTrue (raised);
 		}
 
@@ -79,7 +79,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		{
 			var strategy = MockRepository.GenerateMock<IAppStrategy> ();
 			AppService.Initialize (strategy);
-			strategy.Raise (a => a.Exited, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.Exited += null, strategy, EventArgs.Empty);
 		}
 
 		[Test()]
@@ -92,7 +92,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Started += delegate {
 				raised = true;
 			};
-			strategy.Raise (a => a.Exited, strategy, EventArgs.Empty);
+			strategy.Raise (a => a.Exited += null, strategy, EventArgs.Empty);
 			Assert.IsTrue (raised);
 		}
 	}

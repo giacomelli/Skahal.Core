@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">OSX</Configuration>
@@ -19,8 +19,7 @@
     <GenerateDocumentation>true</GenerateDocumentation>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG</DefineConstants>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'iOS|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -114,19 +113,7 @@
     <Compile Include="Commons\ProgressIndicator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Net\" />
-    <Folder Include="Commons\" />
-    <Folder Include="Logging\" />
-    <Folder Include="Configuration\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Pooling\" />
-    <Folder Include="Globalization\" />
-    <Folder Include="People\" />
-    <Folder Include="IO\" />
-    <Folder Include="SocialGamingNetwork\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="SocialGamingNetwork\SGNManagerPrefab.prefab" />

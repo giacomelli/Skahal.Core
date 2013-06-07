@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">OSX</Configuration>
@@ -37,6 +37,9 @@
     </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Skahal.Infrastructure.Framework.ProtobufSerializer">
+      <HintPath>..\References\Skahal.Infrastructure.Framework.ProtobufSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\References\UnityEngine.dll</HintPath>
     </Reference>
@@ -47,9 +50,6 @@
     <Reference Include="System.Core" />
     <Reference Include="protobuf-net">
       <HintPath>..\References\protobuf-net\CoreOnly\ios\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="Skahal.Infrastructure.Framework.ProtobufSerializer">
-      <HintPath>..\References\Skahal.Infrastructure.Framework.ProtobufSerializer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -107,23 +107,7 @@
     <Compile Include="Loggging\LogHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Commons\" />
-    <Folder Include="Loggging\" />
-    <Folder Include="Threading\" />
-    <Folder Include="Net\" />
-    <Folder Include="Net\Messaging\Bluetooth\" />
-    <Folder Include="Net\Messaging\GlobalServer\" />
-    <Folder Include="Configuration\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Serialization\" />
-    <Folder Include="Pooling\" />
-    <Folder Include="Hud\" />
-    <Folder Include="Globalization\" />
-    <Folder Include="Drawing\" />
-    <Folder Include="Drawing\Tweening\" />
-    <Folder Include="People\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Skahal.Domain\Skahal.Domain.csproj">
       <Project>{7FE3BA3E-4899-4889-9014-61E49E52B705}</Project>

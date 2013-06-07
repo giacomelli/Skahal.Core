@@ -16,7 +16,7 @@ namespace Skahal.Tools.ProtobufCompiledSerializerGen
 			Console.WriteLine ("USER");
 			model.Add(typeof(User), true).Add("Id", "Name", "RemoteId");
 			model.Compile("ProtobufSerializer", "Skahal.Infrastructure.Framework.ProtobufSerializer.dll");
-			File.Copy ("Skahal.Infrastructure.Framework.ProtobufSerializer.dll", "../../../References/Skahal.Infrastructure.Framework.ProtobufSerializer.dll", true);
+			File.Copy ("Skahal.Infrastructure.Framework.ProtobufSerializer.dll", @"..\..\..\References\Skahal.Infrastructure.Framework.ProtobufSerializer.dll", true);
 
 			Console.WriteLine ("</GENERATING COMPILED PROTOBUF SERIALIZERS>");
 		}

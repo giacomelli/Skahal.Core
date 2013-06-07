@@ -57,7 +57,11 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork.Local
 		/// </exception>
 		public void UpdateAchievement (SGNAchievement achievement)
 		{
-			throw new NotImplementedException ();
+			AchievementUpdated.Raise (this, new AchievementUpdatedEventArgs (achievement));
+
+			if (achievement.Percent == 1) {
+			
+			}
 		}
 		
 		/// <summary>
@@ -68,7 +72,6 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork.Local
 		/// </exception>
 		public void ResetAchievements ()
 		{
-			throw new NotImplementedException ();
 		}
 		
 		/// <summary>
@@ -79,7 +82,7 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork.Local
 		/// </exception>
 		public void RefreshAchievements()
 		{
-			throw new NotImplementedException();
+			AchievementsRefreshed.Raise (this, new AchievementsRefreshedEventArgs (new SGNAchievement[0]));
 		}
 		#endregion
 	}
