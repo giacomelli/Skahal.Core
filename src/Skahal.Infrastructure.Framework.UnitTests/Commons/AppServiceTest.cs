@@ -2,12 +2,21 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Skahal.Infrastructure.Framework.Commons;
+using TestSharp;
 
 namespace Skahal.Infrastructure.Framework.UnitTests
 {
 	[TestFixture()]
 	public class AppServiceTest
 	{
+		[Test()]
+		public void Initialize_NullStrategy_Exception ()
+		{
+			ExceptionAssert.IsThrowing (new ArgumentNullException("strategy"), () => {
+				AppService.Initialize (null);
+			});
+		}
+
 		[Test()]
 		public void Started_NoListener_NoEventTriggered ()
 		{
@@ -45,7 +54,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Initialize (strategy);
 
 			var raised = false;
-			AppService.Started += delegate {
+			AppService.BackgroundBegin += delegate {
 				raised = true;
 			};
 			strategy.Raise (a => a.BackgroundBegin += null, strategy, EventArgs.Empty);
@@ -67,7 +76,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Initialize (strategy);
 
 			var raised = false;
-			AppService.Started += delegate {
+			AppService.ForegroundBegin += delegate {
 				raised = true;
 			};
 			strategy.Raise (a => a.ForegroundBegin += null, strategy, EventArgs.Empty);
@@ -89,7 +98,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 			AppService.Initialize (strategy);
 
 			var raised = false;
-			AppService.Started += delegate {
+			AppService.Exited += delegate {
 				raised = true;
 			};
 			strategy.Raise (a => a.Exited += null, strategy, EventArgs.Empty);

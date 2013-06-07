@@ -12,7 +12,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         #region Fields
-		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_addedEntities;
+		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_AddedEntities;
 		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_changedEntities;
 		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_deletedEntities;
         #endregion
@@ -20,7 +20,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
         #region Constructors
         public UnitOfWork()
         {
-			m_addedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
+			m_AddedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
 			m_changedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
 			m_deletedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
         }
@@ -29,9 +29,9 @@ namespace Skahal.Infrastructure.Framework.Repositories
         #region Methods
 		public void RegisterAdded(IAggregateRoot entity, IUnitOfWorkRepository repository)
         {
-			if(!m_addedEntities.ContainsKey(entity))
+			if(!m_AddedEntities.ContainsKey(entity))
 			{
-           		m_addedEntities.Add(entity, repository);
+           		m_AddedEntities.Add(entity, repository);
 			}
         }
 
@@ -58,9 +58,9 @@ namespace Skahal.Infrastructure.Framework.Repositories
                 m_deletedEntities[entity].PersistDeletedItem(entity);
             }
 
-            foreach (var entity in m_addedEntities.Keys)
+            foreach (var entity in m_AddedEntities.Keys)
             {
-                m_addedEntities[entity].PersistNewItem(entity);
+                m_AddedEntities[entity].PersistNewItem(entity);
             }
 
             foreach (var entity in m_changedEntities.Keys)
@@ -69,7 +69,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
             }
 		
 			m_deletedEntities.Clear();
-			m_addedEntities.Clear();
+			m_AddedEntities.Clear();
 			m_changedEntities.Clear();
         }
         #endregion

@@ -16,10 +16,16 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	{
 		#region Fields
 		private List<TEntity> m_entities = new List<TEntity> ();
-		private int m_nextId = 1;
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository`1"/> class.
+		/// </summary>
+		public MemoryRepository()
+		{
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository`1"/> class.
 		/// </summary>
@@ -33,7 +39,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 
 		public override TEntity FindBy (long id)
 		{
-			return FindAll (e => e.Id == id).FirstOrDefault();
+			return FindAll (e => e.Key == id).FirstOrDefault();
 		}
 
 		public override IEnumerable<TEntity> FindAll (int offset, int limit, Func<TEntity, bool> filter)
@@ -42,7 +48,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 
 			return m_entities
 				.Where (e => filter(e))
-				.OrderBy(e => e.Id)
+				.OrderBy(e => e.Key)
 				.Skip(offset).Take(limit);
 		}
 
@@ -56,12 +62,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-			if (m_entities.FirstOrDefault (e => e.Id == item.Id) != null) {
-				throw new InvalidOperationException ("There is another entity with id '{0}'.".With(item.Id));
-			}
-
-			if (item.Id == 0) {
-				item.Id = m_nextId++;
+			if (m_entities.FirstOrDefault (e => e.Key == item.Key) != null) {
+				throw new InvalidOperationException ("There is another entity with id '{0}'.".With(item.Key));
 			}
 
 			m_entities.Add (item);
@@ -79,10 +81,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-			var old = m_entities.FirstOrDefault (e => e.Id == item.Id);
+			var old = m_entities.FirstOrDefault (e => e.Key == item.Key);
 
 			if (old == null) {
-				throw new InvalidOperationException ("There is no entity with id '{0}'.".With(item.Id));
+				throw new InvalidOperationException ("There is no entity with id '{0}'.".With(item.Key));
 			}
 
 			m_entities.Remove (old);
@@ -118,10 +120,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
 //
 //
 //		/// <summary>
-//		/// Create the specified entity.
+//		/// Add the specified entity.
 //		/// </summary>
 //		/// <param name="entity">Entity.</param>
-//		public TEntity Create (TEntity entity)
+//		public TEntity Add (TEntity entity)
 //		{
 //			ExceptionHelper.ThrowIfNull ("entity", entity);
 //
@@ -164,7 +166,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 //			ExceptionHelper.ThrowIfNull ("entity", entity);
 //	
 //			Delete (entity);
-//			Create (entity);
+//			Add (entity);
 //		}
 //
 //		#endregion

@@ -38,15 +38,15 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		}
 
 		/// <summary>
-		/// Create the specified entity.
+		/// Add the specified entity.
 		/// </summary>
 		/// <param name="entity">Entity.</param>
-		public virtual TEntity Create (TEntity entity)
+		public virtual TEntity Add (TEntity entity)
 		{
-			entity.Id = GetLastId () + 1;
+			entity.Key = GetLastId () + 1;
 			
 			Modify(entity);
-			SetLastId (entity.Id);
+			SetLastId (entity.Key);
 			
 			return entity;
 		}
@@ -57,7 +57,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		/// <param name="entity">Entity.</param>
 		public virtual void Delete(TEntity entity)
 		{
-			PlayerPrefs.DeleteKey(GetKey(entity.Id));
+			PlayerPrefs.DeleteKey(GetKey(entity.Key));
 		}
 
 		/// <summary>
@@ -76,7 +76,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		public virtual void Modify (TEntity entity)
 		{
 			var serialized = SerializationHelper.SerializeToString (entity);
-			var key = GetKey (entity.Id);
+			var key = GetKey (entity.Key);
 			PlayerPrefs.SetString (key, serialized);
 		}
 		#endregion	

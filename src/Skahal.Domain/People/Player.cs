@@ -23,9 +23,8 @@ namespace Skahal.Domain.People
 		/// Initializes a new instance of the <see cref="Skahal.Domain.People.Player"/> class.
 		/// </summary>
 		/// <param name="user">User.</param>
-		public Player(User user) : this()
+		public Player(User user) : base(user.Key)
 		{
-			Id = user.Id;
 			RemoteId = user.RemoteId;
 			Name = user.Name;
 			Preferences = user.Preferences;

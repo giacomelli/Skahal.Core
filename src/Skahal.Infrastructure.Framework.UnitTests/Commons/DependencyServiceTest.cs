@@ -18,6 +18,15 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Commons
 		}
 
 		[Test()]
+		public void Register_TypeByFunctionWithArgument_CreateInstance ()
+		{
+			DependencyService.Register<string>((chars) => { return new String((char[])chars); });
+			var actual = DependencyService.Create<string>(new char[] { 't', 'e', 's', 't', 'e' });
+
+			Assert.AreEqual("teste", actual);
+		}
+
+		[Test()]
 		public void Register_TypeByInstance_CreateInstance ()
 		{
 			DependencyService.Register<int>(2);
