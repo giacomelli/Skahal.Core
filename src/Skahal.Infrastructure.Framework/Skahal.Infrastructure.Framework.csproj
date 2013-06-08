@@ -34,6 +34,9 @@
       <HintPath>..\packages\HelperSharp.0.0.2.7\lib\net35\HelperSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="Bing">
+      <HintPath>..\References\Bing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +120,13 @@
     <Compile Include="Domain\KeyGenerating\EntityKeyGenerator.cs" />
     <Compile Include="Domain\KeyGenerating\IEntityKeyGenerator.cs" />
     <Compile Include="Domain\KeyGenerating\MemoryEntityKeyGenerator.cs" />
+    <Compile Include="Text\BindableTextKey.cs" />
+    <Compile Include="Text\DynamicTextBuilder.cs" />
+    <Compile Include="Text\StringExtensions.cs" />
+    <Compile Include="Text\StringHelper.cs" />
+    <Compile Include="Text\Spelling\BingSpellingProvider.cs" />
+    <Compile Include="Text\Spelling\ISpellingProvider.cs" />
+    <Compile Include="Text\Spelling\SpellingService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -132,6 +142,7 @@
     <Folder Include="IO\" />
     <Folder Include="SocialGamingNetwork\" />
     <Folder Include="Domain\KeyGenerating\" />
+    <Folder Include="Text\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

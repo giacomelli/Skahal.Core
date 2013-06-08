@@ -3,9 +3,13 @@
 using System;
 using System.Collections.Generic;
 using Skahal.Infrastructure.Framework.Domain;
+using HelperSharp;
 
 namespace Skahal.Infrastructure.Framework.Repositories
 {
+	/// <summary>
+	/// A base class for repositories.
+	/// </summary>
 	public abstract class RepositoryBase<TEntity>
 		: IRepository<TEntity>, IUnitOfWorkRepository where TEntity : IAggregateRoot
     {
@@ -31,11 +35,11 @@ namespace Skahal.Infrastructure.Framework.Repositories
 
         #region IRepository<T> Members
 
-        public abstract TEntity FindBy(long id);
+        public abstract TEntity FindBy(long key);
 
 		public virtual IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
 		{
-			return FindAll(1, int.MaxValue, filter);
+			return FindAll(0, int.MaxValue, filter);
 		}
 		
 		public abstract IEnumerable<TEntity> FindAll(int offset, int limit, Func<TEntity, bool> filter);
@@ -49,6 +53,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
 
         public void Add(TEntity item)
         {
+			ExceptionHelper.ThrowIfNull ("item", item);
+
             if (m_unitOfWork != null)
             {
                 m_unitOfWork.RegisterAdded(item, this);
@@ -57,6 +63,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
 
         public void Remove(TEntity item)
         {
+			ExceptionHelper.ThrowIfNull ("item", item);
+
             if (m_unitOfWork != null)
             {
                 m_unitOfWork.RegisterRemoved(item, this);

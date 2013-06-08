@@ -14,7 +14,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 	/// <summary>
 	/// Protobuf repository base.
 	/// </summary>
-	public abstract class ProtobufRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+	public abstract class ProtobufRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class, IAggregateRoot
 	{
 		#region Fields
 		private string m_repositoryFolder;
@@ -41,7 +41,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		
 			if(!Directory.Exists(m_repositoryFolder))
 			{
-				Directory.AddDirectory(m_repositoryFolder);
+				Directory.CreateDirectory(m_repositoryFolder);
 			}
 
 			m_serializer = new ProtobufSerializer ();
@@ -55,7 +55,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		/// </summary>
 		/// <returns>The entities found.</returns>
 		/// <param name="filter">Filter.</param>
-		public IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
+		public override IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
 		{
 			var allIds = GetAllIds ();
 	
@@ -72,67 +72,46 @@ namespace Skahal.Infrastructure.Unity.Repositories
 				}		
 			}
 		}
-		
-		/// <summary>
-		/// Add the specified entity.
-		/// </summary>
-		/// <param name="entity">Entity.</param>
-		public virtual TEntity Add (TEntity entity)
+	
+		public override TEntity FindBy (long key)
 		{
-			entity.Key = GetLastId () + 1;
-			
-			Modify(entity);
+			return FindAll(f => f.Key == key).FirstOrDefault();
+		}
 
-			return entity;
-		}
-		
-		/// <summary>
-		/// Delete the specified entity.
-		/// </summary>
-		/// <param name="entity">Entity.</param>
-		public virtual void Delete(TEntity entity)
+		public override IEnumerable<TEntity> FindAll (int offset, int limit, Func<TEntity, bool> filter)
 		{
-			File.Delete(GetFileName(entity.Key));
+			return FindAll (filter).Skip (offset).Take (limit);
 		}
-		
-		/// <summary>
-		/// Delete the specified entity.
-		/// </summary>
-		/// <param name="id">Identifier.</param>
-		public virtual void Delete (int id)
-		{ 
-			File.Delete(GetFileName (id));
-		} 
-		
-		/// <summary>
-		/// Modify the specified entity.
-		/// </summary>
-		/// <param name="entity">Entity.</param>
-		public virtual void Modify (TEntity entity)
+
+		public override int CountAll (Func<TEntity, bool> filter)
 		{
-			using(var stream = File.OpenWrite (GetFileName(entity.Key)))
+			return FindAll (filter).Count ();
+		}
+
+		protected override void PersistNewItem (TEntity item)
+		{
+			using(var stream = File.OpenWrite (GetFileName(item.Key)))
 			{
-				m_serializer.Serialize(stream, entity);
+				m_serializer.Serialize(stream, item);
 			}
 		}
-		#endregion	
+
+		protected override void PersistUpdatedItem (TEntity item)
+		{
+			PersistNewItem (item);
+		}
+
+		protected override void PersistDeletedItem (TEntity item)
+		{
+			File.Delete(GetFileName (item.Key));
+		}
+
+		#endregion
 		
 		#region Fields
 		private string GetFileName (long id)
 		{
 			return Path.Combine(m_repositoryFolder, id + ".bin");
-		}
-		
-		private long GetLastId ()
-		{
-			long result = 0;
-			var ids = GetAllIds ();
-
-			if (ids.Length > 0) {
-				result = ids [ids.Length - 1];
-			}
-
-			return result;
 		}
 
 		private long[] GetAllIds()

@@ -14,14 +14,14 @@ namespace Skahal.Infrastructure.Unity.Repositories
 	/// <summary>
 	/// Player prefs repository base.
 	/// </summary>
-	public abstract class PlayerPrefsRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+	public abstract class PlayerPrefsRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class, IAggregateRoot
 	{
 		#region Methods
 		/// <summary>
 		/// Finds all entities that matches the filter.
 		/// </summary>
 		/// <returns>The entities found.</returns>
-		public IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
+		public override IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
 		{
 			var allIds = GetAllIds ();
 
@@ -37,71 +37,44 @@ namespace Skahal.Infrastructure.Unity.Repositories
 			}
 		}
 
-		/// <summary>
-		/// Add the specified entity.
-		/// </summary>
-		/// <param name="entity">Entity.</param>
-		public virtual TEntity Add (TEntity entity)
+		public override TEntity FindBy (long key)
 		{
-			entity.Key = GetLastId () + 1;
-			
-			Modify(entity);
-			SetLastId (entity.Key);
-			
-			return entity;
+			return FindAll(f => f.Key == key).FirstOrDefault();
 		}
 
-		/// <summary>
-		/// Delete the specified entity.
-		/// </summary>
-		/// <param name="entity">Entity.</param>
-		public virtual void Delete(TEntity entity)
+		public override IEnumerable<TEntity> FindAll (int offset, int limit, Func<TEntity, bool> filter)
 		{
-			PlayerPrefs.DeleteKey(GetKey(entity.Key));
+			return FindAll (filter).Skip (offset).Take (limit);
 		}
 
-		/// <summary>
-		/// Delete the specified entity.
-		/// </summary>
-		/// <param name="id">Identifier.</param>
-		public virtual void Delete (int id)
+		public override int CountAll (Func<TEntity, bool> filter)
 		{
-			PlayerPrefs.DeleteKey (GetKey (id));
+			return FindAll (filter).Count ();
 		}
 
-		/// <summary>
-		/// Modify the specified entity.
-		/// </summary>
-		/// <param name="entity">Entity.</param>
-		public virtual void Modify (TEntity entity)
+		protected override void PersistNewItem (TEntity item)
 		{
-			var serialized = SerializationHelper.SerializeToString (entity);
-			var key = GetKey (entity.Key);
+			var serialized = SerializationHelper.SerializeToString (item);
+			var key = GetKey (item.Key);
 			PlayerPrefs.SetString (key, serialized);
 		}
-		#endregion	
+
+		protected override void PersistUpdatedItem (TEntity item)
+		{
+			PersistNewItem (item);
+		}
+
+		protected override void PersistDeletedItem (TEntity item)
+		{
+			PlayerPrefs.DeleteKey(GetKey(item.Key));
+		}
+
+		#endregion
 		
 		#region Fields
 		private string GetKey (long id)
 		{
 			return String.Format ("PlayerPrefsRepository_{0}_{1}", typeof(TEntity).Name, id);
-		}
-		
-		private long GetLastId ()
-		{
-			var lastKey = PlayerPrefs.GetString (String.Format ("PlayerPrefsRepository_{0}__LastId", typeof(TEntity).Name), "0");
-			
-			return long.Parse (lastKey);
-		}
-		
-		private void SetLastId (long id)
-		{
-			PlayerPrefs.SetString (String.Format ("PlayerPrefsRepository_{0}__LastId", typeof(TEntity).Name), id.ToString ());
-			
-			if (id > 1) {
-				var currentIds = PlayerPrefs.GetString (GetAllIdsKey(), "");
-				PlayerPrefs.SetString (GetAllIdsKey(), currentIds + "," + id);
-			}
 		}
 		
 		private string GetAllIdsKey ()
