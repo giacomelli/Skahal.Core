@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 {
+	/// <summary>
+	/// An in-memory entity key generator.
+	/// </summary>
 	public class MemoryEntityKeyGenerator : IEntityKeyGenerator
 	{
 		#region Fields
@@ -17,6 +20,11 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		#endregion
 		
 		#region ISHKeyGenerator implementation
+		/// <summary>
+		/// Gets the next key for entity type specified.
+		/// </summary>
+		/// <returns>The key.</returns>
+		/// <param name="entityType">Entity type.</param>
 		public long NextKey(Type entityType)
 		{
 			lock(this)

@@ -3,6 +3,12 @@ using Skahal.Infrastructure.Framework;
 using Skahal.Infrastructure.Unity.Logging;
 using Skahal.Infrastructure.Unity.People;
 using Skahal.Infrastructure.Framework.Configuration;
+using Skahal.Infrastructure.Framework.Repositories;
+using Skahal.Infrastructure.Unity.Globalization;
+using Skahal.Infrastructure.Framework.Logging;
+using Skahal.Infrastructure.Framework.People;
+using Skahal.Infrastructure.Framework.Commons;
+using Skahal.Infrastructure.Framework.Globalization;
 
 namespace Skahal.Infrastructure.Unity.Configuration
 {
@@ -19,22 +25,48 @@ namespace Skahal.Infrastructure.Unity.Configuration
 		public bool IsDebug { get; set; }
 		#endregion
 
-		#region Methods
+		#region implemented abstract members of BootstrapperBase
 		/// <summary>
-		/// Fills the setup properties.
+		/// Creates the log strategy.
 		/// </summary>
-		protected override void FillSetupProperties ()
+		/// <returns>The log strategy.</returns>
+		protected override ILogStrategy CreateLogStrategy ()
 		{
 			if(IsDebug)
 			{
-				LogStrategy = new DebugLogStrategy();
+				return new DebugLogStrategy();
 			}
 			else 
 			{
-				LogStrategy = new ReleaseLogStrategy();
+				return new ReleaseLogStrategy();
 			}
+		}
 
-			UserRepository = new ProtobufUserRepository();
+		/// <summary>
+		/// Creates the user repository.
+		/// </summary>
+		/// <returns>The user repository.</returns>
+		protected override IUserRepository CreateUserRepository ()
+		{
+			return new ProtobufUserRepository();
+		}
+
+		/// <summary>
+		/// Creates the app strategy.
+		/// </summary>
+		/// <returns>The app strategy.</returns>
+		protected override IAppStrategy CreateAppStrategy ()
+		{
+			return null;
+		}
+
+		/// <summary>
+		/// Creates the globalization label repository.
+		/// </summary>
+		/// <returns>The globalization label repository.</returns>
+		protected override IGlobalizationLabelRepository CreateGlobalizationLabelRepository ()
+		{
+			return new GlobalizationLabelRepository (new MemoryUnitOfWork());
 		}
 		#endregion
 	}

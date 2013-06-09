@@ -30,13 +30,16 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 		#region Methods
 		
 		#region Life cycle
+		/// <summary>
+		/// Initialize this instance.
+		/// </summary>
 		public void Initialize()
 		{
 			m_pendingLeaderboardsUpdate = new List<SGNLeaderboard>();
 			m_pendingAchievementsUpdate = new List<SGNAchievement>();
 			
 			// Player.
-			SGN.PlayerManager.LoggedIn += delegate(object sender, PlayerLoggedInEventArgs e) 
+			SGNService.PlayerManager.LoggedIn += delegate(object sender, PlayerLoggedInEventArgs e) 
 			{
 				Log("User logged. Processing pending updates...");
 				RestorePendingUpdates();
@@ -45,33 +48,33 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 			};
 			
 			// Leaderboards.
-			SGN.LeaderboardManager.LeaderboardUpdating += delegate(object sender, LeaderboardUpdatingEventArgs e) 
+			SGNService.LeaderboardManager.LeaderboardUpdating += delegate(object sender, LeaderboardUpdatingEventArgs e) 
 			{
 				AddPendingLeaderboardUpdate(e.Leaderboard);
 			};
 			
-			SGN.LeaderboardManager.LeaderboardUpdatingFailed += delegate(object sender, LeaderboardUpdatingFailedEventArgs e) 
+			SGNService.LeaderboardManager.LeaderboardUpdatingFailed += delegate(object sender, LeaderboardUpdatingFailedEventArgs e) 
 			{
 				m_currentProcessingLeaderboard = null; 
 			};
 			
-			SGN.LeaderboardManager.LeaderboardUpdated += delegate(object sender, LeaderboardUpdatedEventArgs e) 
+			SGNService.LeaderboardManager.LeaderboardUpdated += delegate(object sender, LeaderboardUpdatedEventArgs e) 
 			{
 				RemovePendingLeaderboardUpdate(e.Leaderboard);
 			};
 			
 			// Achievements.
-			SGN.AchievementManager.AchievementUpdating += delegate(object sender, AchievementUpdatingEventArgs e) 
+			SGNService.AchievementManager.AchievementUpdating += delegate(object sender, AchievementUpdatingEventArgs e) 
 			{ 
 				AddPendingAchievementUpdate(e.Achievement); 
 			};
 			
-			SGN.AchievementManager.AchievementUpdatingFailed += delegate(object sender, AchievementUpdatingFailedEventArgs e) 
+			SGNService.AchievementManager.AchievementUpdatingFailed += delegate(object sender, AchievementUpdatingFailedEventArgs e) 
 			{
 				m_currentProcessingAchievement = null;
 			};
 			
-			SGN.AchievementManager.AchievementUpdated += delegate(object sender, AchievementUpdatedEventArgs e) 
+			SGNService.AchievementManager.AchievementUpdated += delegate(object sender, AchievementUpdatedEventArgs e) 
 			{
 				RemovePendingAchievementUpdate(e.Achievement);
 			};
@@ -86,12 +89,12 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 		#region Save/Restore pending upates
 		string GetLeaderboardsPlayerPrefsKey()
 		{
-			return "SGNReliableDataManager_Leaderborads_" + SGN.PlayerManager.Player.ID;
+			return "SGNReliableDataManager_Leaderborads_" + SGNService.PlayerManager.Player.ID;
 		}
 		
 		string GetAchievementsPlayerPrefsKey()
 		{
-			return "SGNReliableDataManager_Achievements" + SGN.PlayerManager.Player.ID;
+			return "SGNReliableDataManager_Achievements" + SGNService.PlayerManager.Player.ID;
 		}
 		
 		void SavePendingUpdates()
@@ -251,7 +254,7 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 					
 					Log("Updating pending leaderboard {0} update.", m_currentProcessingLeaderboard);
 					
-					SGN.LeaderboardManager.UpdateLeaderboard(m_currentProcessingLeaderboard);
+					SGNService.LeaderboardManager.UpdateLeaderboard(m_currentProcessingLeaderboard);
 				}
 			}
 		}
@@ -270,7 +273,7 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 					
 					Log("Updating pending achievement {0} update.", m_currentProcessingAchievement);
 					
-					SGN.AchievementManager.UpdateAchievement(m_currentProcessingAchievement);
+					SGNService.AchievementManager.UpdateAchievement(m_currentProcessingAchievement);
 				}
 			}
 		}

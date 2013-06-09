@@ -6,7 +6,10 @@ using System.Diagnostics;
 
 namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 {	
-	public class SGN
+	/// <summary>
+	/// Social Gaming Network service.
+	/// </summary>
+	public static class SGNService
 	{
 		#region Fields
 		private static ISGNFactory s_factory;
@@ -14,6 +17,10 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 		#endregion
 		
 		#region Methods
+		/// <summary>
+		/// Initialize the specified factory.
+		/// </summary>
+		/// <param name="factory">Factory.</param>
 		public static void Initialize (ISGNFactory factory)
 		{
 			if (!Initialized)
@@ -50,12 +57,47 @@ namespace Skahal.Infrastructure.Framework.SocialGamingNetwork
 		#endregion
 		
 		#region Properties
+		/// <summary>
+		/// Gets a value indicating whether this <see cref="Skahal.Infrastructure.Framework.SocialGamingNetwork.SGNService"/>
+		/// is initialized.
+		/// </summary>
+		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
 		public static bool Initialized { get; private set; }
+
+		/// <summary>
+		/// Gets the player manager.
+		/// </summary>
+		/// <value>The player manager.</value>
 		public static ISGNPlayerManager PlayerManager { get; private set; }
+
+		/// <summary>
+		/// Gets the multiplayer manager.
+		/// </summary>
+		/// <value>The multiplayer manager.</value>
 		public static ISGNMultiplayerManager MultiplayerManager { get; private set; }
+
+		/// <summary>
+		/// Gets the voice chat manager.
+		/// </summary>
+		/// <value>The voice chat manager.</value>
 		public static ISGNVoiceChatManager VoiceChatManager { get; private set; }
+
+		/// <summary>
+		/// Gets the user interface manager.
+		/// </summary>
+		/// <value>The user interface manager.</value>
 		public static ISGNUIManager UIManager { get; private set; }
+
+		/// <summary>
+		/// Gets the leaderboard manager.
+		/// </summary>
+		/// <value>The leaderboard manager.</value>
 		public static ISGNLeaderboardManager LeaderboardManager { get; private set; }
+
+		/// <summary>
+		/// Gets the achievement manager.
+		/// </summary>
+		/// <value>The achievement manager.</value>
 		public static ISGNAchievementManager AchievementManager { get; private set; }
 		#endregion
 	}

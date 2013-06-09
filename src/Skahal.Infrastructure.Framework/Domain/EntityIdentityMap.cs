@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Skahal.Infrastructure.Framework.Domain
 {
+	/// <summary>
+	/// Entity identity map.
+	/// </summary>
 	public static class EntityIdentityMap
 	{
 		#region Fields
@@ -16,6 +19,11 @@ namespace Skahal.Infrastructure.Framework.Domain
 		#endregion
 		
 		#region Public Methods
+		/// <summary>
+		/// Add the specified entity.
+		/// </summary>
+		/// <param name="entity">Entity.</param>
+		/// <typeparam name="TEntity">The 1st type parameter.</typeparam>
 		public static void Add<TEntity>(TEntity entity) 
 			where TEntity: EntityBase
 		{
@@ -37,7 +45,12 @@ namespace Skahal.Infrastructure.Framework.Domain
 				map.Add(entityKey, entity);
 			}
 		}
-		
+
+		/// <summary>
+		/// Get the entity with the specified key.
+		/// </summary>
+		/// <param name="entityKey">Entity key.</param>
+		/// <typeparam name="TEntity">The 1st type parameter.</typeparam>
 		public static TEntity Get<TEntity>(int entityKey)
 			where TEntity: EntityBase
 		{

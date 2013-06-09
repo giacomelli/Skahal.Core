@@ -10,6 +10,9 @@ using System.Xml;
 
 namespace Skahal.Infrastructure.Framework.IO
 {
+	/// <summary>
+	/// Ofx writer.
+	/// </summary>
 	public class OfxWriter
 	{
 		#region Fields
@@ -17,11 +20,22 @@ namespace Skahal.Infrastructure.Framework.IO
 		#endregion
 		
 		#region Public methods
+		/// <summary>
+		/// Write the specified filename and transactions.
+		/// </summary>
+		/// <param name="filename">Filename.</param>
+		/// <param name="transactions">Transactions.</param>
 		public void Write(string filename, IOfxTransaction[] transactions)
 		{
 			Write(filename, String.Empty, transactions);
 		}
 
+		/// <summary>
+		/// Write the specified filename, accountId and transactions.
+		/// </summary>
+		/// <param name="filename">Filename.</param>
+		/// <param name="accountId">Account identifier.</param>
+		/// <param name="transactions">Transactions.</param>
 		public void Write(string filename, string accountId, IOfxTransaction[] transactions)
 		{
 			var orderedTransactions = transactions.OrderBy(t => t.Date);

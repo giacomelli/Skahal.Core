@@ -17,15 +17,21 @@
     <OutputPath>..\build</OutputPath>
     <WarningLevel>4</WarningLevel>
     <GenerateDocumentation>true</GenerateDocumentation>
+    <DocumentationFile>..\Build\Skahal.Infrastructure.Framework.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'iOS|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>..\build</OutputPath>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\Build\Skahal.Infrastructure.Framework.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentation>true</GenerateDocumentation>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -94,7 +100,6 @@
     <Compile Include="SocialGamingNetwork\OpponentConnectedEventArgs.cs" />
     <Compile Include="SocialGamingNetwork\OpponentDisconnectedEventArgs.cs" />
     <Compile Include="SocialGamingNetwork\PlayerLoggedInEventArgs.cs" />
-    <Compile Include="SocialGamingNetwork\SGN.cs" />
     <Compile Include="SocialGamingNetwork\SGNAchievement.cs" />
     <Compile Include="SocialGamingNetwork\SGNLeaderboard.cs" />
     <Compile Include="SocialGamingNetwork\SGNPlayer.cs" />
@@ -111,7 +116,6 @@
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Repositories\IUnitOfWorkRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
-    <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Commons\IProgressIndicator.cs" />
     <Compile Include="Commons\ProgressIndicator.cs" />
@@ -127,6 +131,12 @@
     <Compile Include="Text\Spelling\BingSpellingProvider.cs" />
     <Compile Include="Text\Spelling\ISpellingProvider.cs" />
     <Compile Include="Text\Spelling\SpellingService.cs" />
+    <Compile Include="SocialGamingNetwork\SGNService.cs" />
+    <Compile Include="Repositories\MemoryUnitOfWork.cs" />
+    <Compile Include="Collections\CollectionExtensions.cs" />
+    <Compile Include="Globalization\GlobalizationExtensions.cs" />
+    <Compile Include="Globalization\GlobalizationLabel.cs" />
+    <Compile Include="Globalization\IGlobalizationLabelRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -143,6 +153,7 @@
     <Folder Include="SocialGamingNetwork\" />
     <Folder Include="Domain\KeyGenerating\" />
     <Folder Include="Text\" />
+    <Folder Include="Collections\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

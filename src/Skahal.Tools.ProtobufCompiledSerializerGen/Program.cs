@@ -2,6 +2,7 @@ using System;
 using ProtoBuf.Meta;
 using Skahal.Infrastructure.Framework.People;
 using System.IO;
+using Skahal.Infrastructure.Framework.Domain;
 
 namespace Skahal.Tools.ProtobufCompiledSerializerGen
 {
@@ -13,10 +14,13 @@ namespace Skahal.Tools.ProtobufCompiledSerializerGen
 
 			var model = TypeModel.Create();
 
+			Console.WriteLine ("ENTITYBASE");
+			model.Add(typeof(EntityBase), true).Add("Key");
+
 			Console.WriteLine ("USER");
-			model.Add(typeof(User), true).Add("Id", "Name", "RemoteId");
+			model.Add(typeof(User), true).Add("Name", "RemoteId");
 			model.Compile("ProtobufSerializer", "Skahal.Infrastructure.Framework.ProtobufSerializer.dll");
-			File.Copy ("Skahal.Infrastructure.Framework.ProtobufSerializer.dll", @"..\..\..\References\Skahal.Infrastructure.Framework.ProtobufSerializer.dll", true);
+			File.Copy ("Skahal.Infrastructure.Framework.ProtobufSerializer.dll", String.Format(@"..{0}..{0}..{0}References{0}Skahal.Infrastructure.Framework.ProtobufSerializer.dll", Path.DirectorySeparatorChar), true);
 
 			Console.WriteLine ("</GENERATING COMPILED PROTOBUF SERIALIZERS>");
 		}

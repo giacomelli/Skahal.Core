@@ -1,8 +1,8 @@
 using System;
-using Skahal.Infrastructure.Framework.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using HelperSharp;
+using Skahal.Infrastructure.Framework.Domain;
 
 namespace Skahal.Infrastructure.Framework.Repositories
 {
@@ -14,61 +14,90 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	/// </summary>
 	public class MemoryRepository<TEntity> : RepositoryBase<TEntity> where TEntity : IAggregateRoot
 	{
-		#region Fields
-		private List<TEntity> m_entities = new List<TEntity> ();
-		#endregion
-
 		#region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository`1"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository&lt;TEntity&gt;"/> class.
 		/// </summary>
 		public MemoryRepository()
 		{
+			Entities = new List<TEntity> ();
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository`1"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository&lt;TEntity&gt;"/> class.
 		/// </summary>
 		/// <param name="unitOfWork">Unit of work.</param>
 		public MemoryRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
 		{
+			Entities = new List<TEntity> ();
 		}
 		#endregion
 
-		#region implemented abstract members of RepositoryBase
+		#region Properties
+		/// <summary>
+		/// Gets the entities.
+		/// </summary>
+		/// <value>The entities.</value>
+		protected List<TEntity> Entities { get; private set; }
+		#endregion
 
-		public override TEntity FindBy (long id)
+		#region implemented abstract members of RepositoryBase
+		/// <summary>
+		/// Finds the entity by the key.
+		/// </summary>
+		/// <returns>The found entity.</returns>
+		/// <param name="key">Key.</param>
+		public override TEntity FindBy (long key)
 		{
-			return FindAll (e => e.Key == id).FirstOrDefault();
+			return FindAll (e => e.Key == key).FirstOrDefault();
 		}
 
+		/// <summary>
+		/// Finds all entities that matches the filter.
+		/// </summary>
+		/// <returns>The found entities.</returns>
+		/// <param name="offset">Offset.</param>
+		/// <param name="limit">Limit.</param>
+		/// <param name="filter">Filter.</param>
 		public override IEnumerable<TEntity> FindAll (int offset, int limit, Func<TEntity, bool> filter)
 		{
 			ExceptionHelper.ThrowIfNull ("filter", filter);
 
-			return m_entities
+			return Entities
 				.Where (e => filter(e))
 				.OrderBy(e => e.Key)
 				.Skip(offset).Take(limit);
 		}
 
+		/// <summary>
+		/// Counts all entities that matches the filter.
+		/// </summary>
+		/// <returns>The number of the entities that matches the filter.</returns>
+		/// <param name="filter">Filter.</param>
 		public override int CountAll (Func<TEntity, bool> filter)
 		{
 			ExceptionHelper.ThrowIfNull ("filter", filter);
-			return m_entities.Count (e => filter(e));
+			return Entities.Count (e => filter(e));
 		}
 
+		/// <summary>
+		/// Persists the new item.
+		/// </summary>
+		/// <param name="item">Item.</param>
 		protected override void PersistNewItem (TEntity item)
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-			if (m_entities.FirstOrDefault (e => e.Key == item.Key) != null) {
+			if (Entities.FirstOrDefault (e => e.Key == item.Key) != null) {
 				throw new InvalidOperationException ("There is another entity with id '{0}'.".With(item.Key));
 			}
 
-			m_entities.Add (item);
+			Entities.Add (item);
 		}
-
+		/// <summary>
+		/// Persists the updated item.
+		/// </summary>
+		/// <param name="item">Item.</param>
 		protected override void PersistUpdatedItem (TEntity item)
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
@@ -77,19 +106,22 @@ namespace Skahal.Infrastructure.Framework.Repositories
 			PersistNewItem (item);
 		}
 
+		/// <summary>
+		/// Persists the deleted item.
+		/// </summary>
+		/// <param name="item">Item.</param>
 		protected override void PersistDeletedItem (TEntity item)
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-			var old = m_entities.FirstOrDefault (e => e.Key == item.Key);
+			var old = Entities.FirstOrDefault (e => e.Key == item.Key);
 
 			if (old == null) {
 				throw new InvalidOperationException ("There is no entity with id '{0}'.".With(item.Key));
 			}
 
-			m_entities.Remove (old);
+			Entities.Remove (old);
 		}
-
 		#endregion
 	}
 }

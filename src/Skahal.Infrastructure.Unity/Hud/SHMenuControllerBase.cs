@@ -1,5 +1,8 @@
 #region Usings
 using UnityEngine;
+using Skahal.Infrastructure.Framework.Globalization;
+
+
 #endregion
 
 /// <summary>

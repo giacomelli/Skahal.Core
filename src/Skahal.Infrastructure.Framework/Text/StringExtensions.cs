@@ -53,6 +53,12 @@ namespace Skahal.Infrastructure.Framework.Text
 		#endregion
 		
 		#region Contains
+		/// <summary>
+		/// Check if string contains value ignoring the case.
+		/// </summary>
+		/// <returns><c>true</c>, if ignore case was containsed, <c>false</c> otherwise.</returns>
+		/// <param name="source">Source.</param>
+		/// <param name="value">Value.</param>
 		public static bool ContainsIgnoreCase(this string source, string value)
 		{
 			return source.IndexOf(value, StringComparison.InvariantCultureIgnoreCase) > -1;
@@ -60,6 +66,11 @@ namespace Skahal.Infrastructure.Framework.Text
 		#endregion
 		
 		#region Limit
+		/// <summary>
+		/// Limit the length of the string.
+		/// </summary>
+		/// <param name="source">Source.</param>
+		/// <param name="maxLength">Max length.</param>
 		public static string Limit(this string source, int maxLength)
 		{
 			if(!String.IsNullOrEmpty(source) && source.Length > maxLength)

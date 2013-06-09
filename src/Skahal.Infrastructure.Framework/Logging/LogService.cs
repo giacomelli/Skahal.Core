@@ -116,6 +116,9 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// </param>
 		public static void Debug (string message, params object[] args)
 		{
+#if DEBUG
+			ValidateLogStrategy();
+#endif
 			s_logStrategy.WriteDebug(message, args);
 		}
 		
@@ -130,6 +133,9 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// </param>
 		public static void Warning (string message, params object[] args)
 		{
+#if DEBUG
+			ValidateLogStrategy();
+#endif
 			s_logStrategy.WriteWarning(message, args);
 		}
 		
@@ -144,8 +150,20 @@ namespace Skahal.Infrastructure.Framework.Logging
 		/// </param>
 		public static void Error (string message, params object[] args)
 		{
+#if DEBUG
+			ValidateLogStrategy();
+#endif
 			s_logStrategy.WriteError(message, args);
 		}
+
+#if DEBUG
+		private static void ValidateLogStrategy()
+		{
+			if (s_logStrategy == null) {
+				throw new InvalidOperationException ("LogService: are you trying to use LogService Debug, Warning and Error methods before call the Initialize method?");
+			}
+		}
+#endif
 		#endregion
 	}
 }

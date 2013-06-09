@@ -14,7 +14,7 @@ namespace Skahal.Infrastructure.Framework.Domain
 	/// <summary>
 	/// A domain entity base class.
 	/// </summary>
-	[DebuggerDisplay("{Id}")]
+	[DebuggerDisplay("{Key}")]
 	[Serializable] 
 	public abstract class EntityBase : IEntity
 	{
@@ -44,10 +44,14 @@ namespace Skahal.Infrastructure.Framework.Domain
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Gets the key.
+		/// </summary>
+		/// <value>The key.</value>
 		public long Key
 		{
 			get;
-			private set;
+			internal set;
 		}
 		#endregion
 

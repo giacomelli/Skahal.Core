@@ -345,7 +345,12 @@ namespace Skahal.Infrastructure.Framework.Text
         {
             return Join(collection, ",", ",");
         }
-		
+
+		/// <summary>
+		/// Joins the words.
+		/// </summary>
+		/// <returns>The words.</returns>
+		/// <param name="collection">Collection.</param>
 		public static string JoinWords(ICollection collection)
         {
             return Join(collection, ", ", " and ");

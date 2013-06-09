@@ -51,6 +51,7 @@
     <Folder Include="Pooling\" />
     <Folder Include="Logging\Stubs\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Domain\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\EventHandlerExtensionsTest.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Logging\Stubs\LogStrategyStub.cs" />
     <Compile Include="Repositories\MemoryRepositoryTest.cs" />
     <Compile Include="Commons\AppServiceTest.cs" />
+    <Compile Include="Domain\EntityBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

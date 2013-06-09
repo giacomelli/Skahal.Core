@@ -14,7 +14,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void FindAll_NullFilter_ArgumentNullException ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("filter"), () => {
@@ -25,7 +25,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void FindAll_Filter_EntitiesFiltered ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 			target.Add(new User() {} );
 
@@ -44,7 +44,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void CountAll_NullFilter_ArgumentNullException ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 
 			ExceptionAssert.IsThrowing (new ArgumentNullException("filter"), () => {
@@ -55,7 +55,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void CountAll_Filter_EntitiesFiltered ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 			target.Add(new User() { } );
 			target.Add(new User() { } );
@@ -70,7 +70,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Add_NullEntity_ArgumentNullException ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 		
 			ExceptionAssert.IsThrowing (new ArgumentNullException("item"), () => {
@@ -81,7 +81,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Add_EntityAlreadyAdded_IgnoresTheSecondOne ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 
 			var user = new User (1);
@@ -99,7 +99,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Add_Entity_Added ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 
 			target.Add(new User());
@@ -114,7 +114,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Delete_NullEntity_ArgumentNullException ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 
 
@@ -126,7 +126,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Delete_EntityWithIdDoesNotExists_ArgumentNullException ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User() { };
 			target.Remove(user);
@@ -141,7 +141,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Delete_Entity_EntityDeleted ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User () { };
 			target.Add (user);
@@ -157,7 +157,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Modify_EntityWithIdDoesNotExist_Added ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User() { };
 			target[user.Key] = user;
@@ -172,7 +172,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Modify_Entity_EntityModified ()
 		{
-			var unitOfWork = new UnitOfWork ();
+			var unitOfWork = new MemoryUnitOfWork ();
 			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User ();
 			target.Add (user);

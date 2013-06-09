@@ -7,6 +7,9 @@ using System;
 
 namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 {
+	/// <summary>
+	/// Entity key generator.
+	/// </summary>
 	public static class EntityKeyGenerator
 	{
 		#region Fields
@@ -14,6 +17,9 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		#endregion
 		
 		#region Constructors
+		/// <summary>
+		/// Initializes the <see cref="Skahal.Infrastructure.Framework.Domain.KeyGenerating.EntityKeyGenerator"/> class.
+		/// </summary>
 		static EntityKeyGenerator ()
 		{
 			s_generator = new MemoryEntityKeyGenerator();
@@ -21,11 +27,20 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		#endregion
 		
 		#region Methods
+		/// <summary>
+		/// Initialize the specified keyGenerator.
+		/// </summary>
+		/// <param name="keyGenerator">Key generator.</param>
 		public static void Initialize(IEntityKeyGenerator keyGenerator)
 		{
 			s_generator = keyGenerator;
 		}
-		
+
+		/// <summary>
+		/// Gets the next key.
+		/// </summary>
+		/// <returns>The key.</returns>
+		/// <param name="entityType">Entity type.</param>
 		public static long NextKey(Type entityType) 
 		{
 			return s_generator.NextKey(entityType);

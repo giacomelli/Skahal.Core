@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")] // RhinoMocks.
 [assembly: InternalsVisibleTo("Skahal.Infrastructure.Unity")]
 [assembly: InternalsVisibleTo("Skahal.Infrastructure.Mono")]
+[assembly: InternalsVisibleTo("Skahal.Infrastructure.Framework.ProtobufSerializer")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
@@ -28,4 +29,4 @@ using System.Runtime.CompilerServices;
 
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
-
+	

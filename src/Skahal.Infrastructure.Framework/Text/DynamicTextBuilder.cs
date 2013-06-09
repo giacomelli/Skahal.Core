@@ -93,7 +93,7 @@ namespace Skahal.Infrastructure.Framework.Text
         /// <returns>A instância de DynamicTextBuilder.</returns>
         public DynamicTextBuilder Append(string text)
         {
-			m_text.Append (text);///);
+			m_text.Append (text);
             return this;
         }
 
@@ -297,6 +297,11 @@ namespace Skahal.Infrastructure.Framework.Text
         #endregion
 		
 		#region ToObject
+		/// <summary>
+		/// Gets the value.
+		/// </summary>
+		/// <returns>The value.</returns>
+		/// <param name="bindableKey">Bindable key.</param>
 		public object GetValue(string bindableKey)
 		{
             string text = bindableKey;

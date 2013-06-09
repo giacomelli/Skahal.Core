@@ -14,12 +14,19 @@ namespace Skahal.Infrastructure.Framework.People
 		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.People.User"/> class.
+		/// <remarks>
+		/// The entity will receive a new and unique key.
+		/// </remarks>
 		/// </summary>
 		public User() : this(0)
 		{
 
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.People.User"/> class.
+		/// </summary>
+		/// <param name="key">The entity key.</param>
 		public User(long key) : base(key)
 		{
 			Preferences = new List<UserPreference>();

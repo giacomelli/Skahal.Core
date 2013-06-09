@@ -60,12 +60,12 @@ namespace Skahal.Infrastructure.Framework.Commons
 		/// <param name="constructorArgument">The argument for constructor.M</param>
 		/// <typeparam name="TType">The 1st type parameter.</typeparam>
 		[SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-		public static TType Create<TType> (object constructorAgument = null)
+		public static TType Create<TType> (object constructorArgument = null)
 		{
 			var type = typeof(TType);
 
 			if (s_mapping.ContainsKey (type)) {
-				return (TType)s_mapping [type] (constructorAgument);
+				return (TType)s_mapping [type] (constructorArgument);
 			} else {
 				var msg = String.Format(CultureInfo.InvariantCulture, "There is no implementation for the type'{0}' registered in DependencyService.", type);
 				throw new ArgumentException (msg, "TType");

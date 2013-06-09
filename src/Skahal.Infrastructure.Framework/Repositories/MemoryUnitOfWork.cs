@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Skahal.Infrastructure.Framework.Domain;
-
-
 #endregion
 
 namespace Skahal.Infrastructure.Framework.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+	/// <summary>
+	/// Defines an in memory unit of work.
+	/// </summary>
+    public class MemoryUnitOfWork : IUnitOfWork
     {
         #region Fields
 		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_AddedEntities;
@@ -18,7 +19,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
         #endregion
 
         #region Constructors
-        public UnitOfWork()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryUnitOfWork"/> class.
+		/// </summary>
+        public MemoryUnitOfWork()
         {
 			m_AddedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
 			m_changedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
@@ -27,6 +31,11 @@ namespace Skahal.Infrastructure.Framework.Repositories
         #endregion
 
         #region Methods
+		/// <summary>
+		/// Registers an entity to be added when commited.
+		/// </summary>
+		/// <param name="entity">Entity.</param>
+		/// <param name="repository">Repository.</param>
 		public void RegisterAdded(IAggregateRoot entity, IUnitOfWorkRepository repository)
         {
 			if(!m_AddedEntities.ContainsKey(entity))
@@ -35,6 +44,11 @@ namespace Skahal.Infrastructure.Framework.Repositories
 			}
         }
 
+		/// <summary>
+		/// Registers an entity to be changed when commited.
+		/// </summary>
+		/// <param name="entity">Entity.</param>
+		/// <param name="repository">Repository.</param>
 		public void RegisterChanged(IAggregateRoot entity, IUnitOfWorkRepository repository)
         {
 			if(!m_changedEntities.ContainsKey(entity))
@@ -43,6 +57,11 @@ namespace Skahal.Infrastructure.Framework.Repositories
 			}
         }
 
+		/// <summary>
+		/// Registers an entity to be removed when commited.
+		/// </summary>
+		/// <param name="entity">Entity.</param>
+		/// <param name="repository">Repository.</param>
 		public void RegisterRemoved(IAggregateRoot entity, IUnitOfWorkRepository repository)
         {
 			if(!m_deletedEntities.ContainsKey(entity))
@@ -51,6 +70,9 @@ namespace Skahal.Infrastructure.Framework.Repositories
 			}
         }
 
+		/// <summary>
+		/// Commit the registered entities.
+		/// </summary>
         public void Commit()
         {
            foreach (var entity in m_deletedEntities.Keys)
