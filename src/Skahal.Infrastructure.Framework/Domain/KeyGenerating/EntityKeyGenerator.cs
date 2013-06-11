@@ -45,6 +45,16 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		{
 			return s_generator.NextKey(entityType);
 		}
+
+		/// <summary>
+		/// Uses the key.
+		/// </summary>
+		/// <param name="entityType">Entity type.</param>
+		/// <param name="key">Key.</param>
+		public static void UseKey (Type entityType, long key)
+		{
+			s_generator.UseKey (entityType, key);
+		}
 		#endregion
 	}
 }

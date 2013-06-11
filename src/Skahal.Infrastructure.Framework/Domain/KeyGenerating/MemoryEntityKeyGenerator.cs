@@ -16,7 +16,7 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 	public class MemoryEntityKeyGenerator : IEntityKeyGenerator
 	{
 		#region Fields
-		private Dictionary<Type, long> s_lastKeys = new Dictionary<Type, long>();
+		private Dictionary<Type, long> m_lastKeys = new Dictionary<Type, long>();
 		#endregion
 		
 		#region ISHKeyGenerator implementation
@@ -29,26 +29,54 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		{
 			lock(this)
 			{
-				if(!s_lastKeys.ContainsKey(entityType))
+				if(!m_lastKeys.ContainsKey(entityType))
 				{
 					var keys = EntityIdentityMap.GetKeys(entityType);
 					
 					if(keys.Length == 0)
 					{
-						s_lastKeys.Add(entityType, 0);
+						m_lastKeys.Add(entityType, 0);
 					}
 					else
 					{
 						Array.Sort(keys);
-						s_lastKeys.Add(entityType, keys[keys.Length - 1]);
+						m_lastKeys.Add(entityType, keys[keys.Length - 1]);
 					}
 				}
 				
-				var key = ++s_lastKeys[entityType];
+				var key = ++m_lastKeys[entityType];
 				
 				LogService.Debug("MemoryEntityKeyGenerator returning key {0} for entity {1}.", key, entityType);
 				
 				return key;
+			}
+		}
+
+		/// <summary>
+		/// Uses the key.
+		/// </summary>
+		/// <param name="entityType">Entity type.</param>
+		/// <param name="key">Key.</param>
+		public void UseKey(Type entityType, long key)
+		{
+			m_lastKeys.Add(entityType, key);
+		}
+
+		private void PrepareKeysForType(Type entityType)
+		{
+			if(!m_lastKeys.ContainsKey(entityType))
+			{
+				var keys = EntityIdentityMap.GetKeys(entityType);
+
+				if(keys.Length == 0)
+				{
+					m_lastKeys.Add(entityType, 0);
+				}
+				else
+				{
+					Array.Sort(keys);
+					m_lastKeys.Add(entityType, keys[keys.Length - 1]);
+				}
 			}
 		}
 		#endregion

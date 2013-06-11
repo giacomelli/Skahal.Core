@@ -52,6 +52,7 @@
     <Folder Include="Logging\Stubs\" />
     <Folder Include="Repositories\" />
     <Folder Include="Domain\" />
+    <Folder Include="Domain\KeyGenerating\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\EventHandlerExtensionsTest.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Repositories\MemoryRepositoryTest.cs" />
     <Compile Include="Commons\AppServiceTest.cs" />
     <Compile Include="Domain\EntityBaseTest.cs" />
+    <Compile Include="Domain\KeyGenerating\MemoryEntityKeyGeneratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

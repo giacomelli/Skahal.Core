@@ -18,11 +18,15 @@ namespace Skahal.Infrastructure.Framework.Domain
 	[Serializable] 
 	public abstract class EntityBase : IEntity
 	{
+		#region Fields
+		private long m_key;
+		#endregion
+
 		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityBase"/> class.
 		/// </summary>
-		protected EntityBase() : this(0)
+		protected EntityBase() : this(null)
 		{
 		}
 
@@ -30,15 +34,15 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// Initializes a new instance of the <see cref="EntityBase"/> class.
 		/// </summary>
 		/// <param name="key">The key.</param>
-		protected EntityBase(long key)
+		protected EntityBase(long? key)
 		{
-			if(key == 0)
+			if(!key.HasValue || key.Value <= 0)
 			{
 				Key = EntityKeyGenerator.NextKey(GetType());
 			}
 			else
 			{
-				Key = key;
+				Key = key.Value;
 			}
 		}
 		#endregion
@@ -50,8 +54,14 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// <value>The key.</value>
 		public long Key
 		{
-			get;
-			internal set;
+			get {
+				return m_key;
+			}
+
+			set {
+				m_key = value;
+				EntityKeyGenerator.UseKey (GetType(), m_key);
+			}
 		}
 		#endregion
 
