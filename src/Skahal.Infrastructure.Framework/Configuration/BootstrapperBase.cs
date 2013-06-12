@@ -4,6 +4,7 @@ using Skahal.Infrastructure.Framework.Logging;
 using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.People;
 using Skahal.Infrastructure.Framework.Globalization;
+using Skahal.Infrastructure.Framework.Domain.KeyGenerating;
 
 
 #endregion
@@ -45,6 +46,12 @@ namespace Skahal.Infrastructure.Framework.Configuration
 		protected abstract IGlobalizationLabelRepository CreateGlobalizationLabelRepository ();
 
 		/// <summary>
+		/// Creates the entity key generator.
+		/// </summary>
+		/// <returns>The entity key generator.</returns>
+		protected abstract IEntityKeyGenerator CreateEntityKeyGenerator ();
+
+		/// <summary>
 		/// Setup this instance.
 		/// </summary>
 		public bool Setup()
@@ -57,6 +64,8 @@ namespace Skahal.Infrastructure.Framework.Configuration
 				InitializeService ("AppStrategy", CreateAppStrategy(), AppService.Initialize);
 				InitializeService ("UserRepository", CreateUserRepository(), UserService.Initialize);
 				InitializeService ("GlobalizationLabelRepository", CreateGlobalizationLabelRepository(), GlobalizationService.Initialize);
+				InitializeService ("EntityKeyGenerator", CreateEntityKeyGenerator(), EntityKeyGenerator.Initialize);
+
 
 				s_alreadyBooted = true;
 				LogService.Debug("Bootstrapper '{0}' setup done.", GetType().Name);

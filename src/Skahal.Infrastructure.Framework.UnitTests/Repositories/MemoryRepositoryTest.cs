@@ -6,7 +6,7 @@ using System.Linq;
 using Skahal.Infrastructure.Framework.People;
 using HelperSharp;
 
-namespace Skahal.Infrastructure.Framework.UnitTests
+namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 {
 	[TestFixture()]
 	public class MemoryRepositoryTest

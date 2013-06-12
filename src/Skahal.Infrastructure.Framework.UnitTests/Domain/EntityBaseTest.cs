@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Skahal.Infrastructure.Framework.Domain;
+using Skahal.Infrastructure.Framework.Domain.KeyGenerating;
 
 namespace Skahal.Infrastructure.Framework.UnitTests
 {

@@ -1,6 +1,7 @@
 //  Author: Diego Giacomelli <giacomelli@gmail.com>
 //  Copyright (c) 2012 Skahal Studios
 using Skahal.Infrastructure.Framework.Logging;
+using HelperSharp;
 
 #region Usings
 using System;
@@ -18,8 +19,20 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		#region Fields
 		private Dictionary<Type, long> m_lastKeys = new Dictionary<Type, long>();
 		#endregion
-		
-		#region ISHKeyGenerator implementation
+
+		#region Methods
+		/// <summary>
+		/// Sets the last key.
+		/// </summary>
+		/// <param name="entityType">Entity type.</param>
+		/// <param name="lastKey">Last key.</param>
+		public void SetLastKey(Type entityType, long lastKey)
+		{
+			m_lastKeys [entityType] = lastKey;
+		}
+		#endregion
+
+		#region IEntityKeyGenerator implementation
 		/// <summary>
 		/// Gets the next key for entity type specified.
 		/// </summary>
@@ -29,23 +42,9 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		{
 			lock(this)
 			{
-				if(!m_lastKeys.ContainsKey(entityType))
-				{
-					var keys = EntityIdentityMap.GetKeys(entityType);
-					
-					if(keys.Length == 0)
-					{
-						m_lastKeys.Add(entityType, 0);
-					}
-					else
-					{
-						Array.Sort(keys);
-						m_lastKeys.Add(entityType, keys[keys.Length - 1]);
-					}
-				}
-				
+				Validate (entityType);			
 				var key = ++m_lastKeys[entityType];
-				
+				UseKey (entityType, key);
 				LogService.Debug("MemoryEntityKeyGenerator returning key {0} for entity {1}.", key, entityType);
 				
 				return key;
@@ -59,24 +58,21 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		/// <param name="key">Key.</param>
 		public void UseKey(Type entityType, long key)
 		{
-			m_lastKeys.Add(entityType, key);
+			Validate (entityType);
+
+			var currentKey = m_lastKeys [entityType];
+
+			if(key > currentKey)
+			{
+				m_lastKeys [entityType] = key;
+			}
 		}
 
-		private void PrepareKeysForType(Type entityType)
+		private void Validate(Type entityType)
 		{
-			if(!m_lastKeys.ContainsKey(entityType))
-			{
-				var keys = EntityIdentityMap.GetKeys(entityType);
-
-				if(keys.Length == 0)
-				{
-					m_lastKeys.Add(entityType, 0);
-				}
-				else
-				{
-					Array.Sort(keys);
-					m_lastKeys.Add(entityType, keys[keys.Length - 1]);
-				}
+			if (!m_lastKeys.ContainsKey (entityType)) {
+				LogService.Warning("There is no last key for entity of type '{0}'. You should use SetLastKey on MemoryEntityKeyGenerator before. Using 0 (zero) has last key.".With(entityType));
+				SetLastKey (entityType, 0);
 			}
 		}
 		#endregion

@@ -61,12 +61,33 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <param name="filter">Filter.</param>
 		public abstract IEnumerable<TEntity> FindAll(int offset, int limit, Func<TEntity, bool> filter);
 
+
+		/// <summary>
+		/// Finds all entities.
+		/// </summary>
+		/// <returns>The found entities.</returns>
+		/// <param name="offset">Offset.</param>
+		/// <param name="limit">Limit.</param>
+		public IEnumerable<TEntity> FindAll(int offset, int limit)
+		{
+			return FindAll(offset, limit, f => true);
+		}
+
 		/// <summary>
 		/// Counts all entities that matches the filter.
 		/// </summary>
 		/// <returns>The found entities.</returns>
 		/// <param name="filter">Filter.</param>
 		public abstract int CountAll(Func<TEntity, bool> filter);
+
+		/// <summary>
+		/// Counts all entities.
+		/// </summary>
+		/// <returns>The number of the entities that matches the filter.</returns>
+		public int CountAll()
+		{
+			return CountAll (f => true);
+		}
 
 		/// <summary>
 		/// Sets the unit of work.

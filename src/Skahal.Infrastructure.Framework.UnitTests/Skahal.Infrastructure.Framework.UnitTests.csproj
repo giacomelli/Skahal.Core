@@ -73,6 +73,7 @@
     <Compile Include="Commons\AppServiceTest.cs" />
     <Compile Include="Domain\EntityBaseTest.cs" />
     <Compile Include="Domain\KeyGenerating\MemoryEntityKeyGeneratorTest.cs" />
+    <Compile Include="Repositories\RepositoryExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
