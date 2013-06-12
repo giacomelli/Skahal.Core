@@ -122,7 +122,6 @@
     <Compile Include="Domain\DomainException.cs" />
     <Compile Include="Domain\KeyGenerating\EntityKeyGenerator.cs" />
     <Compile Include="Domain\KeyGenerating\IEntityKeyGenerator.cs" />
-    <Compile Include="Domain\KeyGenerating\MemoryEntityKeyGenerator.cs" />
     <Compile Include="Text\BindableTextKey.cs" />
     <Compile Include="Text\DynamicTextBuilder.cs" />
     <Compile Include="Text\StringExtensions.cs" />
@@ -137,6 +136,9 @@
     <Compile Include="Globalization\GlobalizationLabel.cs" />
     <Compile Include="Globalization\IGlobalizationLabelRepository.cs" />
     <Compile Include="Repositories\RepositoryExtensions.cs" />
+    <Compile Include="Domain\KeyGenerating\MemoryLongEntityKeyGenerator.cs" />
+    <Compile Include="Domain\KeyGenerating\IEntityKeyGeneratorFactory.cs" />
+    <Compile Include="Domain\KeyGenerating\MemoryEntityKeyGeneratorFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

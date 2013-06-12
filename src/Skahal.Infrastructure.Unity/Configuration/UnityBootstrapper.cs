@@ -76,7 +76,7 @@ namespace Skahal.Infrastructure.Unity.Configuration
 		/// <returns>The entity key generator.</returns>
 		protected override IEntityKeyGenerator CreateEntityKeyGenerator ()
 		{
-			var generator = new MemoryEntityKeyGenerator ();
+			var generator = new MemoryLongEntityKeyGenerator ();
 	
 			generator.SetLastKey (typeof(User), CreateUserRepository ().FindLastKey());
 			generator.SetLastKey (typeof(GlobalizationLabel), CreateGlobalizationLabelRepository ().FindLastKey());

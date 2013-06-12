@@ -1,5 +1,6 @@
 //  Author: Diego Giacomelli <giacomelli@gmail.com>
 //  Copyright (c) 2012 Skahal Studios
+using System.Collections.Generic;
 
 #region Usings
 using System;
@@ -13,27 +14,18 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 	public static class EntityKeyGenerator
 	{
 		#region Fields
-		private static IEntityKeyGenerator s_generator;
+		private static Dictionary<Type, object> s_generators = new Dictionary<Type, object>();
+		private static IEntityKeyGeneratorFactory s_factory = new MemoryEntityKeyGeneratorFactory ();
 		#endregion
-		
-		#region Constructors
-		/// <summary>
-		/// Initializes the <see cref="Skahal.Infrastructure.Framework.Domain.KeyGenerating.EntityKeyGenerator"/> class.
-		/// </summary>
-		static EntityKeyGenerator ()
-		{
-			s_generator = new MemoryEntityKeyGenerator();
-		}
-		#endregion
-		
+
 		#region Methods
 		/// <summary>
-		/// Initialize the specified keyGenerator.
+		/// Initialize the specified factory.
 		/// </summary>
-		/// <param name="keyGenerator">Key generator.</param>
-		public static void Initialize(IEntityKeyGenerator keyGenerator)
+		/// <param name="factory">Factory.</param>
+		public static void Initialize(IEntityKeyGeneratorFactory factory)
 		{
-			s_generator = keyGenerator;
+			s_factory = factory;
 		}
 
 		/// <summary>
@@ -41,7 +33,7 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		/// </summary>
 		/// <returns>The key.</returns>
 		/// <param name="entityType">Entity type.</param>
-		public static long NextKey(Type entityType) 
+		public static TKey NextKey<TKey>(Type entityType) 
 		{
 			return s_generator.NextKey(entityType);
 		}

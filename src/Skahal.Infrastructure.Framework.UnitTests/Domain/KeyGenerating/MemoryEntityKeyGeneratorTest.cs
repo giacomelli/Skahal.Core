@@ -11,7 +11,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Domain.KeyGenerating
 		[Test()]
 		public void NextKey_DiffTypes_DiffKeyValues ()
 		{
-			var target = new MemoryEntityKeyGenerator ();
+			var target = new MemoryLongEntityKeyGenerator ();
 			target.SetLastKey (typeof(int), 0);
 			target.SetLastKey (typeof(string), 0);
 			target.SetLastKey (typeof(double), 0);
@@ -29,7 +29,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Domain.KeyGenerating
 
 		[Test()]
 		public void NextKey_Parallel_RightValues ()		{
-			var target = new MemoryEntityKeyGenerator ();
+			var target = new MemoryLongEntityKeyGenerator ();
 			target.SetLastKey (typeof(int), 0);
 
 			Parallel.For(0, 1000, i => {

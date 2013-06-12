@@ -16,24 +16,24 @@ namespace Skahal.Infrastructure.Framework.Domain
 	/// </summary>
 	[DebuggerDisplay("{Key}")]
 	[Serializable] 
-	public abstract class EntityBase : IEntity
+	public abstract class EntityBase<TKey> : IEntity
 	{
 		#region Fields
-		private long m_key;
+		private TKey m_key;
 		#endregion
 
 		#region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="EntityBase"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Domain.EntityBase&lt;TKey&gt;"/> class.
 		/// </summary>
 		protected EntityBase() : this(null)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="EntityBase"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Domain.EntityBase&lt;TKey&gt;"/> class.
 		/// </summary>
-		/// <param name="key">The key.</param>
+		/// <param name="key">Key.</param>
 		protected EntityBase(long? key)
 		{
 			if(!key.HasValue || key.Value <= 0)
@@ -52,7 +52,7 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// Gets the key.
 		/// </summary>
 		/// <value>The key.</value>
-		public long Key
+		public TKey Key
 		{
 			get {
 				return m_key;
@@ -104,7 +104,7 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// <returns>
 		/// The result of the operator.
 		/// </returns>
-		public static bool operator == (EntityBase base1, EntityBase base2)
+		public static bool operator == (EntityBase<TKey> base1, EntityBase<TKey> base2)
 		{
 			// Check for both null (need this casts to object or will run in a recursive loop).
 			if ((object)base1 == null && (object)base2 == null)
@@ -128,7 +128,7 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// <returns>
 		/// The result of the operator.
 		/// </returns>
-		public static bool operator !=(EntityBase base1, EntityBase base2)
+		public static bool operator !=(EntityBase<TKey> base1, EntityBase<TKey> base2)
 		{
 			return !(base1 == base2);
 		}

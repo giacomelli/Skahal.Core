@@ -18,7 +18,7 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 		public void InitializeFixture()
 		{
 			m_userRepository = new MemoryRepository<User> (m_unitOfWork);
-			var keyGenerator = new MemoryEntityKeyGenerator ();
+			var keyGenerator = new MemoryLongEntityKeyGenerator ();
 			keyGenerator.SetLastKey (typeof(User), 0);
 			EntityKeyGenerator.Initialize (keyGenerator);
 		}

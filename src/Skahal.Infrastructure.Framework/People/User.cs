@@ -9,7 +9,7 @@ namespace Skahal.Infrastructure.Framework.People
 	/// Represents a user.
 	/// </summary>
 	[Serializable]
-	public class User : EntityBase, IAggregateRoot
+	public class User : EntityBase<long>, IAggregateRoot
 	{
 		#region Constructors
 		/// <summary>

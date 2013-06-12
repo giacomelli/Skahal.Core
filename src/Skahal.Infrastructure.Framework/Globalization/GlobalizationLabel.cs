@@ -6,7 +6,7 @@ namespace Skahal.Infrastructure.Framework.Globalization
 	/// <summary>
 	/// Globalization label.
 	/// </summary>
-	public class GlobalizationLabel : EntityBase, IAggregateRoot
+	public class GlobalizationLabel : EntityBase<int>, IAggregateRoot
 	{
 		#region Properties
 		/// <summary>

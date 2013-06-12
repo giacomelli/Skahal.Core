@@ -46,10 +46,10 @@ namespace Skahal.Infrastructure.Framework.Configuration
 		protected abstract IGlobalizationLabelRepository CreateGlobalizationLabelRepository ();
 
 		/// <summary>
-		/// Creates the entity key generator.
+		/// Creates the entity key generator factory.
 		/// </summary>
-		/// <returns>The entity key generator.</returns>
-		protected abstract IEntityKeyGenerator CreateEntityKeyGenerator ();
+		/// <returns>The entity key generator factory.</returns>
+		protected abstract IEntityKeyGeneratorFactory CreateEntityKeyGeneratorFactory ();
 
 		/// <summary>
 		/// Setup this instance.
@@ -64,7 +64,7 @@ namespace Skahal.Infrastructure.Framework.Configuration
 				InitializeService ("AppStrategy", CreateAppStrategy(), AppService.Initialize);
 				InitializeService ("UserRepository", CreateUserRepository(), UserService.Initialize);
 				InitializeService ("GlobalizationLabelRepository", CreateGlobalizationLabelRepository(), GlobalizationService.Initialize);
-				InitializeService ("EntityKeyGenerator", CreateEntityKeyGenerator(), EntityKeyGenerator.Initialize);
+				InitializeService ("EntityKeyGeneratorFactory", CreateEntityKeyGeneratorFactory(), EntityKeyGenerator.Initialize);
 
 
 				s_alreadyBooted = true;

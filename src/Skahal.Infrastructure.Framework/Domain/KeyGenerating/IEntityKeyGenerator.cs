@@ -10,7 +10,7 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 	/// <summary>
 	/// Defines a interface for an entity key generator.
 	/// </summary>
-	public interface IEntityKeyGenerator
+	public interface IEntityKeyGenerator<TKey>
 	{
 		#region Usings
 		/// <summary>
@@ -18,14 +18,14 @@ namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 		/// </summary>
 		/// <returns>The key.</returns>
 		/// <param name="entityType">Entity type.</param>
-		long NextKey(Type entityType);
+		TKey NextKey(Type entityType);
 
 		/// <summary>
 		/// Uses the key.
 		/// </summary>
 		/// <param name="entityType">Entity type.</param>
 		/// <param name="key">Key.</param>
-		void UseKey (Type entityType, long key);
+		void UseKey (Type entityType, TKey key);
 		#endregion
 	}
 }

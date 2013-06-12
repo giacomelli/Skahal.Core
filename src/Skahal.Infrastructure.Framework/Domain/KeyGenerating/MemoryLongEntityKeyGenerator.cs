@@ -12,9 +12,9 @@ using System.Collections.Generic;
 namespace Skahal.Infrastructure.Framework.Domain.KeyGenerating
 {
 	/// <summary>
-	/// An in-memory entity key generator.
+	/// An in-memory long entity key generator.
 	/// </summary>
-	public class MemoryEntityKeyGenerator : IEntityKeyGenerator
+	public class MemoryLongEntityKeyGenerator : IEntityKeyGenerator<long>
 	{
 		#region Fields
 		private Dictionary<Type, long> m_lastKeys = new Dictionary<Type, long>();
