@@ -15,8 +15,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <returns>The last entity.</returns>
 		/// <param name="repository">Repository.</param>
 		/// <typeparam name="TEntity">The 1st type parameter.</typeparam>
-		public static TEntity FindLast<TEntity>(this IRepository<TEntity> repository) 
-			where TEntity : IAggregateRoot
+		public static TEntity FindLast<TEntity, TKey>(this IRepository<TEntity, TKey> repository) 
+			where TEntity : IAggregateRoot<TKey>
 		{
 			return repository.FindAll (repository.CountAll() - 1, 1, f => true).FirstOrDefault ();
 		}
@@ -27,8 +27,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <returns>The last key.</returns>
 		/// <param name="repository">Repository.</param>
 		/// <typeparam name="TEntity">The 1st type parameter.</typeparam>
-		public static long FindLastKey<TEntity>(this IRepository<TEntity> repository) 
-			where TEntity : IAggregateRoot
+		public static long FindLastKey<TEntity, TKey>(this IRepository<TEntity, TKey> repository) 
+			where TEntity : IAggregateRoot<TKey>
 		{
 			return 0;
 		}

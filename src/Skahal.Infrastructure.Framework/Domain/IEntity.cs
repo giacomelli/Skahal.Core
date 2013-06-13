@@ -3,13 +3,13 @@
 	/// <summary>
 	/// Defines a basic interface for a domain entity.
 	/// </summary>
-	public interface IEntity
+	public interface IEntity<TKey>
 	{
 		#region Properties
 		/// <summary>
 		/// Gets the id.
 		/// </summary>
-		long Key { get; }
+		TKey Key { get; set; }
 		#endregion
 	}
 }

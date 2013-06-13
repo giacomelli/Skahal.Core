@@ -8,16 +8,16 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	/// <summary>
 	/// A base class for repositories.
 	/// </summary>
-	public abstract class RepositoryBase<TEntity>
-		: IRepository<TEntity>, IUnitOfWorkRepository where TEntity : IAggregateRoot
+	public abstract class RepositoryBase<TEntity, TKey>
+		: IRepository<TEntity, TKey>, IUnitOfWorkRepository<TKey> where TEntity : IAggregateRoot<TKey> 
     {
 		#region Fields
-		private IUnitOfWork m_unitOfWork;
+		private IUnitOfWork<TKey> m_unitOfWork;
 		#endregion
 
         #region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity&gt;"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity, TKey&gt;"/> class.
 		/// </summary>
         protected RepositoryBase() 
             : this(null)
@@ -25,10 +25,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
         }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity&gt;"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity, TKey&gt;"/> class.
 		/// </summary>
 		/// <param name="unitOfWork">Unit of work.</param>
-        protected RepositoryBase(IUnitOfWork unitOfWork)
+		protected RepositoryBase(IUnitOfWork<TKey> unitOfWork)
         {
             m_unitOfWork = unitOfWork;
         }
@@ -40,7 +40,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <returns>The entity.</returns>
 		/// <param name="key">Key.</param>
-        public abstract TEntity FindBy(long key);
+        public abstract TEntity FindBy(TKey key);
 
 		/// <summary>
 		/// Finds all entities that matches the filter.
@@ -93,7 +93,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Sets the unit of work.
 		/// </summary>
 		/// <param name="unitOfWork">Unit of work.</param>
-        public void SetUnitOfWork(IUnitOfWork unitOfWork)
+		public void SetUnitOfWork(IUnitOfWork<TKey> unitOfWork)
         {
             m_unitOfWork = unitOfWork;
         }
@@ -127,10 +127,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
         }
 
 		/// <summary>
-		/// Gets or sets the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity&gt;"/> with the specified key.
+		/// Gets or sets the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity, TKey&gt;"/> with the specified key.
 		/// </summary>
 		/// <param name="key">Key.</param>
-        public TEntity this[long key]
+		public TEntity this[TKey key]
         {
             get
             {
@@ -159,7 +159,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Persists the new item.
 		/// </summary>
 		/// <param name="item">Item.</param>
-		public virtual void PersistNewItem(IAggregateRoot item)
+		public virtual void PersistNewItem(IAggregateRoot<TKey> item)
         {
             PersistNewItem((TEntity)item);
         }
@@ -168,7 +168,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Persists the updated item.
 		/// </summary>
 		/// <param name="item">Item.</param>
-		public virtual void PersistUpdatedItem(IAggregateRoot item)
+		public virtual void PersistUpdatedItem(IAggregateRoot<TKey> item)
         {
             PersistUpdatedItem((TEntity)item);
         }
@@ -177,7 +177,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Persists the deleted item.
 		/// </summary>
 		/// <param name="item">Item.</param>
-		public virtual void PersistDeletedItem(IAggregateRoot item)
+		public virtual void PersistDeletedItem(IAggregateRoot<TKey> item)
         {
             PersistDeletedItem((TEntity)item);
         }
@@ -188,7 +188,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Gets the unit of work.
 		/// </summary>
 		/// <value>The unit of work.</value>
-        protected IUnitOfWork UnitOfWork
+		protected IUnitOfWork<TKey> UnitOfWork
         {
             get { return m_unitOfWork; }
         }

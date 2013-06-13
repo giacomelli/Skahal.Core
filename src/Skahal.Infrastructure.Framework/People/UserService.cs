@@ -12,7 +12,7 @@ namespace Skahal.Infrastructure.Framework.People
 	{
 		#region Fields
 		private static IUserRepository s_repository;
-		private static IUnitOfWork s_unitOfWork;
+		private static IUnitOfWork<string> s_unitOfWork;
 		private static User s_currentUser;
 		#endregion
 
@@ -23,7 +23,7 @@ namespace Skahal.Infrastructure.Framework.People
 		/// <param name="userRepository">User repository.</param>
 		public static void Initialize (IUserRepository userRepository)
 		{
-			s_unitOfWork = new MemoryUnitOfWork ();
+			s_unitOfWork = new MemoryUnitOfWork<string> ();
 			s_repository = userRepository;
 			s_repository.SetUnitOfWork (s_unitOfWork);
 		}
@@ -36,20 +36,20 @@ namespace Skahal.Infrastructure.Framework.People
 		{
 			if(s_currentUser == null)
 			{
-				//LogService.Debug("GetCurrentUser: there is no current user. Looking for the first one available on repository...");
+				LogService.Debug("GetCurrentUser: there is no current user. Looking for the first one available on repository...");
 				s_currentUser = s_repository.FindAll ((u) => true).FirstOrDefault();
-//
-//				if(s_currentUser == null)
-//				{
-//					LogService.Debug("GetCurrentUser: there is no users on repository. Creating the first one and marking as current..");
-//					s_currentUser = new User();
-//					s_currentUser.Name = "Default user";
-//					s_repository.Add(s_currentUser);
-//					s_unitOfWork.Commit ();
-//				}
-//				else {
-//					LogService.Debug("GetCurrentUser: first user found on repository: {0}-{1}.", s_currentUser.Key, s_currentUser.Name);
-//				}
+
+				if(s_currentUser == null)
+				{
+					LogService.Debug("GetCurrentUser: there is no users on repository. Creating the first one and marking as current..");
+					s_currentUser = new User();
+					s_currentUser.Name = "Default user";
+					s_repository.Add(s_currentUser);
+					s_unitOfWork.Commit ();
+				}
+				else {
+					LogService.Debug("GetCurrentUser: first user found on repository: {0}-{1}.", s_currentUser.Key, s_currentUser.Name);
+				}
 			}
 
 			return s_currentUser;

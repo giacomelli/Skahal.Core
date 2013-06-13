@@ -69,9 +69,9 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		{
 			m_player = player;
 
-			if(string.IsNullOrEmpty(m_player.RemoteId))
+			if(string.IsNullOrEmpty(m_player.RemoteKey))
 			{
-				m_player.RemoteId = Guid.NewGuid ().ToString ();
+				m_player.RemoteKey = Guid.NewGuid ().ToString ();
 			}
 
 			m_serverAddress = serverAddress;
@@ -114,7 +114,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		{
 			Request (
 					"Multiplayer/UnregisterPlayer",
-					"playerId", m_player.RemoteId);
+					"playerId", m_player.RemoteKey);
 			
 			m_messagingStrategy.Disconnect ();
 			m_keepReceiving = false;
@@ -172,7 +172,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 				SH.StartCoroutine (ReceiveMessage ());
 			},
 			"Multiplayer/CreateGame",
-			"playerId", m_player.RemoteId);
+			"playerId", m_player.RemoteKey);
 		}
 
 		/// <summary>
@@ -330,7 +330,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 						}
 					},
 				"Multiplayer/DequeueMessages",
-				"playerId", m_player.RemoteId,
+				"playerId", m_player.RemoteKey,
 				"LastDequeuedMessageId", m_lastDequeuedMessageId.ToString());
 				}
 			}	
@@ -355,7 +355,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 					var value = (Hashtable)messageValue;
 					var enemy = new GlobalServerPlayer ();
 					enemy.Name = value ["Name"].ToString ();
-					enemy.RemoteId = value ["Id"].ToString ();
+					enemy.RemoteKey = value ["Id"].ToString ();
 					enemy.IP = value ["IP"].ToString ();
 					enemy.Device = value ["Device"].ToString ();
 								
@@ -390,7 +390,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		{
 			return new string[] 
 			{
-				"id", m_player.RemoteId,
+				"id", m_player.RemoteKey,
 				"name", SanitizeInfoFromPlayer (m_player.Name),
 				"Device", SHDevice.Family.ToString (),
 				"IP", m_messagingStrategy.PlayerAddress,

@@ -14,7 +14,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 	/// <summary>
 	/// Protobuf repository base.
 	/// </summary>
-	public abstract class ProtobufRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class, IAggregateRoot
+	public abstract class ProtobufRepositoryBase<TEntity, TKey> : RepositoryBase<TEntity, TKey> where TEntity : class, IAggregateRoot<TKey>
 	{
 		#region Fields
 		private string m_repositoryFolder;
@@ -73,9 +73,9 @@ namespace Skahal.Infrastructure.Unity.Repositories
 			}
 		}
 	
-		public override TEntity FindBy (long key)
+		public override TEntity FindBy (TKey key)
 		{
-			return FindAll(f => f.Key == key).FirstOrDefault();
+			return FindAll(f => f.Key.Equals(key)).FirstOrDefault();
 		}
 
 		public override IEnumerable<TEntity> FindAll (int offset, int limit, Func<TEntity, bool> filter)
@@ -106,26 +106,32 @@ namespace Skahal.Infrastructure.Unity.Repositories
 			File.Delete(GetFileName (item.Key));
 		}
 
+		/// <summary>
+		/// Converts the key from string to TKey.
+		/// </summary>
+		/// <returns>The key converted.</returns>
+		/// <param name="key">Key.</param>
+		protected abstract TKey ConvertFrom (string key);
 		#endregion
 		
 		#region Fields
-		private string GetFileName (long id)
+		private string GetFileName (TKey key)
 		{
-			return Path.Combine(m_repositoryFolder, id + ".bin");
+			return Path.Combine(m_repositoryFolder, key + ".bin");
 		}
 
-		private long[] GetAllIds()
+		private TKey[] GetAllIds()
 		{
 			var files = Directory.GetFiles(m_repositoryFolder, "*.bin");
 			LogService.Debug("{0}: {1} files found on data folder '{2}'.", GetType().Name, files.Length, m_repositoryFolder);
 
-			var ids = new long[files.Length];
+			var keys = new TKey[files.Length];
 
 			for (var i = 0; i < files.Length; i++) {
-				ids [i] = long.Parse (Path.GetFileNameWithoutExtension(files[i]));
+				keys [i] = ConvertFrom (Path.GetFileNameWithoutExtension(files[i]));
 			}
 
-			return ids;
+			return keys;
 		}
 		#endregion
 	}

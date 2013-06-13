@@ -37,7 +37,7 @@ namespace Skahal.Infrastructure.Framework.Globalization
 		/// </summary>
 		public static readonly CultureInfo EnUsCultureInfo = new CultureInfo("en-US");
 
-		private static CultureInfo s_currentCulture;
+		private static CultureInfo s_currentCulture = EnUsCultureInfo;
 
 		private static IGlobalizationLabelRepository s_labelRepository;
 		#endregion
@@ -144,6 +144,10 @@ namespace Skahal.Infrastructure.Framework.Globalization
 		/// <param name="englishText">English text.</param>
 		public static string Translate(string englishText)
 		{
+			if (String.IsNullOrEmpty (englishText)) {
+				throw new ArgumentNullException ("englishText"); 
+			}
+
 			var translatedLabel = s_labelRepository
 				.FindAll (
 					f =>   f.EnglishText.Equals(englishText, StringComparison.OrdinalIgnoreCase)

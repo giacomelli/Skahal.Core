@@ -9,7 +9,7 @@ namespace Skahal.Infrastructure.Framework.People
 	/// Represents a user.
 	/// </summary>
 	[Serializable]
-	public class User : EntityBase<long>, IAggregateRoot
+	public class User : EntityBase<string>, IAggregateRoot<string> 
 	{
 		#region Constructors
 		/// <summary>
@@ -18,16 +18,16 @@ namespace Skahal.Infrastructure.Framework.People
 		/// The entity will receive a new and unique key.
 		/// </remarks>
 		/// </summary>
-		public User() : this(0)
+		public User()
 		{
-
+			Preferences = new List<UserPreference>();
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.People.User"/> class.
 		/// </summary>
 		/// <param name="key">The entity key.</param>
-		public User(long key) : base(key)
+		public User(string key) : base(key)
 		{
 			Preferences = new List<UserPreference>();
 		}
@@ -38,7 +38,7 @@ namespace Skahal.Infrastructure.Framework.People
 		/// Gets or sets the remote id.
 		/// </summary>
 		/// <value>The name.</value>
-		public string RemoteId { get; set; }
+		public string RemoteKey { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name.

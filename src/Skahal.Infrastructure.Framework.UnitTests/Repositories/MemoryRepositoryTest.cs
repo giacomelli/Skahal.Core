@@ -11,31 +11,41 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 	[TestFixture()]
 	public class MemoryRepositoryTest
 	{
+		#region Fields
+		private MemoryUnitOfWork<string> m_unitOfWork;
+		private MemoryRepository<User, string> m_target;
+		#endregion
+
+		#region Initialize
+		[SetUp]
+		public void InitializeTest()
+		{
+			m_unitOfWork = new MemoryUnitOfWork<string> ();
+			m_target = new MemoryRepository<User, string> (m_unitOfWork, (u) => { return Guid.NewGuid().ToString(); });
+		}
+		#endregion
+
+		#region Tests
 		[Test()]
 		public void FindAll_NullFilter_ArgumentNullException ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
-
 			ExceptionAssert.IsThrowing (new ArgumentNullException("filter"), () => {
-				target.FindAll (null);
+				m_target.FindAll (null);
 			});
 		}
 
 		[Test()]
 		public void FindAll_Filter_EntitiesFiltered ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
-			target.Add(new User() {} );
+			m_target.Add(new User() {} );
 
 			var user = new User ();
-			target.Add(user);
-			target.Add(new User() {} );
-			target.Add(new User() {} );
-			unitOfWork.Commit ();
+			m_target.Add(user);
+			m_target.Add(new User() {} );
+			m_target.Add(new User() {} );
+			m_unitOfWork.Commit ();
 
-			var actual = target.FindAll (f => f.Key == user.Key).ToList();
+			var actual = m_target.FindAll (f => f.Key == user.Key).ToList();
 			Assert.AreEqual (1, actual.Count);
 			Assert.AreEqual (user.Key, actual[0].Key);
 		}
@@ -44,127 +54,105 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 		[Test()]
 		public void CountAll_NullFilter_ArgumentNullException ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
-
 			ExceptionAssert.IsThrowing (new ArgumentNullException("filter"), () => {
-				target.CountAll (null);
+				m_target.CountAll (null);
 			});
 		}
 
 		[Test()]
 		public void CountAll_Filter_EntitiesFiltered ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
-			target.Add(new User() { } );
-			target.Add(new User() { } );
-			target.Add(new User() { } );
-			target.Add(new User() { } );
-			unitOfWork.Commit();
+			m_target.Add(new User() { } );
+			m_target.Add(new User() { } );
+			m_target.Add(new User() { } );
+			m_target.Add(new User() { } );
+			m_unitOfWork.Commit();
 
-			var actual = target.CountAll (f => true);
+			var actual = m_target.CountAll (f => true);
 			Assert.AreEqual (4, actual);
 		}
 
 		[Test()]
 		public void Add_NullEntity_ArgumentNullException ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
-		
 			ExceptionAssert.IsThrowing (new ArgumentNullException("item"), () => {
-				target.Add (null);
+				m_target.Add (null);
 			});
 		}
 
 		[Test()]
-		public void Add_EntityAlreadyAdded_IgnoresTheSecondOne ()
+		public void Add_EntityAlreadyAdded_Exception()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
+			var user = new User ("1");
+			m_target.Add(user);
+			m_target.Add(user);
 
-			var user = new User (1);
-			target.Add(user);
-			target.Add(user);
-
-			unitOfWork.Commit();
+			ExceptionAssert.IsThrowing (new InvalidOperationException ("There is another entity with id '1'."), () => {
+				m_unitOfWork.Commit ();
+			});
 	
-			var actual = target.FindAll(f => true).ToList();
+			var actual = m_target.FindAll(f => true).ToList();
 
 			Assert.AreEqual (1, actual.Count);
-			Assert.AreEqual (1, actual[0].Key);
+			Assert.AreEqual ("1", actual[0].Key);
 		}
 
 		[Test()]
 		public void Add_Entity_Added ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
+			m_target.Add(new User());
+			m_unitOfWork.Commit ();
 
-			target.Add(new User());
-			unitOfWork.Commit ();
-
-			var actual = target.FindAll(f => true).ToList();
+			var actual = m_target.FindAll(f => true).ToList();
 
 			Assert.AreEqual (1, actual.Count);
-			Assert.AreEqual (1, actual[0].Key);
+			Assert.IsFalse (String.IsNullOrWhiteSpace(actual[0].Key));
 		}
 
 		[Test()]
 		public void Delete_NullEntity_ArgumentNullException ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
-
-
 			ExceptionAssert.IsThrowing (new ArgumentNullException("item"), () => {
-				target.Remove(null);
+				m_target.Remove(null);
 			});
 		}
 
 		[Test()]
 		public void Delete_EntityWithIdDoesNotExists_ArgumentNullException ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User() { };
-			target.Remove(user);
+			m_target.Remove(user);
 
 			ExceptionAssert.IsThrowing (
 				new InvalidOperationException ("There is no entity with id '{0}'.".With(user.Key)), 
 				() => { 
-				unitOfWork.Commit();
+				m_unitOfWork.Commit();
 			});
 		}
 
 		[Test()]
 		public void Delete_Entity_EntityDeleted ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User () { };
-			target.Add (user);
-			unitOfWork.Commit();
+			m_target.Add (user);
+			m_unitOfWork.Commit();
 
-			target.Remove (user);
-			unitOfWork.Commit();
+			m_target.Remove (user);
+			m_unitOfWork.Commit();
 
-			var actual = target.FindAll(f => true).ToList();
+			var actual = m_target.FindAll(f => true).ToList();
 			Assert.AreEqual (0, actual.Count);
 		}
 
 		[Test()]
 		public void Modify_EntityWithIdDoesNotExist_Added ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User() { };
-			target[user.Key] = user;
+			m_target[user.Key] = user;
 
-			unitOfWork.Commit();
+			m_unitOfWork.Commit();
 
-			var actual = target.FindAll(f => true).ToList();
+			var actual = m_target.FindAll(f => true).ToList();
 			Assert.AreEqual (1, actual.Count);
 			Assert.AreEqual (user.Key, actual[0].Key);
 		}
@@ -172,24 +160,22 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 		[Test()]
 		public void Modify_Entity_EntityModified ()
 		{
-			var unitOfWork = new MemoryUnitOfWork ();
-			var target = new MemoryRepository<User> (unitOfWork);
 			var user = new User ();
-			target.Add (user);
+			m_target.Add (user);
 			user = new User ();
-			target.Add (user);
-			unitOfWork.Commit();
+			m_target.Add (user);
+			m_unitOfWork.Commit();
 
 			var modifiedUser = new User(user.Key) { Name = "new name" };
-			target[user.Key] = modifiedUser;
+			m_target[user.Key] = modifiedUser;
 
-			unitOfWork.Commit();
+			m_unitOfWork.Commit();
 
-			var actual = target.FindAll(f => true).ToList();
-			Assert.AreEqual (2, actual.Count);
-			Assert.AreEqual (user.Key, actual[1].Key);
-			Assert.AreEqual ("new name", actual[1].Name);
+			var actual = m_target.FindAll (f => f == user).FirstOrDefault ();
+			Assert.AreEqual (user.Key, actual.Key);
+			Assert.AreEqual ("new name", actual.Name);
 		}
+		#endregion
 	}
 }
 

@@ -14,7 +14,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 	/// <summary>
 	/// Player prefs repository base.
 	/// </summary>
-	public abstract class PlayerPrefsRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class, IAggregateRoot
+	public abstract class PlayerPrefsRepositoryBase<TEntity, TKey> : RepositoryBase<TEntity, TKey> where TEntity : class, IAggregateRoot<TKey>
 	{
 		#region Methods
 		/// <summary>
@@ -27,7 +27,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 
 			foreach (var id in allIds) {
 				if (!String.IsNullOrEmpty (id)) {
-					var entity = SerializationHelper.DeserializeFromString<TEntity> (PlayerPrefs.GetString(GetKey (long.Parse(id))));
+					var entity = SerializationHelper.DeserializeFromString<TEntity> (PlayerPrefs.GetString(GetKey (ConvertFrom(id))));
 
 					if(filter(entity))
 					{
@@ -37,9 +37,9 @@ namespace Skahal.Infrastructure.Unity.Repositories
 			}
 		}
 
-		public override TEntity FindBy (long key)
+		public override TEntity FindBy (TKey key)
 		{
-			return FindAll(f => f.Key == key).FirstOrDefault();
+			return FindAll(f => f.Key.Equals(key)).FirstOrDefault();
 		}
 
 		public override IEnumerable<TEntity> FindAll (int offset, int limit, Func<TEntity, bool> filter)
@@ -69,10 +69,16 @@ namespace Skahal.Infrastructure.Unity.Repositories
 			PlayerPrefs.DeleteKey(GetKey(item.Key));
 		}
 
+		/// <summary>
+		/// Converts the key from string to TKey.
+		/// </summary>
+		/// <returns>The key converted.</returns>
+		/// <param name="key">Key.</param>
+		protected abstract TKey ConvertFrom (string key);
 		#endregion
 		
 		#region Fields
-		private string GetKey (long id)
+		private string GetKey (TKey id)
 		{
 			return String.Format ("PlayerPrefsRepository_{0}_{1}", typeof(TEntity).Name, id);
 		}

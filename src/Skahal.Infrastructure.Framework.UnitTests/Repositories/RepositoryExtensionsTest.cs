@@ -2,7 +2,6 @@ using System;
 using NUnit.Framework;
 using Skahal.Infrastructure.Framework.Repositories;
 using Skahal.Infrastructure.Framework.People;
-using Skahal.Infrastructure.Framework.Domain.KeyGenerating;
 
 namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 {
@@ -10,17 +9,14 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 	public class RepositoryExtensionsTest
 	{
 		#region Fields
-		private MemoryRepository<User> m_userRepository;
-		private IUnitOfWork m_unitOfWork = new MemoryUnitOfWork();
+		private MemoryRepository<User, string> m_userRepository;
+		private IUnitOfWork<string> m_unitOfWork = new MemoryUnitOfWork<string>();
 		#endregion
 
 		[SetUp]
 		public void InitializeFixture()
 		{
-			m_userRepository = new MemoryRepository<User> (m_unitOfWork);
-			var keyGenerator = new MemoryLongEntityKeyGenerator ();
-			keyGenerator.SetLastKey (typeof(User), 0);
-			EntityKeyGenerator.Initialize (keyGenerator);
+			m_userRepository = new MemoryRepository<User, string> (m_unitOfWork, (u) => { return Guid.NewGuid().ToString(); });
 		}
 
 		[Test()]
@@ -42,18 +38,18 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 		[Test()]
 		public void FindLast_ManyEntities_LastOne ()
 		{
-			var entity = new User () { Name = "1" };
+			var entity = new User () { Key = "1" };
 			m_userRepository.Add (entity);
 
-			entity = new User() { Name = "2" };
+			entity = new User() { Key = "2" };
 			m_userRepository.Add (entity);
 
-			entity = new User() { Name = "3" };
+			entity = new User() { Key = "3" };
 			m_userRepository.Add (entity);
 
 			m_unitOfWork.Commit();
 
-			Assert.AreEqual ("3", m_userRepository.FindLast().Name);
+			Assert.AreEqual ("3", m_userRepository.FindLast().Key);
 		}
 	}
 }

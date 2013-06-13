@@ -12,23 +12,30 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	/// In most of cases will be used for tests purposes.
 	/// </remarks>
 	/// </summary>
-	public class MemoryRepository<TEntity> : RepositoryBase<TEntity> where TEntity : IAggregateRoot
+	public class MemoryRepository<TEntity, TKey> : RepositoryBase<TEntity, TKey> where TEntity : IAggregateRoot<TKey> 
 	{
+		#region Fields
+		private Func<TEntity, TKey> m_createNewKey;
+		#endregion
+
 		#region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository&lt;TEntity&gt;"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository&lt;TEntity, TKey&gt;"/> class.
 		/// </summary>
-		public MemoryRepository()
+		public MemoryRepository(Func<TEntity, TKey> createNewKey)
 		{
+			m_createNewKey = createNewKey;
 			Entities = new List<TEntity> ();
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository&lt;TEntity&gt;"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryRepository&lt;TEntity, TKey&gt;"/> class.
 		/// </summary>
+		/// <param name="createNewKey">Create new key.</param>
 		/// <param name="unitOfWork">Unit of work.</param>
-		public MemoryRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+		public MemoryRepository(IUnitOfWork<TKey> unitOfWork, Func<TEntity, TKey> createNewKey) : base(unitOfWork)
 		{
+			m_createNewKey = createNewKey;
 			Entities = new List<TEntity> ();
 		}
 		#endregion
@@ -47,9 +54,9 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <returns>The found entity.</returns>
 		/// <param name="key">Key.</param>
-		public override TEntity FindBy (long key)
+		public override TEntity FindBy (TKey key)
 		{
-			return FindAll (e => e.Key == key).FirstOrDefault();
+			return FindAll (e => e.Key.Equals(key)).FirstOrDefault();
 		}
 
 		/// <summary>
@@ -88,12 +95,17 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-			if (Entities.FirstOrDefault (e => e.Key == item.Key) != null) {
+			if (Entities.FirstOrDefault (e => e.Key.Equals(item.Key)) != null) {
 				throw new InvalidOperationException ("There is another entity with id '{0}'.".With(item.Key));
+			}
+
+			if (item.Key == null) {
+				item.Key = m_createNewKey (item);
 			}
 
 			Entities.Add (item);
 		}
+
 		/// <summary>
 		/// Persists the updated item.
 		/// </summary>
@@ -114,7 +126,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		{
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-			var old = Entities.FirstOrDefault (e => e.Key == item.Key);
+			var old = Entities.FirstOrDefault (e => e.Key.Equals(item.Key));
 
 			if (old == null) {
 				throw new InvalidOperationException ("There is no entity with id '{0}'.".With(item.Key));

@@ -10,23 +10,23 @@ namespace Skahal.Infrastructure.Framework.Repositories
 	/// <summary>
 	/// Defines an in memory unit of work.
 	/// </summary>
-    public class MemoryUnitOfWork : IUnitOfWork
+	public class MemoryUnitOfWork<TKey> : IUnitOfWork<TKey>
     {
         #region Fields
-		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_AddedEntities;
-		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_changedEntities;
-		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> m_deletedEntities;
+		private List<KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>> m_AddedEntities;
+		private List<KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>> m_changedEntities;
+		private List<KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>> m_deletedEntities;
         #endregion
 
         #region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryUnitOfWork"/> class.
+		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Repositories.MemoryUnitOfWork&lt;TKey&gt;"/> class.
 		/// </summary>
         public MemoryUnitOfWork()
         {
-			m_AddedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
-			m_changedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
-			m_deletedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
+			m_AddedEntities = new List<KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>>();
+			m_changedEntities = new List<KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>>();
+			m_deletedEntities = new List<KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>>();
         }
         #endregion
 
@@ -36,25 +36,19 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <param name="entity">Entity.</param>
 		/// <param name="repository">Repository.</param>
-		public void RegisterAdded(IAggregateRoot entity, IUnitOfWorkRepository repository)
+		public void RegisterAdded(IAggregateRoot<TKey> entity, IUnitOfWorkRepository<TKey> repository)
         {
-			if(!m_AddedEntities.ContainsKey(entity))
-			{
-           		m_AddedEntities.Add(entity, repository);
-			}
-        }
+			m_AddedEntities.Add(new KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>(entity, repository));
+	    }
 
 		/// <summary>
 		/// Registers an entity to be changed when commited.
 		/// </summary>
 		/// <param name="entity">Entity.</param>
 		/// <param name="repository">Repository.</param>
-		public void RegisterChanged(IAggregateRoot entity, IUnitOfWorkRepository repository)
+		public void RegisterChanged(IAggregateRoot<TKey> entity, IUnitOfWorkRepository<TKey> repository)
         {
-			if(!m_changedEntities.ContainsKey(entity))
-			{
-           		m_changedEntities.Add(entity, repository);
-			}
+			m_changedEntities.Add(new KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>(entity, repository));
         }
 
 		/// <summary>
@@ -62,12 +56,9 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <param name="entity">Entity.</param>
 		/// <param name="repository">Repository.</param>
-		public void RegisterRemoved(IAggregateRoot entity, IUnitOfWorkRepository repository)
+		public void RegisterRemoved(IAggregateRoot<TKey> entity, IUnitOfWorkRepository<TKey> repository)
         {
-			if(!m_deletedEntities.ContainsKey(entity))
-			{
-          		m_deletedEntities.Add(entity, repository);
-			}
+			m_deletedEntities.Add(new KeyValuePair<IAggregateRoot<TKey>, IUnitOfWorkRepository<TKey>>(entity, repository));
         }
 
 		/// <summary>
@@ -75,19 +66,19 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
         public void Commit()
         {
-           foreach (var entity in m_deletedEntities.Keys)
+           foreach (var item in m_deletedEntities)
             {
-                m_deletedEntities[entity].PersistDeletedItem(entity);
+				item.Value.PersistDeletedItem(item.Key);
             }
 
-            foreach (var entity in m_AddedEntities.Keys)
+            foreach (var item in m_AddedEntities)
             {
-                m_AddedEntities[entity].PersistNewItem(entity);
+   				item.Value.PersistNewItem(item.Key);
             }
 
-            foreach (var entity in m_changedEntities.Keys)
+            foreach (var item in m_changedEntities)
             {
-                m_changedEntities[entity].PersistUpdatedItem(entity);
+    			item.Value.PersistUpdatedItem(item.Key);
             }
 		
 			m_deletedEntities.Clear();

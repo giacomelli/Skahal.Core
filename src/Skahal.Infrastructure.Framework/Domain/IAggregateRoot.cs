@@ -3,7 +3,7 @@
 	/// <summary>
 	/// The markup interface for a aggregate root.
 	/// </summary>
-	public interface IAggregateRoot : IEntity 
+	public interface IAggregateRoot<TKey>  : IEntity<TKey> 
 	{
 	}
 }

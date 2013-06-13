@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-using Skahal.Infrastructure.Framework.Domain.KeyGenerating;
-
-
 #endregion
 
 namespace Skahal.Infrastructure.Framework.Domain
@@ -16,17 +13,13 @@ namespace Skahal.Infrastructure.Framework.Domain
 	/// </summary>
 	[DebuggerDisplay("{Key}")]
 	[Serializable] 
-	public abstract class EntityBase<TKey> : IEntity
+	public abstract class EntityBase<TKey> : IEntity<TKey> 
 	{
-		#region Fields
-		private TKey m_key;
-		#endregion
-
 		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Domain.EntityBase&lt;TKey&gt;"/> class.
 		/// </summary>
-		protected EntityBase() : this(null)
+		protected EntityBase() 
 		{
 		}
 
@@ -34,16 +27,9 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// Initializes a new instance of the <see cref="Skahal.Infrastructure.Framework.Domain.EntityBase&lt;TKey&gt;"/> class.
 		/// </summary>
 		/// <param name="key">Key.</param>
-		protected EntityBase(long? key)
+		protected EntityBase(TKey key)
 		{
-			if(!key.HasValue || key.Value <= 0)
-			{
-				Key = EntityKeyGenerator.NextKey(GetType());
-			}
-			else
-			{
-				Key = key.Value;
-			}
+			Key = key;
 		}
 		#endregion
 
@@ -52,17 +38,7 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// Gets the key.
 		/// </summary>
 		/// <value>The key.</value>
-		public TKey Key
-		{
-			get {
-				return m_key;
-			}
-
-			set {
-				m_key = value;
-				EntityKeyGenerator.UseKey (GetType(), m_key);
-			}
-		}
+		public TKey Key  { get; set; }
 		#endregion
 
 		#region Methods
@@ -75,12 +51,12 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// </returns>
 		public override bool Equals(object obj)
 		{
-			if(obj == null || !(obj is EntityBase))
+			if(obj == null || !(obj is EntityBase<TKey>))
 			{
 				return false;
 			}
 
-			return this == (EntityBase)obj;
+			return this == (EntityBase<TKey>)obj;
 		}
 
 		/// <summary>
@@ -91,6 +67,10 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// </returns>
 		public override int GetHashCode()
 		{
+			if (Key == null) {
+				return 0;
+			}
+
 			return Key.GetHashCode();
 		}
 		#endregion
@@ -117,7 +97,15 @@ namespace Skahal.Infrastructure.Framework.Domain
 				return false;
 			}
 
-			return base1.Key == base2.Key;
+			if (base1.Key == null && base2.Key == null) {
+				return true;
+			}
+
+			if (base1.Key == null || base2.Key == null) {
+				return false;
+			}
+
+			return base1.Key.Equals(base2.Key);
 		}
 
 		/// <summary>

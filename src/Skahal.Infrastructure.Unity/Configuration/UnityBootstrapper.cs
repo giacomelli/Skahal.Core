@@ -9,7 +9,6 @@ using Skahal.Infrastructure.Framework.Logging;
 using Skahal.Infrastructure.Framework.People;
 using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.Globalization;
-using Skahal.Infrastructure.Framework.Domain.KeyGenerating;
 using System.Linq;
 
 namespace Skahal.Infrastructure.Unity.Configuration
@@ -68,20 +67,7 @@ namespace Skahal.Infrastructure.Unity.Configuration
 		/// <returns>The globalization label repository.</returns>
 		protected override IGlobalizationLabelRepository CreateGlobalizationLabelRepository ()
 		{
-			return new GlobalizationLabelRepository (new MemoryUnitOfWork());
-		}
-		/// <summary>
-		/// Creates the entity key generator.
-		/// </summary>
-		/// <returns>The entity key generator.</returns>
-		protected override IEntityKeyGenerator CreateEntityKeyGenerator ()
-		{
-			var generator = new MemoryLongEntityKeyGenerator ();
-	
-			generator.SetLastKey (typeof(User), CreateUserRepository ().FindLastKey());
-			generator.SetLastKey (typeof(GlobalizationLabel), CreateGlobalizationLabelRepository ().FindLastKey());
-	
-			return generator;
+			return new GlobalizationLabelRepository (new MemoryUnitOfWork<string>());
 		}
 		#endregion
 	}

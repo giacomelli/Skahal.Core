@@ -25,7 +25,7 @@ namespace Skahal.Domain.People
 		/// <param name="user">User.</param>
 		public Player(User user) : base(user.Key)
 		{
-			RemoteId = user.RemoteId;
+			RemoteKey = user.RemoteKey;
 			Name = user.Name;
 			Preferences = user.Preferences;
 		}

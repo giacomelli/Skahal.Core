@@ -52,7 +52,8 @@
     <Folder Include="Logging\Stubs\" />
     <Folder Include="Repositories\" />
     <Folder Include="Domain\" />
-    <Folder Include="Domain\KeyGenerating\" />
+    <Folder Include="People\" />
+    <Folder Include="Globalization\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\EventHandlerExtensionsTest.cs" />
@@ -72,8 +73,9 @@
     <Compile Include="Repositories\MemoryRepositoryTest.cs" />
     <Compile Include="Commons\AppServiceTest.cs" />
     <Compile Include="Domain\EntityBaseTest.cs" />
-    <Compile Include="Domain\KeyGenerating\MemoryEntityKeyGeneratorTest.cs" />
     <Compile Include="Repositories\RepositoryExtensionsTest.cs" />
+    <Compile Include="People\UserTest.cs" />
+    <Compile Include="Globalization\GlobalizationServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

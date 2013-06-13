@@ -9,15 +9,18 @@ using System.Linq;
 
 namespace Skahal.Infrastructure.Unity.Globalization
 {
+	/// <summary>
+	/// Globalization label repository.
+	/// </summary>
 	public class GlobalizationLabelRepository 
-		: MemoryRepository<GlobalizationLabel>, IGlobalizationLabelRepository
+		: MemoryRepository<GlobalizationLabel, string>, IGlobalizationLabelRepository
 	{
 		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the
 		/// <see cref="Skahal.Infrastructure.Unity.Globalization.GlobalizationLabelRepository"/> class.
 		/// </summary>
-		public GlobalizationLabelRepository()
+		public GlobalizationLabelRepository() : base((e) => { return Guid.NewGuid().ToString(); })
 		{
 			Initialize ();
 		}
@@ -27,7 +30,7 @@ namespace Skahal.Infrastructure.Unity.Globalization
 		/// <see cref="Skahal.Infrastructure.Unity.Globalization.GlobalizationLabelRepository"/> class.
 		/// </summary>
 		/// <param name="unitOfWork">Unit of work.</param>
-		public GlobalizationLabelRepository (IUnitOfWork unitOfWork) : base(unitOfWork)
+		public GlobalizationLabelRepository (IUnitOfWork<string> unitOfWork) : base(unitOfWork, (e) => { return Guid.NewGuid().ToString(); })
 		{
 			Initialize ();
 		}

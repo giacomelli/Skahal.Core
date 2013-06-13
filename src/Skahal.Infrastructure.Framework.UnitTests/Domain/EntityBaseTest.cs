@@ -2,7 +2,6 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Skahal.Infrastructure.Framework.Domain;
-using Skahal.Infrastructure.Framework.Domain.KeyGenerating;
 
 namespace Skahal.Infrastructure.Framework.UnitTests
 {
@@ -12,18 +11,18 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void EqualsOperator_NullEqualsNull_True ()
 		{
-			EntityBase one = null;
+			EntityBase<int> one = null;
 
 			Assert.IsTrue (one == null);
 		}
 
 		[Test()]
-		public void Constructor_WithKeyAndConstructorWithoutKey_DiffKeys ()
+		public void Equals_DiffKeys_Fals ()
 		{
-			var target1 = MockRepository.GenerateMock<EntityBase> (1L);
-			var target2 = MockRepository.GenerateMock<EntityBase> ();
+			var target1 = MockRepository.GenerateMock<EntityBase<long>> (1L);
+			var target2 = MockRepository.GenerateMock<EntityBase<long>> (2L);
 
-			Assert.AreNotEqual (target1.Key, target2.Key);
+			Assert.IsFalse (target1 == target2);
 		}
 	}
 }

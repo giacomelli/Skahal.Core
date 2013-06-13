@@ -100,7 +100,7 @@ namespace Skahal.Infrastructure.Unity.Net.Messaging.GlobalServer
 		/// <param name="enemy">Enemy.</param>
 		public bool Connect (bool isHost, GlobalServerPlayer enemy)
 		{
-			m_enemyId = enemy.RemoteId;
+			m_enemyId = enemy.RemoteKey;
 			return false;
 		}
 
