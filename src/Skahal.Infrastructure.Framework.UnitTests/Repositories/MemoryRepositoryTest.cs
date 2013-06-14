@@ -147,10 +147,14 @@ namespace Skahal.Infrastructure.Framework.UnitTests.Repositories
 		[Test()]
 		public void Modify_EntityWithIdDoesNotExist_Added ()
 		{
-			var user = new User() { };
+			var user = new User();
+			Assert.IsNull(user.Key);
+
 			m_target[user.Key] = user;
 
 			m_unitOfWork.Commit();
+
+			Assert.IsNotNull(user.Key);
 
 			var actual = m_target.FindAll(f => true).ToList();
 			Assert.AreEqual (1, actual.Count);

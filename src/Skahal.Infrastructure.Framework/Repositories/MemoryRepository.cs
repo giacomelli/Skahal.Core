@@ -99,7 +99,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 				throw new InvalidOperationException ("There is another entity with id '{0}'.".With(item.Key));
 			}
 
-			if (item.Key == null) {
+			if (item.Key == null || item.Key.Equals(default(TKey))) {
 				item.Key = m_createNewKey (item);
 			}
 

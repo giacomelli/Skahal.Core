@@ -30,11 +30,6 @@
     <WarningLevel>4</WarningLevel>
     <DefineConstants>UNITY_IPHONE;DEBUG;</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build/copy.to.hatcg.sh" workingdir="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build" externalConsole="True" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Skahal.Infrastructure.Framework.ProtobufSerializer">

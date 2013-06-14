@@ -48,7 +48,7 @@ namespace Skahal.Infrastructure.Unity.Globalization
 
 		private void PrepareCurrentCulture ()
 		{
-			var cultureName = GlobalizationService.CurrentCulture.TwoLetterISOLanguageName;
+			var cultureName = GlobalizationService.CurrentCulture.Name;
 
 			if (CountAll(f => f.CultureName.Equals(cultureName, StringComparison.OrdinalIgnoreCase)) == 0) {
 				LogService.Debug ("GlobalizationLabelRepository :: Loading texts for language '{0}'...", cultureName);
