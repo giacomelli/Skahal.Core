@@ -76,6 +76,7 @@
     <Compile Include="Repositories\RepositoryExtensionsTest.cs" />
     <Compile Include="People\UserTest.cs" />
     <Compile Include="Globalization\GlobalizationServiceTest.cs" />
+    <Compile Include="Repositories\MemoryUnitOfWorkTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

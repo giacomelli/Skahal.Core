@@ -21,7 +21,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 		/// Finds all entities that matches the filter.
 		/// </summary>
 		/// <returns>The entities found.</returns>
-		public override IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
+		private IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter)
 		{
 			var allIds = GetAllIds ();
 

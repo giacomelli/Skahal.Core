@@ -4,8 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Skahal.Infrastructure.Framework.People;
 using Skahal.Infrastructure.Framework.Logging;
-
-
+using Skahal.Infrastructure.Framework.Repositories;
 #endregion
 
 namespace Skahal.Infrastructure.Framework.Globalization

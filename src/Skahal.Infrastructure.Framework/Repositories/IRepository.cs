@@ -26,25 +26,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Finds all entities that matches the filter.
 		/// </summary>
 		/// <returns>The found entities.</returns>
-		/// <param name="filter">Filter.</param>
-		IEnumerable<TEntity> FindAll(Func<TEntity, bool> filter);
-
-		/// <summary>
-		/// Finds all entities that matches the filter.
-		/// </summary>
-		/// <returns>The found entities.</returns>
 		/// <param name="offset">Offset.</param>
 		/// <param name="limit">Limit.</param>
 		/// <param name="filter">Filter.</param>
 		IEnumerable<TEntity> FindAll(int offset, int limit, Func<TEntity, bool> filter);
-
-		/// <summary>
-		/// Finds all entities.
-		/// </summary>
-		/// <returns>The found entities.</returns>
-		/// <param name="offset">Offset.</param>
-		/// <param name="limit">Limit.</param>
-		IEnumerable<TEntity> FindAll(int offset, int limit);
 
 		/// <summary>
 		/// Counts all entities that matches the filter.
@@ -52,12 +37,6 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <returns>The number of the entities that matches the filter.</returns>
 		/// <param name="filter">Filter.</param>
 		int CountAll(Func<TEntity, bool> filter);
-
-		/// <summary>
-		/// Counts all entities
-		/// </summary>
-		/// <returns>The number of the entities that matches the filter.</returns>
-		int CountAll();
 
 		/// <summary>
 		/// Add the specified entity.

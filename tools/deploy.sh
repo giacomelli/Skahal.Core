@@ -10,7 +10,7 @@ cp Skahal.Infrastructure.Framework.dll.mdb $dest
 cp Skahal.Infrastructure.Framework.xml $dest
 echo "</COPYING ASSEMBLIES TO jogosdaqui>"
 
-./build.using.unity.compiler.sh
+/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/tools/build.using.unity.compiler.sh
 
 echo "<COPYING ASSEMBLIES TO HATCG>"
 dest="/Users/giacomelli/Dropbox/Skahal/games/HATCG/dev/src/HATCG/Assets/_Assets/Libs"

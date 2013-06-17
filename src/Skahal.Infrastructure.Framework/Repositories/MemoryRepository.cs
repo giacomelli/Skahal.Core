@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HelperSharp;
 using Skahal.Infrastructure.Framework.Domain;
+using Skahal.Infrastructure.Framework.Repositories;
 
 namespace Skahal.Infrastructure.Framework.Repositories
 {
@@ -56,7 +57,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <param name="key">Key.</param>
 		public override TEntity FindBy (TKey key)
 		{
-			return FindAll (e => e.Key.Equals(key)).FirstOrDefault();
+			return FindAll(0, 1, e => e.Key.Equals(key)).FirstOrDefault();
 		}
 
 		/// <summary>
