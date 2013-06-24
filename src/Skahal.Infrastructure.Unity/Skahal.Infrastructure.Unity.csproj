@@ -17,11 +17,6 @@
     <OutputPath>..\build</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>UNITY_STANDALONE_OSX;DEBUG;</DefineConstants>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" name="copy.to.hatcg" command="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build/copy.to.hatcg.sh" workingdir="/Users/giacomelli/Dropbox/Skahal/middleware/Skahal.Core/src/build/" externalConsole="True" />
-      </CustomCommands>
-    </CustomCommands>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'iOS|AnyCPU' ">
