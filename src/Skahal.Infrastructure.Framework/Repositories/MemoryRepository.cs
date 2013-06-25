@@ -82,7 +82,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <returns>The number of the entities that matches the filter.</returns>
 		/// <param name="filter">Filter.</param>
-		public override int CountAll (Func<TEntity, bool> filter)
+		public override long CountAll (Func<TEntity, bool> filter)
 		{
 			ExceptionHelper.ThrowIfNull ("filter", filter);
 			return Entities.Count (e => filter(e));

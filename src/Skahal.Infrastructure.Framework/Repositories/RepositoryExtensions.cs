@@ -40,7 +40,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <param name="repository">Repository.</param>
 		/// <returns>The number of the entities that matches the filter.</returns>
-		public static int CountAll<TEntity, TKey>(this IRepository<TEntity, TKey> repository)
+		public static long CountAll<TEntity, TKey>(this IRepository<TEntity, TKey> repository)
 			where TEntity : IAggregateRoot<TKey>
 		{
 			return repository.CountAll (f => true);
@@ -52,10 +52,11 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <returns>The last entity.</returns>
 		/// <param name="repository">Repository.</param>
 		/// <typeparam name="TEntity">The 1st type parameter.</typeparam>
+		/// <typeparam name="TKey">The 2st type parameter.</typeparam>
 		public static TEntity FindLast<TEntity, TKey>(this IRepository<TEntity, TKey> repository) 
 			where TEntity : IAggregateRoot<TKey>
 		{
-			return repository.FindAll (repository.CountAll() - 1, 1, f => true).FirstOrDefault ();
+			return repository.FindAll (Convert.ToInt32(repository.CountAll() - 1), 1, f => true).FirstOrDefault ();
 		}
 
 		/// <summary>
@@ -64,6 +65,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// <returns>The last key.</returns>
 		/// <param name="repository">Repository.</param>
 		/// <typeparam name="TEntity">The 1st type parameter.</typeparam>
+		/// <typeparam name="TKey">The 2st type parameter.</typeparam>
 		public static long FindLastKey<TEntity, TKey>(this IRepository<TEntity, TKey> repository) 
 			where TEntity : IAggregateRoot<TKey>
 		{

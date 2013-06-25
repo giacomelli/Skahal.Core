@@ -36,7 +36,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <returns>The number of the entities that matches the filter.</returns>
 		/// <param name="filter">Filter.</param>
-		int CountAll(Func<TEntity, bool> filter);
+		long CountAll(Func<TEntity, bool> filter);
 
 		/// <summary>
 		/// Add the specified entity.

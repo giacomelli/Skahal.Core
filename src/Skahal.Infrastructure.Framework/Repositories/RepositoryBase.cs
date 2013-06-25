@@ -56,7 +56,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// </summary>
 		/// <returns>The found entities.</returns>
 		/// <param name="filter">Filter.</param>
-		public abstract int CountAll(Func<TEntity, bool> filter);
+		public abstract long CountAll(Func<TEntity, bool> filter);
 
 		/// <summary>
 		/// Sets the unit of work.
