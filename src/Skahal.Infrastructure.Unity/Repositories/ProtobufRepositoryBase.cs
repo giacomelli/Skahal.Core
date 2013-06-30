@@ -83,7 +83,7 @@ namespace Skahal.Infrastructure.Unity.Repositories
 			return FindAll (filter).Skip (offset).Take (limit);
 		}
 
-		public override int CountAll (Func<TEntity, bool> filter)
+		public override long CountAll (Func<TEntity, bool> filter)
 		{
 			return FindAll (filter).Count ();
 		}

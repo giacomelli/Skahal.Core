@@ -20,7 +20,6 @@
     <DocumentationFile>..\Build\Skahal.Infrastructure.Framework.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG</DefineConstants>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'iOS|AnyCPU' ">
     <Optimize>true</Optimize>
