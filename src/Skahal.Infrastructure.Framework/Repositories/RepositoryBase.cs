@@ -75,10 +75,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
         {
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-            if (m_unitOfWork != null)
-            {
-                m_unitOfWork.RegisterAdded(item, this);
-            }
+			ValidateUnitOfWork ();
+			m_unitOfWork.RegisterAdded(item, this);
         }
 
 		/// <summary>
@@ -89,11 +87,10 @@ namespace Skahal.Infrastructure.Framework.Repositories
         {
 			ExceptionHelper.ThrowIfNull ("item", item);
 
-            if (m_unitOfWork != null)
-            {
-                m_unitOfWork.RegisterRemoved(item, this);
-            }
+			ValidateUnitOfWork ();
+			m_unitOfWork.RegisterRemoved(item, this);
         }
+        
 
 		/// <summary>
 		/// Gets or sets the <see cref="Skahal.Infrastructure.Framework.Repositories.RepositoryBase&lt;TEntity, TKey&gt;"/> with the specified key.
@@ -113,10 +110,8 @@ namespace Skahal.Infrastructure.Framework.Repositories
                 }
                 else
                 {
-                    if (m_unitOfWork != null)
-                    {
-                        m_unitOfWork.RegisterChanged(value, this);
-                    }
+					ValidateUnitOfWork ();
+                    m_unitOfWork.RegisterChanged(value, this);
                 }
             }
         }
@@ -184,5 +179,14 @@ namespace Skahal.Infrastructure.Framework.Repositories
         protected abstract void PersistDeletedItem(TEntity item);
 
         #endregion
+
+		#region Helpers
+		private void ValidateUnitOfWork()
+		{
+			if (m_unitOfWork == null) {
+				throw new InvalidOperationException ("There is no UnitOfWork configured for the repository '{0}'.".With(GetType().Name));
+			}
+		}
+		#endregion
     }
 }
