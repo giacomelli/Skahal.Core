@@ -136,6 +136,7 @@
     <Compile Include="Globalization\MemoryGlobalizationLabelRepository.cs" />
     <Compile Include="Repositories\EntityRepositoryPair.cs" />
     <Compile Include="Domain\ServiceBase.cs" />
+    <Compile Include="Globalization\TextGlobalizationLabelRepositoryBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

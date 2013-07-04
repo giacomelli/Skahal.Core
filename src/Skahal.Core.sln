@@ -78,7 +78,7 @@ Global
 		{E139EB38-C10A-4DB3-9935-2910F259FA2D} = {6D7AFA9D-84AC-4660-A9DC-E7104BC374EE}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Skahal.Tools.ProtobufCompiledSerializerGen\Skahal.Tools.ProtobufCompiledSerializerGen.csproj
+		StartupItem = Skahal.Infrastructure.Framework.UnitTests\Skahal.Infrastructure.Framework.UnitTests.csproj
 		outputpath = build
 	EndGlobalSection
 EndGlobal

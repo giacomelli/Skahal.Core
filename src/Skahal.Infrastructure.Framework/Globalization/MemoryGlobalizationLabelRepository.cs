@@ -17,6 +17,18 @@ namespace Skahal.Infrastructure.Framework.Globalization
 		{
 		}
 		#endregion
+
+		#region Methods
+		/// <summary>
+		/// Loads the culture labels.
+		/// </summary>
+		/// <returns><c>true</c>, if culture labels was loaded, <c>false</c> otherwise, already loaded.</returns>
+		/// <param name="cultureName">Culture name.</param>
+		public virtual bool LoadCultureLabels(string cultureName)
+		{
+			return false;
+		}
+		#endregion
 	}
 }
 

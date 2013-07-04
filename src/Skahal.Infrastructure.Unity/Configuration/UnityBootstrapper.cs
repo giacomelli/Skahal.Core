@@ -67,7 +67,7 @@ namespace Skahal.Infrastructure.Unity.Configuration
 		/// <returns>The globalization label repository.</returns>
 		protected override IGlobalizationLabelRepository CreateGlobalizationLabelRepository ()
 		{
-			return new GlobalizationLabelRepository (new MemoryUnitOfWork<string>());
+			return new GlobalizationLabelRepository ();
 		}
 		#endregion
 	}

@@ -62,7 +62,7 @@ namespace Skahal.Infrastructure.Framework.Repositories
 		/// Sets the unit of work.
 		/// </summary>
 		/// <param name="unitOfWork">Unit of work.</param>
-		public void SetUnitOfWork(IUnitOfWork<TKey> unitOfWork)
+		public virtual void SetUnitOfWork(IUnitOfWork<TKey> unitOfWork)
         {
             m_unitOfWork = unitOfWork;
         }

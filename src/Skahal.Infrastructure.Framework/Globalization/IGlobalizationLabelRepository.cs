@@ -8,5 +8,11 @@ namespace Skahal.Infrastructure.Framework.Globalization
 	/// </summary>
 	public interface IGlobalizationLabelRepository : IRepository<GlobalizationLabel, string>
 	{
+		/// <summary>
+		/// Loads the culture labels.
+		/// </summary>
+		/// <returns><c>true</c>, if culture labels was loaded, <c>false</c> otherwise, already loaded.</returns>
+		/// <param name="cultureName">Culture name.</param>
+		bool LoadCultureLabels(string cultureName);
 	}
 }

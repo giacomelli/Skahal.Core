@@ -60,6 +60,7 @@ namespace Skahal.Infrastructure.Framework.Globalization
 				{
 					SelectedCultureName = value.Name;
 					s_currentCulture = value;
+					s_labelRepository.LoadCultureLabels (value.Name);
 					
 					if (CultureChanged != null)
 					{
@@ -100,6 +101,7 @@ namespace Skahal.Infrastructure.Framework.Globalization
 		public static void Initialize(IGlobalizationLabelRepository labelRepository)
 		{
 			s_labelRepository = labelRepository;
+			s_labelRepository.LoadCultureLabels (SelectedCultureName);
 		}
 
 		/// <summary>
