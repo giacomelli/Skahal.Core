@@ -41,6 +41,9 @@
     <Reference Include="HelperSharp">
       <HintPath>..\packages\HelperSharp.0.0.2.7\lib\net35\HelperSharp.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.64\lib\net35\System.IO.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -78,6 +81,7 @@
     <Compile Include="Globalization\GlobalizationServiceTest.cs" />
     <Compile Include="Repositories\MemoryUnitOfWorkTest.cs" />
     <Compile Include="Globalization\TextGlobalizationLabelRepositoryBaseTest.cs" />
+    <Compile Include="Globalization\FileGlobalizationLabelRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

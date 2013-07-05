@@ -57,23 +57,11 @@ namespace Skahal.Infrastructure.Framework.UnitTests
 		[Test()]
 		public void Translate_HasTranslationForCulture_TranslatedTestToCulture ()
 		{
-			var unitOfWork = new MemoryUnitOfWork<string> ();
-			var repository = new MemoryGlobalizationLabelRepository ();
-			repository.SetUnitOfWork (unitOfWork);
-			repository.Add (new GlobalizationLabel() 
-			{ 
-				EnglishText = "TEST",
-				CultureName = "pt-BR",
-				CultureText = "Teste"
-			});
-
-			repository.Add (new GlobalizationLabel() 
-			                { 
-				EnglishText = "TEST",
-				CultureName = "es-ES",
-				CultureText = "prueba"
-			});
-			unitOfWork.Commit ();
+			var repository = MockRepository.GeneratePartialMock<TextGlobalizationLabelRepositoryBase> ();
+			repository.Expect (t => t.GetCultureText("en-US")).Return ("");
+			repository.Expect (t => t.GetCultureText("pt-BR")).Return ("TEST = Teste\nfirst=primeiro");
+			repository.Expect (t => t.GetCultureText("es-ES")).Return ("TEST = prueba\nfirst=primero");
+			repository.Expect (t => t.GetCultureText("en-US")).Return ("");
 			GlobalizationService.Initialize (repository);
 
 			GlobalizationService.ChangeCulture ("pt-BR");

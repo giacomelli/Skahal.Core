@@ -42,6 +42,9 @@
     <Reference Include="Bing">
       <HintPath>..\References\Bing.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.64\lib\net35\System.IO.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,6 +140,8 @@
     <Compile Include="Repositories\EntityRepositoryPair.cs" />
     <Compile Include="Domain\ServiceBase.cs" />
     <Compile Include="Globalization\TextGlobalizationLabelRepositoryBase.cs" />
+    <Compile Include="Globalization\FileGlobalizationLabelRepository.cs" />
+    <Compile Include="IO\FileSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
