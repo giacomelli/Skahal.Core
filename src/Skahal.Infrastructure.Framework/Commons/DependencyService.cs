@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Skahal.Infrastructure.Framework.Logging;
 #endregion
 		  
 namespace Skahal.Infrastructure.Framework.Commons

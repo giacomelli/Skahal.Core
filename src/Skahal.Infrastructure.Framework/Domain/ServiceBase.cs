@@ -1,6 +1,7 @@
 using System;
 using Skahal.Infrastructure.Framework.Commons;
 using Skahal.Infrastructure.Framework.Repositories;
+using HelperSharp;
 
 namespace Skahal.Infrastructure.Framework.Domain
 {
@@ -24,17 +25,20 @@ namespace Skahal.Infrastructure.Framework.Domain
 		/// <summary>
 		/// Initializes a new instance of the Skahal.Infrastructure.Framework.Domain.ServiceBase/> class.
 		/// </summary>
-		/// <param name="eventRepository">Event repository.</param>
+		/// <param name="mainRepository">Main repository.</param>
 		/// <param name="unitOfWork">Unit of work.</param>
-		protected ServiceBase(TMainRepository eventRepository, TUnitOfWork unitOfWork)
+		protected ServiceBase(TMainRepository mainRepository, TUnitOfWork unitOfWork)
 		{
-			MainRepository = eventRepository; 
+			ExceptionHelper.ThrowIfNull("mainRepository", mainRepository);
+			ExceptionHelper.ThrowIfNull("unitOfWork", unitOfWork);
+
+			MainRepository = mainRepository; 
 			UnitOfWork = unitOfWork;
 			MainRepository.SetUnitOfWork (UnitOfWork);
 		}
 		#endregion
 
-		#region Fields	 
+		#region Properties
 		/// <summary>
 		/// Gets the main repository.
 		/// </summary>

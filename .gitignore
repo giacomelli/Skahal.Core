@@ -118,3 +118,6 @@ src/build/Skahal.Infrastructure.Mono.dll
 src/build/Skahal.Infrastructure.Unity.Externals.dll
 src/build/UnityEngine.dll
 src/build/Vici.Core.dll
+src/build/
+src/Skahal.Domain.UnitTests/test-results/Skahal.Domain.UnitTests.csproj-OSX-2013-06-25.xml
+src/Skahal.Infrastructure.Framework.UnitTests/test-results/
