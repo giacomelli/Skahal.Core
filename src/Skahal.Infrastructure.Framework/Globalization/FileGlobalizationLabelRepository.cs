@@ -4,6 +4,9 @@ using System.IO.Abstractions;
 
 namespace Skahal.Infrastructure.Framework.Globalization
 {
+	/// <summary>
+	/// File globalization label repository.
+	/// </summary>
 	public class FileGlobalizationLabelRepository : TextGlobalizationLabelRepositoryBase
 	{
 		#region Fields
@@ -11,6 +14,11 @@ namespace Skahal.Infrastructure.Framework.Globalization
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the
+		/// <see cref="Skahal.Infrastructure.Framework.Globalization.FileGlobalizationLabelRepository"/> class.
+		/// </summary>
+		/// <param name="filesDirectory">Files directory.</param>
 		public FileGlobalizationLabelRepository (string filesDirectory)
 		{
 			m_filesDirectory = filesDirectory;

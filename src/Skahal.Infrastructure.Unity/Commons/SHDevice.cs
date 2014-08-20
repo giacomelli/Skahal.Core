@@ -263,7 +263,7 @@ public static class SHDevice
 #if UNITY_EDITOR 
 			return SHDeviceGeneration.Editor;
 #elif UNITY_IPHONE
-			return (SHDeviceGeneration)System.Enum.Parse(typeof(SHDeviceGeneration), iPhone.generation.ToString(), true);
+				return (SHDeviceGeneration)System.Enum.Parse(typeof(SHDeviceGeneration),iPhone.generation.ToString(), true);
 #elif UNITY_ANDROID
 			return SHDeviceGeneration.Android;	
 #elif UNITY_STANDALONE_OSX

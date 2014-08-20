@@ -2,35 +2,39 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Skahal.Infrastructure.Framework.Logging;
-#endregion
 
+#endregion
 namespace Skahal.Infrastructure.Unity.Commons
 {
 	/// <summary>
 	/// Game object helper.
 	/// </summary>
 	public static class GameObjectHelper
-	{	
+	{
 		#region Methods
+
 		/// <summary>
 		/// Gets the nearest game objects (others) from the specified GameObject.
 		/// </summary>
 		/// <returns>The nearest game object.</returns>
 		/// <param name="from">From.</param>
 		/// <param name="others">Others.</param>
-		public static GameObject GetNearestFrom (GameObject from, IEnumerable<GameObject> others)
+		public static GameObject GetNearestFrom(GameObject from, IEnumerable<GameObject> others)
 		{
-			LogService.Debug ("GetNearestFrom: from = " + from.name);
+			LogService.Debug("GetNearestFrom: from = " + from.name);
 			GameObject nearest = null;
 			float lowestDistance = float.MaxValue;
 		
-			foreach (GameObject go in others) {
-				LogService.Debug ("GetNearestFrom: go = " + go.name);
+			foreach (GameObject go in others)
+			{
+				LogService.Debug("GetNearestFrom: go = " + go.name);
 			
-				if (go.GetInstanceID () != from.GetInstanceID ()) {
-					float d = Vector3.Distance (go.transform.position, from.transform.position);
+				if (go.GetInstanceID() != from.GetInstanceID())
+				{
+					float d = Vector3.Distance(go.transform.position, from.transform.position);
 				
-					if (d < lowestDistance) {
+					if (d < lowestDistance)
+					{
 						lowestDistance = d;
 						nearest = go;
 					}
@@ -39,42 +43,42 @@ namespace Skahal.Infrastructure.Unity.Commons
 		
 			return nearest;
 		}
-	
+
 		/// <summary>
 		/// Find the GameObject with the specified name, if it does not exists, then create it.
 		/// </summary>
 		/// <returns>The GameObject.</returns>
 		/// <param name="name">Name.</param>
-		public static GameObject FindOrCreate (string name)
+		public static GameObject FindOrCreate(string name)
 		{
-			return FindOrCreate (name, Vector3.zero);
+			return FindOrCreate(name, Vector3.zero);
 		}
-
 		// <summary>
 		/// Find the GameObject with the specified name, if it does not exists, then create it.
 		/// </summary>
 		/// <returns>The or create.</returns>
 		/// <param name="name">Name.</param>
 		/// <param name="componentTypes">Component types to be added to when gameobject is created.</param>/
-		public static GameObject FindOrCreate (string name, params System.Type[] componentTypes)
+		public static GameObject FindOrCreate(string name, params System.Type[] componentTypes)
 		{
 			return FindOrCreate(name, Vector3.zero, componentTypes);
 		}
-	
+
 		/// <summary>
 		/// Find the GameObject with the specified name, if it does not exists, then create it.
 		/// </summary>
 		/// <returns>The GameObject.</returns>
 		/// <param name="name">Name.</param>
-		public static GameObject FindOrCreate (string name, Vector3 position, params System.Type[] componentTypes)
+		public static GameObject FindOrCreate(string name, Vector3 position, params System.Type[] componentTypes)
 		{
-			var go = GameObject.Find (name);
+			var go = GameObject.Find(name);
 		
-			if (go == null) {
-				go = new GameObject (name);
+			if (go == null)
+			{
+				go = new GameObject(name);
 				go.transform.position = position;
 
-				foreach(var c in componentTypes)
+				foreach (var c in componentTypes)
 				{
 					go.AddComponent(c);
 				}
@@ -102,58 +106,68 @@ namespace Skahal.Infrastructure.Unity.Commons
 		/// <typeparam name="TComponent">The 1st type parameter.</typeparam>
 		public static void ForEachComponentsInChildren<TComponent>(string gameObjectName, System.Action<TComponent> eachAction) where TComponent : Component
 		{
-			var children = GameObject.Find (gameObjectName).GetComponentsInChildren<TComponent> ();
+			var children = GameObject.Find(gameObjectName).GetComponentsInChildren<TComponent>();
 			
-			foreach (var c in children) {
+			foreach (var c in children)
+			{
 				eachAction(c);
 			}
 		}
-	
+
 		/// <summary>
 		/// Active the specified GameObjects.
 		/// </summary>
 		/// <param name="gos">Gos.</param>
 		/// <param name="includeChildren">If set to <c>true</c> include children.</param>
-		public static void Active (GameObject[] gos, bool includeChildren = false)
+		public static void Active(GameObject[] gos, bool includeChildren = false)
 		{
-			foreach (GameObject g in gos) {
-				if (g != null) {
-					if (includeChildren) {
-						g.SetActiveRecursively (true);
-					} else {	
-						g.active = true;
+			foreach (GameObject g in gos)
+			{
+				if (g != null)
+				{
+					if (includeChildren)
+					{
+						g.SetActive(true);
+					}
+					else
+					{	
+						foreach (Transform child in g.transform)
+						{
+							child.gameObject.SetActive(true);
+						} 
 					}
 				}	
 			}
 		}
-	
+
 		/// <summary>
 		/// Deactive the specified GameObjects.
 		/// </summary>
 		/// <param name="gos">Gos.</param>
 		/// <param name="includeChildren">If set to <c>true</c> include children.</param>
-		public static void Deactive (GameObject[] gos, bool includeChildren = false)
+		public static void Deactive(GameObject[] gos, bool includeChildren = false)
 		{
-			foreach (GameObject g in gos) {
-				if (g != null) {
-					if (includeChildren) {
-						g.SetActiveRecursively (false);
-					} else {	
-						g.active = false;
-					}
+			foreach (GameObject g in gos)
+			{
+				if (g != null)
+				{
+					//TODO: validar se funcionará assim.
+					g.SetActive(false);
 				}
 			}
 		}
-	
+
 		/// <summary>
 		/// Destroy the specified GameObjects.
 		/// </summary>
 		/// <param name="gos">Gos.</param>
-		public static void Destroy (GameObject[] gos)
+		public static void Destroy(GameObject[] gos)
 		{
-			if (gos != null) {
-				foreach (GameObject g in gos) {
-					GameObject.Destroy (g);
+			if (gos != null)
+			{
+				foreach (GameObject g in gos)
+				{
+					GameObject.Destroy(g);
 				}
 			}
 		}
@@ -166,7 +180,7 @@ namespace Skahal.Infrastructure.Unity.Commons
 		{
 			var go = GameObject.Find(name);
 
-			if(go != null)
+			if (go != null)
 			{
 				GameObject.Destroy(go);
 				return true;
@@ -174,6 +188,7 @@ namespace Skahal.Infrastructure.Unity.Commons
 
 			return false;
 		}
+
 		#endregion
 	}
 }

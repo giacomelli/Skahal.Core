@@ -15,7 +15,7 @@ public class DetonatorPrefabPool : PrefabPool {
 	/// <param name="goInPool">Go in pool.</param>
 	protected override void EnableObject (GameObject goInPool)
 	{
-		goInPool.SetActiveRecursively (true);
+		goInPool.SetActive (true);
 		goInPool.SendMessage ("Explode");
 	}
 
