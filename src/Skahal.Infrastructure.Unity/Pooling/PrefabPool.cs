@@ -47,7 +47,7 @@ public class PrefabPool : GameObjectPoolBase
 	/// </returns>
 	protected override GameObject CreateObject ()
 	{
-		var go = (GameObject)Object.Instantiate (Prefab, Vector3.zero, Quaternion.identity);
+		var go = (GameObject)Instantiate (Prefab, Vector3.zero, Quaternion.identity);
 		return go;
 	}
 
@@ -84,7 +84,7 @@ public class PrefabPool : GameObjectPoolBase
 	/// </param>
 	protected override bool IsObjectEnabled (GameObject goInPool)
 	{
-		return goInPool.activeSelf;
+		return goInPool.activeInHierarchy;
 	}
    #endregion
 }

@@ -1,5 +1,5 @@
 projectName="EFE"
-baseDir="/Users/giusepecasagrande/Git/Skahal.Core/"
+baseDir="/Users/giusepecasagrande/Git/Skahal/Skahal.Core"
 baseDestDir="/Users/giusepecasagrande/Git/Escape from Eden"
 
 dest="$baseDestDir/src/Escape from Eden/Assets/_Assets/Scripts/Libs"

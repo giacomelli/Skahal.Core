@@ -1,7 +1,7 @@
 UnityVersion="UNITY_4_5"
 UnityBuildParameters="UNITY_IPHONE,DEBUG"
 
-baseDir="/Users/giusepecasagrande/Git/Skahal.Core/"
+baseDir="/Users/giusepecasagrande/Git/Skahal/Skahal.Core/"
 
 echo "<COMPILING USING UNITY COMPILER>"
 compiler="/Applications/Unity/Unity.app/Contents/Frameworks/Mono/bin/mono /Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/2.0/gmcs.exe"

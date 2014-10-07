@@ -170,7 +170,7 @@ public abstract class GameObjectPoolBase : MonoBehaviour, IPool
 			}
 		}
 		
-		EnableObject(go as GameObject);
+		EnableObject(go);
 		
 		return go;
 	}
