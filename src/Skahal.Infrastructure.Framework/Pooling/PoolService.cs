@@ -39,6 +39,16 @@ namespace Skahal.Infrastructure.Framework.Pooling
 		}
 
 		/// <summary>
+		/// Gets all active items.
+		/// </summary>
+		/// <returns>All active items.</returns>
+		/// <param name="poolName">Pool name.</param>
+		public static IEnumerable<object> GetAllActiveItems(string poolName)
+		{
+			return GetPool(poolName).GetAllActiveItems();
+		}
+
+		/// <summary>
 		/// Gets the item.
 		/// </summary>
 		/// <returns>The item.</returns>
@@ -47,6 +57,17 @@ namespace Skahal.Infrastructure.Framework.Pooling
 		public static TItem GetItem<TItem>(string poolName)
 		{
 			return (TItem) GetPool(poolName).GetItem();
+		}
+
+		/// <summary>
+		/// Gets all active items.
+		/// </summary>
+		/// <returns>The all active items.</returns>
+		/// <param name="poolName">Pool name.</param>
+		/// <typeparam name="TItem">The 1st type parameter.</typeparam>
+		public static IEnumerable<TItem> GetAllActiveItems<TItem>(string poolName)
+		{
+			return GetPool(poolName).GetAllActiveItems().Cast<TItem>();
 		}
 
 		/// <summary>

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using Skahal.Infrastructure.Framework.Logging;
 using UnityEngine;
 using Skahal.Infrastructure.Framework.Pooling;
+using System.Linq;
+
+
 #endregion
 
 /// <summary>
@@ -170,9 +173,19 @@ public abstract class GameObjectPoolBase : MonoBehaviour, IPool
 			}
 		}
 		
-		EnableObject(go);
+		EnableObject (go);
+		go.name = m_name + " (IN USE)";
 		
 		return go;
+	}
+		
+	/// <summary>
+	/// Gets all active items.
+	/// </summary>
+	/// <returns>All active items.</returns>
+	public IEnumerable<object> GetAllActiveItems()
+	{
+		return m_gameObjects.Where(go => go.activeInHierarchy).Cast<object>();
 	}
 
 	/// <summary>

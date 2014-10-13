@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Skahal.Infrastructure.Framework.Pooling
 {
@@ -50,6 +51,12 @@ namespace Skahal.Infrastructure.Framework.Pooling
 		/// </summary>
 		/// <returns>The item.</returns>
 		object GetItem();
+
+		/// <summary>
+		/// Gets all active items.
+		/// </summary>
+		/// <returns>All active items.</returns>
+		IEnumerable<object> GetAllActiveItems();
 
 		/// <summary>
 		/// Releases the item.
